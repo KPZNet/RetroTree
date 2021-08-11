@@ -366,3 +366,4 @@ FodyWeavers.xsd
 env
 venv
 .idea
+*.code-workspace
