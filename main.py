@@ -244,7 +244,7 @@ print("Inorder traversal of the modified tree")
 inorder(root)
 
 print('Tree Print')
-print2D(root)
+#print2D(root)
 
 print_tree(root, "key", "left", "right" )
 
