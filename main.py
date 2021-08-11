@@ -106,6 +106,90 @@ def deleteNode(root, key):
 
 	return root
 
+COUNT = [10]
+
+# Function to print binary tree in 2D
+# It does reverse inorder traversal
+def print2DUtil(root, space) :
+	# Base case
+	if (root == None) :
+		return
+
+	# Increase distance between levels
+	space += COUNT[0]
+
+	# Process right child first
+	print2DUtil ( root.right, space )
+
+	# Print current node after space
+	# count
+	print ()
+	for i in range ( COUNT[0], space ) :
+		print ( end=" " )
+	print ( root.key )
+
+	# Process left child
+	print2DUtil ( root.left, space )
+
+
+# Wrapper over print2DUtil()
+def print2D(root) :
+	# space=[0]
+	# Pass initial space count as 0
+	print2DUtil ( root, 0 )
+
+
+def print_tree(root, val="val", left="left", right="right"):
+    def display(root, val=val, left=left, right=right):
+        """Returns list of strings, width, height, and horizontal coordinate of the root."""
+        # No child.
+        if getattr(root, right) is None and getattr(root, left) is None:
+            line = '%s' % getattr(root, val)
+            width = len(line)
+            height = 1
+            middle = width // 2
+            return [line], width, height, middle
+
+        # Only left child.
+        if getattr(root, right) is None:
+            lines, n, p, x = display(getattr(root, left))
+            s = '%s' % getattr(root, val)
+            u = len(s)
+            first_line = (x + 1) * ' ' + (n - x - 1) * '_' + s
+            second_line = x * ' ' + '/' + (n - x - 1 + u) * ' '
+            shifted_lines = [line + u * ' ' for line in lines]
+            return [first_line, second_line] + shifted_lines, n + u, p + 2, n + u // 2
+
+        # Only right child.
+        if getattr(root, left) is None:
+            lines, n, p, x = display(getattr(root, right))
+            s = '%s' % getattr(root, val)
+            u = len(s)
+            first_line = s + x * '_' + (n - x) * ' '
+            second_line = (u + x) * ' ' + '\\' + (n - x - 1) * ' '
+            shifted_lines = [u * ' ' + line for line in lines]
+            return [first_line, second_line] + shifted_lines, n + u, p + 2, u // 2
+
+        # Two children.
+        left, n, p, x = display(getattr(root, left))
+        right, m, q, y = display(getattr(root, right))
+        s = '%s' % getattr(root, val)
+        u = len(s)
+        first_line = (x + 1) * ' ' + (n - x - 1) * '_' + s + y * '_' + (m - y) * ' '
+        second_line = x * ' ' + '/' + (n - x - 1 + u + y) * ' ' + '\\' + (m - y - 1) * ' '
+        if p < q:
+            left += [n * ' '] * (q - p)
+        elif q < p:
+            right += [m * ' '] * (p - q)
+        zipped_lines = zip(left, right)
+        lines = [first_line, second_line] + [a + u * ' ' + b for a, b in zipped_lines]
+        return lines, n + m + u, max(p, q) + 2, n + u // 2
+
+    lines, *_ = display(root, val, left, right)
+    for line in lines:
+        print(line)
+
+
 
 # Driver code
 """ Let us create following BST
@@ -123,23 +207,41 @@ root = insert(root, 40)
 root = insert(root, 70)
 root = insert(root, 60)
 root = insert(root, 80)
+root = insert(root, 100)
+root = insert(root, 5)
+root = insert(root, 45)
+root = insert(root, 55)
+root = insert(root, 25)
+root = insert(root, 35)
+root = insert(root, 90)
+root = insert(root, 88)
+root = insert(root, 12)
+root = insert(root, 41)
+root = insert(root, 14)
+root = insert(root, 74)
+root = insert(root, 23)
+
 
 print("Inorder traversal of the given tree")
 inorder(root)
 
 print("\nDelete 20")
-root = deleteNode(root, 20)
+#root = deleteNode(root, 20)
 print("Inorder traversal of the modified tree")
 inorder(root)
 
 print("\nDelete 30")
-root = deleteNode(root, 30)
+#root = deleteNode(root, 30)
 print("Inorder traversal of the modified tree")
 inorder(root)
 
 print("\nDelete 50")
-root = deleteNode(root, 50)
+#root = deleteNode(root, 50)
 print("Inorder traversal of the modified tree")
 inorder(root)
 
-# This code is contributed by Nikhil Kumar Singh(nickzuck_007)
+print('Tree Print')
+print2D(root)
+
+print_tree(root, "key", "left", "right" )
+
