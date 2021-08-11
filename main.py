@@ -220,6 +220,9 @@ root = insert(root, 41)
 root = insert(root, 14)
 root = insert(root, 74)
 root = insert(root, 23)
+root = insert(root, 2)
+root = insert(root, 39)
+root = insert(root, 17)
 
 
 print("Inorder traversal of the given tree")
