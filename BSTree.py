@@ -178,3 +178,45 @@ class BSTree:
 		lines, *_ = display(self.root, val, left, right)
 		for line in lines:
 			print(line)
+
+
+
+	# This function traverse the skewed binary tree and
+	# stores its nodes pointers in vector nodes[]
+	def storeBSTNodes(self, root, nodes):
+		# Base case
+		if not root:
+			return
+
+		# Store nodes in Inorder (which is sorted
+		# order for BST)
+		self.storeBSTNodes(root.left, nodes)
+		nodes.append(root)
+		self.storeBSTNodes(root.right, nodes)
+
+	# Recursive function to construct binary tree
+	def buildTreeUtil(self, nodes, start, end):
+		# base case
+		if start > end:
+			return None
+
+		# Get the middle element and make it root
+		mid = (start + end) // 2
+		node = nodes[mid]
+
+		# Using index in Inorder traversal, construct
+		# left and right subtress
+		node.left = self.buildTreeUtil(nodes, start, mid - 1)
+		node.right = self.buildTreeUtil(nodes, mid + 1, end)
+		return node
+
+	# This functions converts an unbalanced BST to
+	# a balanced BST
+	def rebalance(self):
+		# Store nodes of given BST in sorted order
+		nodes = []
+		self.storeBSTNodes(self.root, nodes)
+
+		# Constucts BST from nodes[]
+		n = len(nodes)
+		self.root = self.buildTreeUtil(nodes, 0, n - 1)

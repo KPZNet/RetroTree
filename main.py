@@ -244,8 +244,7 @@ bst.deleteNode(12)
 bst.deleteNode(6)
 
 bst.print_tree( "key", "left", "right" )
-r = build_balanced_tree( bst.root )
-bst = BSTree(r)
+bst.rebalance()
 bst.print_tree( "key", "left", "right" )
 
 exit(0)
