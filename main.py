@@ -200,7 +200,7 @@ def buildTreeUtil(nodes, start, end) :
 
 # This functions converts an unbalanced BST to
 # a balanced BST
-def buildTree(root) :
+def build_balanced_tree(root) :
 	# Store nodes of given BST in sorted order
 	nodes = []
 	storeBSTNodes ( root, nodes )
@@ -229,7 +229,7 @@ for num in nums:
 
 print_tree(bst, "val", "left", "right" )
 
-bst = buildTree(bst)
+bst = build_balanced_tree( bst )
 
 print_tree(bst, "val", "left", "right" )
 
@@ -329,6 +329,6 @@ print('Tree Print')
 #print2D(root)
 
 print_tree(root, "key", "left", "right" )
-root = buildTree(root)
+root = build_balanced_tree( root )
 print_tree(root, "key", "left", "right" )
 
