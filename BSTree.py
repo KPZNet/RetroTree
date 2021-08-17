@@ -172,8 +172,6 @@ class BSTree:
 		for line in lines:
 			print(line)
 
-
-
 	# This function traverse the skewed binary tree and
 	# stores its nodes pointers in vector nodes[]
 	def storeBSTNodes(self, root, nodes):
