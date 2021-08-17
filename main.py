@@ -3,7 +3,7 @@
 # in binary search tree
 
 # A Binary Tree Node
-
+from BSTree import BSTNode
 
 class Node:
 
@@ -60,48 +60,23 @@ def minValueNode(node):
 
 
 def deleteNode(root, key):
-
-	# Base Case
 	if root is None:
 		return root
-
-	# If the key to be deleted
-	# is smaller than the root's
-	# key then it lies in left subtree
 	if key < root.key:
 		root.left = deleteNode(root.left, key)
-
-	# If the kye to be delete
-	# is greater than the root's key
-	# then it lies in right subtree
 	elif(key > root.key):
 		root.right = deleteNode(root.right, key)
-
-	# If key is same as root's key, then this is the node
-	# to be deleted
 	else:
-
-		# Node with only one child or no child
 		if root.left is None:
 			temp = root.right
 			root = None
 			return temp
-
 		elif root.right is None:
 			temp = root.left
 			root = None
 			return temp
-
-		# Node with two children:
-		# Get the inorder successor
-		# (smallest in the right subtree)
 		temp = minValueNode(root.right)
-
-		# Copy the inorder successor's
-		# content to this node
 		root.key = temp.key
-
-		# Delete the inorder successor
 		root.right = deleteNode(root.right, temp.key)
 
 	return root
@@ -191,6 +166,102 @@ def print_tree(root, val="val", left="left", right="right"):
 
 
 
+
+# This function traverse the skewed binary tree and
+# stores its nodes pointers in vector nodes[]
+def storeBSTNodes(root, nodes) :
+	# Base case
+	if not root :
+		return
+
+	# Store nodes in Inorder (which is sorted
+	# order for BST)
+	storeBSTNodes ( root.left, nodes )
+	nodes.append ( root )
+	storeBSTNodes ( root.right, nodes )
+
+
+# Recursive function to construct binary tree
+def buildTreeUtil(nodes, start, end) :
+	# base case
+	if start > end :
+		return None
+
+	# Get the middle element and make it root
+	mid = (start + end) // 2
+	node = nodes[mid]
+
+	# Using index in Inorder traversal, construct
+	# left and right subtress
+	node.left = buildTreeUtil ( nodes, start, mid - 1 )
+	node.right = buildTreeUtil ( nodes, mid + 1, end )
+	return node
+
+
+# This functions converts an unbalanced BST to
+# a balanced BST
+def buildTree(root) :
+	# Store nodes of given BST in sorted order
+	nodes = []
+	storeBSTNodes ( root, nodes )
+
+	# Constucts BST from nodes[]
+	n = len ( nodes )
+	return buildTreeUtil ( nodes, 0, n - 1 )
+
+
+# Function to do preorder traversal of tree
+def preOrder(root) :
+	if not root :
+		return
+	print ( "{} ".format ( root.data ), end="" )
+	preOrder ( root.left )
+	preOrder ( root.right )
+
+
+
+
+
+nums = [12, 6, 18, 19, 21, 11, 3, 5, 4, 24, 18]
+bst = BSTNode()
+for num in nums:
+	bst.insert(num)
+
+print_tree(bst, "val", "left", "right" )
+
+bst = buildTree(bst)
+
+print_tree(bst, "val", "left", "right" )
+
+print("preorder:")
+print(bst.preorder([]))
+print("#")
+
+print("postorder:")
+print(bst.postorder([]))
+print("#")
+
+print("inorder:")
+print(bst.inorder([]))
+print("#")
+
+nums = [2, 6, 20]
+print("deleting " + str(nums))
+for num in nums:
+	bst.delete(num)
+print("#")
+
+print("4 exists:")
+print(bst.exists(4))
+print("2 exists:")
+print(bst.exists(2))
+print("12 exists:")
+print(bst.exists(12))
+print("18 exists:")
+print(bst.exists(18))
+
+#exit(0)
+
 # Driver code
 """ Let us create following BST
 			50
@@ -199,9 +270,20 @@ def print_tree(root, val="val", left="left", right="right"):
 		/ \ / \
 	20 40 60 80 """
 
+
+nums = [12, 6, 18, 19, 21, 11, 3, 5, 4, 24, 18]
 root = None
-root = insert(root, 50)
-root = insert(root, 30)
+for num in nums:
+	root=insert(root,num)
+
+print_tree(root, "key", "left", "right" )
+
+
+
+
+rooty = None
+rooty = insert(rooty, 50)
+root = insert(rooty, 30)
 root = insert(root, 20)
 root = insert(root, 40)
 root = insert(root, 70)
@@ -246,5 +328,7 @@ inorder(root)
 print('Tree Print')
 #print2D(root)
 
+print_tree(root, "key", "left", "right" )
+root = buildTree(root)
 print_tree(root, "key", "left", "right" )
 
