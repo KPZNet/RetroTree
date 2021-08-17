@@ -2,6 +2,8 @@
 # Python program to demonstrate delete operation
 # in binary search tree
 
+from BSTree import BSTree
+
 class Node:
 
 	# Constructor to create a new node
@@ -227,6 +229,16 @@ def preOrder(root) :
 		30	 70
 		/ \ / \
 	20 40 60 80 """
+
+
+nums = [12, 6, 18, 19, 21, 11, 3, 5, 4, 24, 18]
+bst = BSTree()
+for num in nums:
+	bst.insert(num)
+
+print_tree(bst.getroot(), "key", "left", "right" )
+
+exit(0)
 
 
 nums = [12, 6, 18, 19, 21, 11, 3, 5, 4, 24, 18]
