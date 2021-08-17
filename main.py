@@ -238,8 +238,15 @@ for num in nums:
 
 print_tree(bst.root, "key", "left", "right" )
 
-exit(0)
+bst.deleteNode(19)
+bst.deleteNode(12)
+bst.deleteNode(6)
 
+print_tree(bst.root, "key", "left", "right" )
+root = build_balanced_tree( bst.root )
+print_tree(root, "key", "left", "right" )
+
+exit(0)
 
 nums = [12, 6, 18, 19, 21, 11, 3, 5, 4, 24, 18]
 root = None

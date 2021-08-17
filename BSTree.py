@@ -12,9 +12,9 @@ class BSTree:
 	# A utility function to do inorder traversal of BST
 	def __inorder(self, node):
 		if node is not None:
-			self.inorder(node.left)
+			self._BSTree__inorder(node.left)
 			print(node.key)
-			self.inorder(node.right)
+			self._BSTree__inorder(node.right)
 
 	def inorder(self):
 		self._BSTree__inorder(self.root)
@@ -84,7 +84,7 @@ class BSTree:
 				temp = node.left
 				node = None
 				return temp
-			temp = self.minValueNode(node.right)
+			temp = self._BSTree__minValueNode(node.right)
 			node.key = temp.key
 			node.right = self._BSTree__deleteNode(node.right, temp.key)
 
