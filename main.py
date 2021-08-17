@@ -222,16 +222,6 @@ def preOrder(root) :
 
 
 
-
-# Driver code
-""" Let us create following BST
-			50
-		/	 \
-		30	 70
-		/ \ / \
-	20 40 60 80 """
-
-
 nums = [12, 6, 18, 19, 21, 11, 3, 5, 4, 24, 18]
 bst = BSTree()
 for num in nums:

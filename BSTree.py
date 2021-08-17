@@ -122,13 +122,6 @@ class BSTree:
 		self._BSTree__print2DUtil ( root.left, space )
 
 
-		# Wrapper over print2DUtil()
-		def __print2D(self, root) :
-			# space=[0]
-			# Pass initial space count as 0
-			self._BSTree__print2DUtil ( root, 0 )
-
-
 	def print_tree(self, val="val", left="left", right="right"):
 		def display(root, val=val, left=left, right=right):
 			"""Returns list of strings, width, height, and horizontal coordinate of the root."""
