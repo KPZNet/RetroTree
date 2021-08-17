@@ -8,6 +8,11 @@ class BSTNode :
 class BSTree:
 
 	root = None
+	COUNT = [10]
+
+	def __init__(self, _root=None):
+		if _root != None:
+			self.root = _root
 
 	# A utility function to do inorder traversal of BST
 	def __inorder(self, node):
@@ -92,3 +97,84 @@ class BSTree:
 
 	def deleteNode(self, key):
 		return self._BSTree__deleteNode(self.root, key)
+
+	# Function to print binary tree in 2D
+	# It does reverse inorder traversal
+	def __print2DUtil(self, root, space) :
+		# Base case
+		if (root == None) :
+			return
+
+		# Increase distance between levels
+		space += self.COUNT[0]
+
+		# Process right child first
+		self._BSTree__print2DUtil ( root.right, space )
+
+		# Print current node after space
+		# count
+		print ()
+		for i in range ( self.COUNT[0], space ) :
+			print ( end=" " )
+		print ( root.key )
+
+		# Process left child
+		self._BSTree__print2DUtil ( root.left, space )
+
+
+		# Wrapper over print2DUtil()
+		def __print2D(self, root) :
+			# space=[0]
+			# Pass initial space count as 0
+			self._BSTree__print2DUtil ( root, 0 )
+
+
+	def print_tree(self, val="val", left="left", right="right"):
+		def display(root, val=val, left=left, right=right):
+			"""Returns list of strings, width, height, and horizontal coordinate of the root."""
+			# No child.
+			if getattr(root, right) is None and getattr(root, left) is None:
+				line = '%s' % getattr(root, val)
+				width = len(line)
+				height = 1
+				middle = width // 2
+				return [line], width, height, middle
+
+			# Only left child.
+			if getattr(root, right) is None:
+				lines, n, p, x = display(getattr(root, left))
+				s = '%s' % getattr(root, val)
+				u = len(s)
+				first_line = (x + 1) * ' ' + (n - x - 1) * '_' + s
+				second_line = x * ' ' + '/' + (n - x - 1 + u) * ' '
+				shifted_lines = [line + u * ' ' for line in lines]
+				return [first_line, second_line] + shifted_lines, n + u, p + 2, n + u // 2
+
+			# Only right child.
+			if getattr(root, left) is None:
+				lines, n, p, x = display(getattr(root, right))
+				s = '%s' % getattr(root, val)
+				u = len(s)
+				first_line = s + x * '_' + (n - x) * ' '
+				second_line = (u + x) * ' ' + '\\' + (n - x - 1) * ' '
+				shifted_lines = [u * ' ' + line for line in lines]
+				return [first_line, second_line] + shifted_lines, n + u, p + 2, u // 2
+
+			# Two children.
+			left, n, p, x = display(getattr(root, left))
+			right, m, q, y = display(getattr(root, right))
+			s = '%s' % getattr(root, val)
+			u = len(s)
+			first_line = (x + 1) * ' ' + (n - x - 1) * '_' + s + y * '_' + (m - y) * ' '
+			second_line = x * ' ' + '/' + (n - x - 1 + u + y) * ' ' + '\\' + (m - y - 1) * ' '
+			if p < q:
+				left += [n * ' '] * (q - p)
+			elif q < p:
+				right += [m * ' '] * (p - q)
+			zipped_lines = zip(left, right)
+			lines = [first_line, second_line] + [a + u * ' ' + b for a, b in zipped_lines]
+			return lines, n + m + u, max(p, q) + 2, n + u // 2
+
+		lines, *_ = display(self.root, val, left, right)
+		for line in lines:
+			print(line)

@@ -6,6 +6,7 @@ from BSTree import BSTree
 
 class Node:
 
+
 	# Constructor to create a new node
 	def __init__(self, key):
 		self.key = key
@@ -236,15 +237,16 @@ bst = BSTree()
 for num in nums:
 	bst.insert(num)
 
-print_tree(bst.root, "key", "left", "right" )
+bst.print_tree( "key", "left", "right" )
 
 bst.deleteNode(19)
 bst.deleteNode(12)
 bst.deleteNode(6)
 
-print_tree(bst.root, "key", "left", "right" )
-root = build_balanced_tree( bst.root )
-print_tree(root, "key", "left", "right" )
+bst.print_tree( "key", "left", "right" )
+r = build_balanced_tree( bst.root )
+bst = BSTree(r)
+bst.print_tree( "key", "left", "right" )
 
 exit(0)
 
