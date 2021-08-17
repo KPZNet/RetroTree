@@ -236,7 +236,7 @@ bst = BSTree()
 for num in nums:
 	bst.insert(num)
 
-print_tree(bst.getroot(), "key", "left", "right" )
+print_tree(bst.root, "key", "left", "right" )
 
 exit(0)
 
