@@ -29,7 +29,6 @@ class BSTInstructionList:
 		bst = BSTree()
 		for inst in self.instructions:
 			self.ReplayInstruction(bst, inst)
-
 		if balance == True:
 			bst.rebalance()
 		return bst
