@@ -22,4 +22,7 @@ il.addInstruction(BSTI( "add", 7, 21 ))
 bt = il.buildtree(keeptree=False, balance=True)
 bt.print_tree( )
 
+n = bt.search(8)
+print(n)
+
 

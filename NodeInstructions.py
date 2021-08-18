@@ -19,13 +19,13 @@ class BSTInstructionList:
 			bst.deleteNode ( inst.key )
 		return bst
 
-	def sf(self, e) :
+	def __sf(self, e) :
 		return e.time
 
 	def addInstruction(self,inst, sortlist = True):
 		self.instructions.append(inst)
 		if sortlist:
-			self.instructions.sort(key = self.sf)
+			self.instructions.sort(key = self._BSTInstructionList__sf)
 
 	def buildtree(self, keeptree = False, balance="False"):
 		bst = BSTree()

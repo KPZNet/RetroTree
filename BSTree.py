@@ -2,6 +2,7 @@ class BSTNode :
 	# Constructor to create a new node
 	def __init__(self, key) :
 		self.key = key
+		self.payload = key
 		self.left = None
 		self.right = None
 
@@ -221,3 +222,18 @@ class BSTree:
 
 	def preOrder(self):
 		self._BSTree__preOrder(self.root)
+
+
+	def __search(self, node, value) :
+		if node == None :
+			return False
+
+		elif node.key == value :
+			return node.payload
+		elif node.key < value :
+			return self._BSTree__search ( node.right, value )
+		else :
+			return self._BSTree__search ( node.left, value )
+
+	def search(self, value):
+		return self._BSTree__search ( self.root, value )
