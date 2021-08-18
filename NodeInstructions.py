@@ -1,6 +1,6 @@
 from BSTree import BSTree
 
-class BSTI :
+class Bst_Instruction :
 	# Constructor to create a new time node
 	def __init__(self, inst, time, key, payload=None) :
 		self.instructionCode = inst
@@ -11,7 +11,7 @@ class BSTI :
 			self.payload = key
 		
 
-class BSTInstructionList:
+class TimeLine:
 	def __init__(self) :
 		self.instructions = []
 		self.bst = None
@@ -27,10 +27,10 @@ class BSTInstructionList:
 		return e.time
 
 
-	def addInstruction(self,inst, sortlist = True):
+	def addInstruction(self, inst, sortlist = True):
 		self.instructions.append(inst)
 		if sortlist:
-			self.instructions.sort(key = self._BSTInstructionList__sf)
+			self.instructions.sort(key = self._TimeLine__sf)
 
 	def buildtree(self, keeptree = False, balance="False"):
 		bst = BSTree()
