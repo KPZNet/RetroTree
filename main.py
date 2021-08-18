@@ -12,17 +12,18 @@ il.addInstruction(BSTI( "add", 5, 3 ))
 il.addInstruction(BSTI( "add", 6, 5 ))
 il.addInstruction(BSTI( "add", 7, 7 ))
 il.addInstruction(BSTI( "add", 8, 1 ))
-il.addInstruction(BSTI( "add", 9, 2 ))
+il.addInstruction(BSTI( "add", 9, 2, "A" ))
 il.addInstruction(BSTI( "add", 10, 9 ))
 il.addInstruction(BSTI( "add", 11, 15 ))
 il.addInstruction(BSTI( "del", 7, 17 ))
 il.addInstruction(BSTI( "del", 11, 19 ))
-il.addInstruction(BSTI( "add", 7, 21 ))
+
 
 bt = il.buildtree(keeptree=False, balance=True)
 bt.print_tree( )
 
-n = bt.search(8)
-print(n)
+pl = bt.search(2)
+print(pl)
+
 
 

@@ -2,10 +2,14 @@ from BSTree import BSTree
 
 class BSTI :
 	# Constructor to create a new time node
-	def __init__(self, inst, key, time) :
+	def __init__(self, inst, time, key, payload=None) :
 		self.instructionCode = inst
-		self.key = key
 		self.time = time
+		self.key = key
+		self.payload = payload
+		if payload == None:
+			self.payload = key
+		
 
 class BSTInstructionList:
 	def __init__(self) :
@@ -14,7 +18,7 @@ class BSTInstructionList:
 
 	def ReplayInstruction(self, bst, inst):
 		if inst.instructionCode == "add":
-			bst.insert(inst.key)
+			bst.insert(inst.key, inst.payload)
 		if inst.instructionCode == "del" :
 			bst.deleteNode ( inst.key )
 		return bst

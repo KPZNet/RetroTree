@@ -1,8 +1,10 @@
 class BSTNode :
 	# Constructor to create a new node
-	def __init__(self, key) :
+	def __init__(self, key, payload=None) :
 		self.key = key
-		self.payload = key
+		self.payload = payload
+		if payload == None:
+			self.payload = key
 		self.left = None
 		self.right = None
 
@@ -27,22 +29,22 @@ class BSTree:
 
 	# A utility function to insert a
 	# new node with given key in BST
-	def __insert(self, node, key):
+	def __insert(self, node, key, payload=None):
 
 		if node is None:
-			return BSTNode(key)
+			return BSTNode(key, payload)
 
 		# Otherwise recur down the tree
 		if key < node.key:
-			node.left = self._BSTree__insert(node.left, key)
+			node.left = self._BSTree__insert(node.left, key, payload)
 		else:
-			node.right = self._BSTree__insert(node.right, key)
+			node.right = self._BSTree__insert(node.right, key, payload)
 
 		# return the (unchanged) node pointer
 		return node
 
-	def insert(self, key):
-		self.root = self._BSTree__insert(self.root, key)
+	def insert(self, key, payload=None):
+		self.root = self._BSTree__insert(self.root, key, payload)
 		return self.root
 
 	# Given a non-empty binary
@@ -170,8 +172,10 @@ class BSTree:
 			return lines, n + m + u, max(p, q) + 2, n + u // 2
 
 		lines, *_ = display(self.root, val, left, right)
+		print("\n")
 		for line in lines:
 			print(line)
+		print("\n")
 
 	# This function traverse the skewed binary tree and
 	# stores its nodes pointers in vector nodes[]
@@ -223,16 +227,43 @@ class BSTree:
 		self._BSTree__preOrder(self.root)
 
 
-	def __search(self, node, value) :
+	def __search(self, node, key) :
 		if node == None :
 			return False
 
-		elif node.key == value :
+		elif node.key == key :
 			return node.payload
-		elif node.key < value :
-			return self._BSTree__search ( node.right, value )
+		elif node.key < key :
+			return self._BSTree__search ( node.right, key )
 		else :
-			return self._BSTree__search ( node.left, value )
+			return self._BSTree__search ( node.left, key )
 
-	def search(self, value):
-		return self._BSTree__search ( self.root, value )
+	def search(self, key):
+		return self._BSTree__search ( self.root, key )
+
+	
+	# function to find max value less then N
+	def __findMaxforN(self, node, N):
+		
+		# Base cases
+		if node == None:
+			return -1
+		if node.key == N:
+			return N
+	
+		# If root's value is smaller, try in
+		# right subtree
+		elif node.key < N:
+			k = self._BSTree__findMaxforN(node.right, N)
+			if k == -1:
+				return node.key
+			else:
+				return k
+	
+		# If root's key is greater, return
+		# value from left subtree.
+		elif node.key > N:
+			return self._BSTree__findMaxforN(node.left, N)
+	
+	def findMaxforN(self, N):
+		return self._BSTree__findMaxforN(self.root, N)
