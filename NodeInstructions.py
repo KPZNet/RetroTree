@@ -10,6 +10,7 @@ class BSTI :
 class BSTInstructionList:
 	def __init__(self) :
 		self.instructions = []
+		self.BSTree = None
 
 	def ReplayInstruction(self, bst, inst):
 		if inst.instructionCode == "add":
@@ -21,15 +22,16 @@ class BSTInstructionList:
 	def sf(self, e) :
 		return e.time
 
-	def addInstruction(self,inst):
+	def addInstruction(self,inst, sortlist = True):
 		self.instructions.append(inst)
-		self.instructions.sort(key = self.sf)
+		if sortlist:
+			self.instructions.sort(key = self.sf)
 
-	def buildtree(self, balance="False"):
+	def buildtree(self, keeptree = False, balance="False"):
 		bst = BSTree()
 		for inst in self.instructions:
 			self.ReplayInstruction(bst, inst)
-		if balance == True:
+		if balance:
 			bst.rebalance()
 		return bst
 

@@ -19,7 +19,7 @@ il.addInstruction(BSTI( "del", 7, 17 ))
 il.addInstruction(BSTI( "del", 11, 19 ))
 il.addInstruction(BSTI( "add", 7, 21 ))
 
-bt = il.buildtree(True)
+bt = il.buildtree(keeptree=False, balance=True)
 bt.print_tree( )
 
 
