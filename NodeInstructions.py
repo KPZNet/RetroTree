@@ -26,6 +26,7 @@ class BSTInstructionList:
 	def __sf(self, e) :
 		return e.time
 
+
 	def addInstruction(self,inst, sortlist = True):
 		self.instructions.append(inst)
 		if sortlist:
