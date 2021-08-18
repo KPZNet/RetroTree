@@ -232,3 +232,4 @@ bst.print_tree( "key", "left", "right" )
 bst.rebalance()
 bst.print_tree( "key", "left", "right" )
 
+bst.preOrder()

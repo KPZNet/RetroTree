@@ -211,3 +211,13 @@ class BSTree:
 		# Constucts BST from nodes[]
 		n = len(nodes)
 		self.root = self.buildTreeUtil(nodes, 0, n - 1)
+
+	def __preOrder(self, node) :
+		if not node :
+			return
+		print ( node.key )
+		self._BSTree__preOrder ( node.left )
+		self._BSTree__preOrder ( node.right )
+
+	def preOrder(self):
+		self._BSTree__preOrder(self.root)
