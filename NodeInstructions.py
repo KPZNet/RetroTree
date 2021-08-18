@@ -9,6 +9,7 @@ class Bst_Instruction :
 		self.payload = payload
 		if payload == None:
 			self.payload = key
+		self.bst = None
 		
 
 class TimeLine:
@@ -43,7 +44,16 @@ class TimeLine:
 		return bst
 
 
-    
+	def buildtree_up_to_time(self, time, keeptree=False, balance="False"):
+		bst = BSTree()
+		for inst in self.instructions:
+			if inst.time <= time:
+				self.ReplayInstruction(bst, inst)
+		if balance:
+			bst.rebalance()
+		if keeptree:
+			self.bst = bst
+		return bst
   
 
 
