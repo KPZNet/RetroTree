@@ -1,7 +1,7 @@
 # A PARTIAL Binary Search Tree
 # Python program to demonstrate delete operation
 # in binary search tree
-
+import random
 from BSTree import BSTree
 
 class Node:
@@ -223,80 +223,12 @@ def preOrder(root) :
 
 
 nums = [12, 6, 18, 19, 21, 11, 3, 5, 4, 24, 18]
+nums = random.sample(range(0, 100), 50)
 bst = BSTree()
 for num in nums:
 	bst.insert(num)
 
 bst.print_tree( "key", "left", "right" )
-
-bst.deleteNode(19)
-bst.deleteNode(12)
-bst.deleteNode(6)
-
-bst.print_tree( "key", "left", "right" )
 bst.rebalance()
 bst.print_tree( "key", "left", "right" )
-
-exit(0)
-
-nums = [12, 6, 18, 19, 21, 11, 3, 5, 4, 24, 18]
-root = None
-for num in nums:
-	root=insert(root,num)
-
-print_tree(root, "key", "left", "right" )
-
-
-
-
-rooty = None
-rooty = insert(rooty, 50)
-root = insert(rooty, 30)
-root = insert(root, 20)
-root = insert(root, 40)
-root = insert(root, 70)
-root = insert(root, 60)
-root = insert(root, 80)
-root = insert(root, 100)
-root = insert(root, 5)
-root = insert(root, 45)
-root = insert(root, 55)
-root = insert(root, 25)
-root = insert(root, 35)
-root = insert(root, 90)
-root = insert(root, 88)
-root = insert(root, 12)
-root = insert(root, 41)
-root = insert(root, 14)
-root = insert(root, 74)
-root = insert(root, 23)
-root = insert(root, 2)
-root = insert(root, 39)
-root = insert(root, 17)
-
-
-print("Inorder traversal of the given tree")
-inorder(root)
-
-print("\nDelete 20")
-#root = deleteNode(root, 20)
-print("Inorder traversal of the modified tree")
-inorder(root)
-
-print("\nDelete 30")
-#root = deleteNode(root, 30)
-print("Inorder traversal of the modified tree")
-inorder(root)
-
-print("\nDelete 50")
-#root = deleteNode(root, 50)
-print("Inorder traversal of the modified tree")
-inorder(root)
-
-print('Tree Print')
-#print2D(root)
-
-print_tree(root, "key", "left", "right" )
-root = build_balanced_tree( root )
-print_tree(root, "key", "left", "right" )
 
