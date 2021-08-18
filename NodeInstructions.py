@@ -10,7 +10,7 @@ class BSTI :
 class BSTInstructionList:
 	def __init__(self) :
 		self.instructions = []
-		self.BSTree = None
+		self.bst = None
 
 	def ReplayInstruction(self, bst, inst):
 		if inst.instructionCode == "add":
@@ -33,6 +33,8 @@ class BSTInstructionList:
 			self.ReplayInstruction(bst, inst)
 		if balance:
 			bst.rebalance()
+		if keeptree:
+			self.bst = bst
 		return bst
 
 
