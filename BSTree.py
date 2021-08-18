@@ -209,7 +209,6 @@ class BSTree:
 		nodes = []
 		self.storeBSTNodes(self.root, nodes)
 
-		# Constucts BST from nodes[]
 		n = len(nodes)
 		self.root = self.buildTreeUtil(nodes, 0, n - 1)
 
