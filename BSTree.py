@@ -243,18 +243,18 @@ class BSTree:
 
 	
 	# function to find max value less then N
-	def __findMaxforN(self, node, N):
+	def __findMaxforN(self, node, key):
 		
 		# Base cases
 		if node == None:
 			return -1
-		if node.key == N:
-			return N
+		if node.key == key:
+			return key
 	
 		# If root's value is smaller, try in
 		# right subtree
-		elif node.key < N:
-			k = self._BSTree__findMaxforN(node.right, N)
+		elif node.key < key:
+			k = self._BSTree__findMaxforN( node.right, key )
 			if k == -1:
 				return node.key
 			else:
@@ -262,8 +262,8 @@ class BSTree:
 	
 		# If root's key is greater, return
 		# value from left subtree.
-		elif node.key > N:
-			return self._BSTree__findMaxforN(node.left, N)
+		elif node.key > key:
+			return self._BSTree__findMaxforN( node.left, key )
 	
-	def findMaxforN(self, N):
-		return self._BSTree__findMaxforN(self.root, N)
+	def findmax(self, key):
+		return self._BSTree__findMaxforN(self.root, key)

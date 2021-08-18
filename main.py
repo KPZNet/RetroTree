@@ -25,5 +25,8 @@ bt.print_tree( )
 pl = bt.search(2)
 print(pl)
 
+pln = bt.findmax(17)
+print(pln)
+
 
 
