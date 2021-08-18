@@ -3,25 +3,23 @@
 # in binary search tree
 import random
 from BSTree import BSTree
-import NodeInstructions
+from NodeInstructions import BSTI
+from NodeInstructions import BSTInstructionList
 
 il = BSTInstructionList()
-ni = BSTNodeInstruction("add", 5, 1)
-nl.addInstruction(ni)
-ni = BSTNodeInstruction("add", 7, 1)
-nl.addInstruction(ni)
-ni = BSTNodeInstruction("del", 5, 1)
-nl.addInstruction(ni)
+
+il.addInstruction(BSTI( "add", 5, 3 ))
+il.addInstruction(BSTI( "add", 6, 5 ))
+il.addInstruction(BSTI( "add", 7, 7 ))
+il.addInstruction(BSTI( "add", 8, 1 ))
+il.addInstruction(BSTI( "add", 9, 2 ))
+il.addInstruction(BSTI( "add", 10, 9 ))
+il.addInstruction(BSTI( "add", 11, 15 ))
+il.addInstruction(BSTI( "del", 7, 17 ))
+il.addInstruction(BSTI( "del", 11, 19 ))
+il.addInstruction(BSTI( "add", 7, 21 ))
+
+bt = il.buildtree(True)
+bt.print_tree( )
 
 
-
-nums = [12, 6, 18, 19, 21, 11, 3, 5]
-#nums = random.sample(range(0, 100), 50)
-bst = BSTree()
-for num in nums:
-	bst.insert(num)
-
-bst.rebalance()
-print("Balanced Tree\n")
-bst.print_tree( "key", "left", "right")
-print("\n")
