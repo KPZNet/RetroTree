@@ -284,3 +284,8 @@ class BSTree:
 		for n in nodes :
 			bst.insert(n.key, n.payload)
 		return bst
+
+	def Pred(self, x, time = None):
+		if time is None:
+			self.findmax(x)
+		else:
