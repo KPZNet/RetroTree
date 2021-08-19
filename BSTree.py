@@ -1,3 +1,5 @@
+import copy
+
 class BSTNode :
 	# Constructor to create a new node
 	def __init__(self, key, payload=None) :
@@ -8,6 +10,9 @@ class BSTNode :
 		self.left = None
 		self.right = None
 
+	def __str__(self):
+		return str(self.key)
+
 class BSTree:
 
 	root = None
@@ -17,17 +22,6 @@ class BSTree:
 		if _root != None:
 			self.root = _root
 
-	# A utility function to do inorder traversal of BST
-	def __inorder(self, node, d):
-		if node is not None:
-			self._BSTree__inorder(node.left, d)
-			d.append(node.payload)
-			self._BSTree__inorder(node.right, d)
-
-	def inorder(self):
-		d = []
-		self._BSTree__inorder(self.root, d)
-		return d
 
 	# A utility function to insert a
 	# new node with given key in BST
@@ -212,20 +206,23 @@ class BSTree:
 		n = len(nodes)
 		self.root = self.buildTreeUtil(nodes, 0, n - 1)
 
+	# A utility function to do inorder traversal of BST
+	def __inorder(self, node, d):
+		if node is not None:
+			self._BSTree__inorder(node.left, d)
+			d.append(copy.deepcopy(node))
+			self._BSTree__inorder(node.right, d)
 
-	def copytree(self):
-		# Store nodes of given BST in sorted order
-		nodes = []
-		self.storeBSTNodes(self.root, nodes)
+	def inorder(self):
+		d = []
+		self._BSTree__inorder(self.root, d)
+		return d
 
-		n = len(nodes)
-		treecopy = self.buildTreeUtil(nodes, 0, n - 1)
-		return treecopy
 
 	def __preOrder(self, node, d) :
 		if not node :
 			return
-		d.append(node.payload)
+		d.append(copy.deepcopy(node))
 		self._BSTree__preOrder ( node.left, d )
 		self._BSTree__preOrder ( node.right, d )
 
@@ -275,3 +272,10 @@ class BSTree:
 	
 	def findmax(self, key):
 		return self._BSTree__findMaxforN(self.root, key)
+
+	def copytree(self) :
+		bst = BSTree()
+		nodes = self.preOrder ()
+		for n in nodes :
+			bst.insert(n.key, n.payload)
+		return bst

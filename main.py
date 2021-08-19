@@ -27,17 +27,23 @@ il.addInstruction(Bst_Instruction("add", None, 16))
 il.addInstruction(Bst_Instruction("add", None, 17))
 il.addInstruction(Bst_Instruction("add", None, 18))
 il.addInstruction(Bst_Instruction("add", None, 19))
-il.addInstruction(Bst_Instruction("add", None, 20))
+il.addInstruction(Bst_Instruction("add", None, 20, "V"))
 il.addInstruction(Bst_Instruction("add", None, 21))
 il.addInstruction(Bst_Instruction("add", None, 22))
 il.addInstruction(Bst_Instruction("add", None, 23))
 
 
 bt = il.buildtree(keeptree=False, balance=True)
-bt.print_tree( )
+bt2 = bt.copytree()
 
-bt = il.buildtree_up_to_time(10)
 bt.print_tree()
-print( bt.inorder() )
+bt2.print_tree()
+
+s = bt.search(20)
+print(s)
+s2 = bt2.search(20)
+print(s2)
+
+
 
 
