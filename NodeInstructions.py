@@ -28,7 +28,7 @@ class TimeLine:
 		for inst in time_slot.instructions:
 			if inst.instructionCode == "add":
 				bst.insert(inst.key, inst.payload)
-			if inst.instructionCode == "del" :
+			if inst.instructionCode == "del":
 				bst.deleteNode ( inst.key )
 		return bst
 
