@@ -20,7 +20,7 @@ class TimeSlot_Instructions:
 
 class TimeLine:
 	def __init__(self) :
-		self.instructions = []
+		self.TimeSlots = []
 
 	def Replay_TimeSlot_Instructions(self, bst, time_slot):
 		for inst in time_slot.instructions:
@@ -35,12 +35,12 @@ class TimeLine:
 
 
 	def Add_TimeSlot_Instructions(self, inst):
-		self.instructions.append(inst)
-		self.instructions.sort(key = self._TimeLine__sf)
+		self.TimeSlots.append(inst)
+		self.TimeSlots.sort(key = self._TimeLine__sf)
 
 	def buildtree(self, keeptree = False, balance="False"):
 		bst = BSTree()
-		for inst in self.instructions:
+		for inst in self.TimeSlots:
 			self.Replay_TimeSlot_Instructions(bst, inst)
 		if balance:
 			bst.rebalance()
@@ -50,7 +50,7 @@ class TimeLine:
 
 	def buildtree_up_to_time(self, time, keeptree=False, balance="False"):
 		bst = BSTree()
-		for inst in self.instructions:
+		for inst in self.TimeSlots:
 			if inst.time <= time:
 				self.Replay_TimeSlot_Instructions(bst, inst)
 		if balance:
