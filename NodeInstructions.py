@@ -30,13 +30,12 @@ class TimeLine:
 		return e.time
 
 
-	def addInstruction(self, inst, sortlist = True):
+	def addInstruction(self, inst):
 		if inst.time is None:
 			inst.time = self.current_time
 			self.current_time = self.current_time + 1
 		self.instructions.append(inst)
-		if sortlist:
-			self.instructions.sort(key = self._TimeLine__sf)
+		self.instructions.sort(key = self._TimeLine__sf)
 
 	def buildtree(self, keeptree = False, balance="False"):
 		bst = BSTree()
@@ -47,7 +46,6 @@ class TimeLine:
 		if keeptree:
 			self.bst = bst
 		return bst
-
 
 	def buildtree_up_to_time(self, time, keeptree=False, balance="False"):
 		bst = BSTree()
