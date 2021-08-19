@@ -18,14 +18,16 @@ class BSTree:
 			self.root = _root
 
 	# A utility function to do inorder traversal of BST
-	def __inorder(self, node):
+	def __inorder(self, node, d):
 		if node is not None:
-			self._BSTree__inorder(node.left)
-			print(node.key)
-			self._BSTree__inorder(node.right)
+			self._BSTree__inorder(node.left, d)
+			d.append(node.payload)
+			self._BSTree__inorder(node.right, d)
 
 	def inorder(self):
-		self._BSTree__inorder(self.root)
+		d = []
+		self._BSTree__inorder(self.root, d)
+		return d
 
 	# A utility function to insert a
 	# new node with given key in BST
@@ -70,10 +72,6 @@ class BSTree:
 
 	def minValueNode(self):
 		return self._BSTree__minValueNode(self.root)
-
-
-	# Given a binary search tree and a key, this function
-	# delete the key and returns the new root
 
 
 	def __deleteNode(self, node, key):
@@ -200,8 +198,6 @@ class BSTree:
 		mid = (start + end) // 2
 		node = nodes[mid]
 
-		# Using index in Inorder traversal, construct
-		# left and right subtress
 		node.left = self.buildTreeUtil(nodes, start, mid - 1)
 		node.right = self.buildTreeUtil(nodes, mid + 1, end)
 		return node
@@ -216,15 +212,27 @@ class BSTree:
 		n = len(nodes)
 		self.root = self.buildTreeUtil(nodes, 0, n - 1)
 
-	def __preOrder(self, node) :
+
+	def copytree(self):
+		# Store nodes of given BST in sorted order
+		nodes = []
+		self.storeBSTNodes(self.root, nodes)
+
+		n = len(nodes)
+		treecopy = self.buildTreeUtil(nodes, 0, n - 1)
+		return treecopy
+
+	def __preOrder(self, node, d) :
 		if not node :
 			return
-		print ( node.key )
-		self._BSTree__preOrder ( node.left )
-		self._BSTree__preOrder ( node.right )
+		d.append(node.payload)
+		self._BSTree__preOrder ( node.left, d )
+		self._BSTree__preOrder ( node.right, d )
 
 	def preOrder(self):
-		self._BSTree__preOrder(self.root)
+		d =[]
+		self._BSTree__preOrder(self.root, d)
+		return d
 
 
 	def __search(self, node, key) :

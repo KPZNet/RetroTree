@@ -36,7 +36,7 @@ il.addInstruction(Bst_Instruction("add", 23, 23))
 bt = il.buildtree(keeptree=False, balance=True)
 bt.print_tree( )
 
-bt = il.buildtree_up_to_time(10)
-bt.print_tree()
+
+print( bt.inorder() )
 
 
