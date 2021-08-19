@@ -2,38 +2,41 @@ from BSTree import BSTree
 
 class Bst_Instruction :
 	# Constructor to create a new time node
-	def __init__(self, inst, time, key, payload=None) :
+	def __init__(self, inst, key, payload=None) :
 		self.instructionCode = inst
-		self.time = time
 		self.key = key
 		self.payload = payload
 		if payload == None:
 			self.payload = key
 		self.bst = None
-		
+
+class Bst_InstructionList:
+	def __init__(self, _time) :
+		self.instructions = []
+		self.time = _time
+		self.bst = BSTree()
+	def addInstruction(self, instruction):
+		self.instructions.append(instruction)
+
 
 class TimeLine:
 	def __init__(self) :
 		self.instructions = []
 		self.bst = None
-		self.bst = 0
-		self.current_time = 1
 
-	def ReplayInstruction(self, bst, inst):
-		if inst.instructionCode == "add":
-			bst.insert(inst.key, inst.payload)
-		if inst.instructionCode == "del" :
-			bst.deleteNode ( inst.key )
+	def ReplayInstruction(self, bst, time_slot):
+		for inst in time_slot.instructions:
+			if inst.instructionCode == "add":
+				bst.insert(inst.key, inst.payload)
+			if inst.instructionCode == "del" :
+				bst.deleteNode ( inst.key )
 		return bst
 
 	def __sf(self, e) :
 		return e.time
 
 
-	def addInstruction(self, inst):
-		if inst.time is None:
-			inst.time = self.current_time
-			self.current_time = self.current_time + 1
+	def addInstructions(self, inst):
 		self.instructions.append(inst)
 		self.instructions.sort(key = self._TimeLine__sf)
 
