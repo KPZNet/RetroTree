@@ -44,10 +44,7 @@ bt2.rebalance()
 bt.print_tree()
 bt2.print_tree()
 
-s = bt.search(20)
-print(s)
-s2 = bt2.search(20)
-print(s2)
+
 
 
 

@@ -206,11 +206,16 @@ class BSTree:
 		n = len(nodes)
 		self.root = self.buildTreeUtil(nodes, 0, n - 1)
 
+	def __copynode(self, n):
+		ncopy = copy.deepcopy ( n )
+		ncopy.left = ncopy.right = None
+		return ncopy
+
 	# A utility function to do inorder traversal of BST
 	def __inorder(self, node, d):
 		if node is not None:
 			self._BSTree__inorder(node.left, d)
-			d.append(copy.deepcopy(node))
+			d.append(self._BSTree__copynode(node))
 			self._BSTree__inorder(node.right, d)
 
 	def inorder(self):
@@ -222,7 +227,7 @@ class BSTree:
 	def __preOrder(self, node, d) :
 		if not node :
 			return
-		d.append(copy.deepcopy(node))
+		d.append(self._BSTree__copynode(node))
 		self._BSTree__preOrder ( node.left, d )
 		self._BSTree__preOrder ( node.right, d )
 
