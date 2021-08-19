@@ -1,7 +1,6 @@
 from BSTree import BSTree
 
-class Bst_Instruction :
-	# Constructor to create a new time node
+class Instruction :
 	def __init__(self, inst, key, payload=None) :
 		self.instructionCode = inst
 		self.key = key
@@ -10,7 +9,7 @@ class Bst_Instruction :
 			self.payload = key
 		self.bst = None
 
-class Bst_InstructionList:
+class TimeSlot_Instructions:
 	def __init__(self, _time) :
 		self.instructions = []
 		self.time = _time
@@ -22,9 +21,8 @@ class Bst_InstructionList:
 class TimeLine:
 	def __init__(self) :
 		self.instructions = []
-		self.bst = None
 
-	def ReplayInstruction(self, bst, time_slot):
+	def Replay_TimeSlot_Instructions(self, bst, time_slot):
 		for inst in time_slot.instructions:
 			if inst.instructionCode == "add":
 				bst.insert(inst.key, inst.payload)
@@ -36,14 +34,14 @@ class TimeLine:
 		return e.time
 
 
-	def addInstructions(self, inst):
+	def Add_TimeSlot_Instructions(self, inst):
 		self.instructions.append(inst)
 		self.instructions.sort(key = self._TimeLine__sf)
 
 	def buildtree(self, keeptree = False, balance="False"):
 		bst = BSTree()
 		for inst in self.instructions:
-			self.ReplayInstruction(bst, inst)
+			self.Replay_TimeSlot_Instructions(bst, inst)
 		if balance:
 			bst.rebalance()
 		if keeptree:
@@ -54,7 +52,7 @@ class TimeLine:
 		bst = BSTree()
 		for inst in self.instructions:
 			if inst.time <= time:
-				self.ReplayInstruction(bst, inst)
+				self.Replay_TimeSlot_Instructions(bst, inst)
 		if balance:
 			bst.rebalance()
 		if keeptree:

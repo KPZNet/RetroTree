@@ -3,38 +3,38 @@
 # in binary search tree
 import random
 from BSTree import BSTree
-from NodeInstructions import Bst_Instruction
-from NodeInstructions import Bst_InstructionList
+from NodeInstructions import Instruction
+from NodeInstructions import TimeSlot_Instructions
 from NodeInstructions import TimeLine
 
-il = Bst_InstructionList(50)
+il = TimeSlot_Instructions(50)
 
-il.addInstruction(Bst_Instruction("add", 4))
-il.addInstruction(Bst_Instruction("add", 15))
-il.addInstruction(Bst_Instruction("add", 16))
-il.addInstruction(Bst_Instruction("add", 1))
-il.addInstruction(Bst_Instruction("add", 17))
-il.addInstruction(Bst_Instruction("add", 2))
-il.addInstruction(Bst_Instruction("add", 3))
-il.addInstruction(Bst_Instruction("add", 22))
-il.addInstruction(Bst_Instruction("add", 23))
-il.addInstruction(Bst_Instruction("add", 9))
-il.addInstruction(Bst_Instruction("add", 19))
-il.addInstruction(Bst_Instruction("add", 10))
-il.addInstruction(Bst_Instruction("add", 11))
-il.addInstruction(Bst_Instruction("add", 12))
-il.addInstruction(Bst_Instruction("add", 13))
-il.addInstruction(Bst_Instruction("add", 7))
-il.addInstruction(Bst_Instruction("add", 22))
-il.addInstruction(Bst_Instruction("add", 23))
-il.addInstruction(Bst_Instruction("add", 8))
-il.addInstruction(Bst_Instruction("add", 14))
-il.addInstruction(Bst_Instruction("add", 18))
-il.addInstruction(Bst_Instruction("add", 20, "Viggo"))
-il.addInstruction(Bst_Instruction("add", 21))
+il.addInstruction(Instruction("add", 4))
+il.addInstruction(Instruction("add", 15))
+il.addInstruction(Instruction("add", 16))
+il.addInstruction(Instruction("add", 1))
+il.addInstruction(Instruction("add", 17))
+il.addInstruction(Instruction("add", 2))
+il.addInstruction(Instruction("add", 3))
+il.addInstruction(Instruction("add", 22))
+il.addInstruction(Instruction("add", 23))
+il.addInstruction(Instruction("add", 9))
+il.addInstruction(Instruction("add", 19))
+il.addInstruction(Instruction("add", 10))
+il.addInstruction(Instruction("add", 11))
+il.addInstruction(Instruction("add", 12))
+il.addInstruction(Instruction("add", 13))
+il.addInstruction(Instruction("add", 7))
+il.addInstruction(Instruction("add", 22))
+il.addInstruction(Instruction("add", 23))
+il.addInstruction(Instruction("add", 8))
+il.addInstruction(Instruction("add", 14))
+il.addInstruction(Instruction("add", 18))
+il.addInstruction(Instruction("add", 20, "Viggo"))
+il.addInstruction(Instruction("add", 21))
 
 tl = TimeLine()
-tl.addInstructions(il)
+tl.Add_TimeSlot_Instructions(il)
 
 
 
