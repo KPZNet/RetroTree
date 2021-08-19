@@ -16,6 +16,8 @@ class TimeLine:
 	def __init__(self) :
 		self.instructions = []
 		self.bst = None
+		self.bst = 0
+		self.current_time = 1
 
 	def ReplayInstruction(self, bst, inst):
 		if inst.instructionCode == "add":
@@ -29,6 +31,9 @@ class TimeLine:
 
 
 	def addInstruction(self, inst, sortlist = True):
+		if inst.time is None:
+			inst.time = self.current_time
+			self.current_time = self.current_time + 1
 		self.instructions.append(inst)
 		if sortlist:
 			self.instructions.sort(key = self._TimeLine__sf)
