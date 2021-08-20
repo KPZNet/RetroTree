@@ -73,13 +73,12 @@ class TimeLine :
 
     def buildtree_up_to_time(self, time, keeptree=False, balance="False") :
         bst = BSTree ()
-
         return bst
 
 
-    def printTimeLin(self):
-        nds = self.bst.inorder ()
+    def printTimeLine(self):
+        nds = self.gettimeline()
         for ts in nds:
-            print("Time: {0}".format(ts.time))
-            for inst in ts.instructions:
+            print("Time: {0}".format(ts.payload.time))
+            for inst in ts.payload.instructions:
                 print("\t" + str(inst) )

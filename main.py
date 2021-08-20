@@ -72,5 +72,5 @@ for time in nds:
     time.payload.bst.print_tree()
     print("\n")
 
-
 tl.BST_TimeSlots.print_tree()
+tl.printTimeLine()
