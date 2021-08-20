@@ -40,7 +40,7 @@ class TimeLine :
     def __sf(self, e) :
         return e.time
 
-    def Add_TimeSlot_Instructions(self, inst) :
+    def Add_TimeSlot(self, inst) :
         self.TimeSlots.append ( inst )
         self.TimeSlots.sort ( key=self._TimeLine__sf )
 
