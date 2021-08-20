@@ -1,6 +1,3 @@
-import copy
-
-
 class BSTNode :
     # Constructor to create a new node
     def __init__(self, key, payload=None) :
@@ -23,16 +20,16 @@ class BSTree :
             self.root = _root
 
     def insert(self, key, payload=None) :
-        def __insert(node, key, payload=None):
+        def __insert(node, key, payload=None) :
 
-            if node is None:
-                return BSTNode(key, payload)
+            if node is None :
+                return BSTNode ( key, payload )
 
             # Otherwise recur down the tree
-            if key < node.key:
-                node.left = __insert(node.left, key, payload)
-            else:
-                node.right = __insert(node.right, key, payload)
+            if key < node.key :
+                node.left = __insert ( node.left, key, payload )
+            else :
+                node.right = __insert ( node.right, key, payload )
 
             # return the (unchanged) node pointer
             return node
@@ -48,32 +45,33 @@ class BSTree :
 
         return current
 
-
     def deleteNode(self, key) :
-        def __deleteNode(node, key):
-            if node is None:
+        def __deleteNode(node, key) :
+            if node is None :
                 return node
-            if key < node.key:
-                node.left = __deleteNode(node.left, key)
-            elif (key > node.key):
-                node.right = __deleteNode(node.right, key)
-            else:
-                if node.left is None:
+            if key < node.key :
+                node.left = __deleteNode ( node.left, key )
+            elif (key > node.key) :
+                node.right = __deleteNode ( node.right, key )
+            else :
+                if node.left is None :
                     temp = node.right
                     node = None
                     return temp
-                elif node.right is None:
+                elif node.right is None :
                     temp = node.left
                     node = None
                     return temp
-                temp = self.get_min_value_node(node.right)
+                temp = self.get_min_value_node ( node.right )
                 node.key = temp.key
-                node.right = __deleteNode(node.right, temp.key)
+                node.right = __deleteNode ( node.right, temp.key )
 
             return node
+
         return __deleteNode ( self.root, key )
 
     COUNT = [10]
+
     def __print2DUtil(self, root, space) :
         # Base case
         if (root == None) :
@@ -135,112 +133,107 @@ class BSTree :
         for line in lines :
             print ( line )
 
-
-
     def rebalance(self) :
-        def storeBSTNodes(root, nodes):
-            if not root:
+        def storeBSTNodes(root, nodes) :
+            if not root :
                 return
-            storeBSTNodes(root.left, nodes)
-            nodes.append(root)
-            storeBSTNodes(root.right, nodes)
+            storeBSTNodes ( root.left, nodes )
+            nodes.append ( root )
+            storeBSTNodes ( root.right, nodes )
 
-        def buildTreeUtil(nodes, start, end):
-            if start > end:
+        def buildTreeUtil(nodes, start, end) :
+            if start > end :
                 return None
 
             mid = (start + end) // 2
             node = nodes[mid]
 
-            node.left = buildTreeUtil(nodes, start, mid - 1)
-            node.right = buildTreeUtil(nodes, mid + 1, end)
+            node.left = buildTreeUtil ( nodes, start, mid - 1 )
+            node.right = buildTreeUtil ( nodes, mid + 1, end )
             return node
+
         nodes = []
         storeBSTNodes ( self.root, nodes )
 
         n = len ( nodes )
         self.root = buildTreeUtil ( nodes, 0, n - 1 )
 
-
     def inorder(self) :
-        def __inorder(node, d):
-            if node is not None:
-                __inorder(node.left, d)
-                d.append(node)
-                __inorder(node.right, d)
+        def __inorder(node, d) :
+            if node is not None :
+                __inorder ( node.left, d )
+                d.append ( node )
+                __inorder ( node.right, d )
+
         d = []
         __inorder ( self.root, d )
         return d
 
-
     def inorderLessThanEqual(self, kValue) :
-        def __inorderLessThanEqual(node, d, kValue):
-            if node is not None:
-                __inorderLessThanEqual(node.left, d, kValue)
-                if node.key <= kValue:
-                    d.append(node)
-                else:
+        def __inorderLessThanEqual(node, d, kValue) :
+            if node is not None :
+                __inorderLessThanEqual ( node.left, d, kValue )
+                if node.key <= kValue :
+                    d.append ( node )
+                else :
                     return
-                __inorderLessThanEqual(node.right, d, kValue)
+                __inorderLessThanEqual ( node.right, d, kValue )
+
         d = []
-        __inorderLessThanEqual ( self.root, d, kValue)
+        __inorderLessThanEqual ( self.root, d, kValue )
         return [i.payload for i in d]
-
-
 
     def inorderGreaterThan(self, kValue) :
-        def __inorderGreaterThan(node, d, kValue):
-            if node is not None:
-                __inorderGreaterThan(node.left, d, kValue)
-                if node.key > kValue:
-                    d.append(node)
-                __inorderGreaterThan(node.right, d, kValue)
+        def __inorderGreaterThan(node, d, kValue) :
+            if node is not None :
+                __inorderGreaterThan ( node.left, d, kValue )
+                if node.key > kValue :
+                    d.append ( node )
+                __inorderGreaterThan ( node.right, d, kValue )
+
         d = []
-        __inorderGreaterThan ( self.root, d, kValue)
+        __inorderGreaterThan ( self.root, d, kValue )
         return [i.payload for i in d]
 
-
     def preOrder(self) :
-        def __preOrder(node, d):
-            if not node:
+        def __preOrder(node, d) :
+            if not node :
                 return
-            d.append(node)
-            __preOrder(node.left, d)
-            __preOrder(node.right, d)
+            d.append ( node )
+            __preOrder ( node.left, d )
+            __preOrder ( node.right, d )
+
         d = []
         __preOrder ( self.root, d )
         return d
 
-
     def search(self, key) :
-        def __search(node, key):
-            if node == None:
+        def __search(node, key) :
+            if node == None :
                 return False
 
-            elif node.key == key:
+            elif node.key == key :
                 return node.payload
-            elif node.key < key:
-                return __search(node.right, key)
-            else:
-                return __search(node.left, key)
+            elif node.key < key :
+                return __search ( node.right, key )
+            else :
+                return __search ( node.left, key )
+
         return __search ( self.root, key )
 
-
-
     def findmax(self, key) :
-        def __findMaxforN(node, key):
-            if node == None:
+        def __findMaxforN(node, key) :
+            if node == None :
                 return -1
-            if node.key == key:
+            if node.key == key :
                 return key
-            elif node.key < key:
-                k = __findMaxforN(node.right, key)
-                if k == -1:
+            elif node.key < key :
+                k = __findMaxforN ( node.right, key )
+                if k == -1 :
                     return node.key
-                else:
+                else :
                     return k
-            elif node.key > key:
-                return __findMaxforN(node.left, key)
+            elif node.key > key :
+                return __findMaxforN ( node.left, key )
+
         return __findMaxforN ( self.root, key )
-
-
