@@ -135,30 +135,31 @@ class BSTree :
         for line in lines :
             print ( line )
 
-    def storeBSTNodes(self, root, nodes) :
-        if not root :
-            return
-        self.storeBSTNodes ( root.left, nodes )
-        nodes.append ( root )
-        self.storeBSTNodes ( root.right, nodes )
 
-    def buildTreeUtil(self, nodes, start, end) :
-        if start > end :
-            return None
-
-        mid = (start + end) // 2
-        node = nodes[mid]
-
-        node.left = self.buildTreeUtil ( nodes, start, mid - 1 )
-        node.right = self.buildTreeUtil ( nodes, mid + 1, end )
-        return node
 
     def rebalance(self) :
+        def storeBSTNodes(root, nodes):
+            if not root:
+                return
+            storeBSTNodes(root.left, nodes)
+            nodes.append(root)
+            storeBSTNodes(root.right, nodes)
+
+        def buildTreeUtil(nodes, start, end):
+            if start > end:
+                return None
+
+            mid = (start + end) // 2
+            node = nodes[mid]
+
+            node.left = buildTreeUtil(nodes, start, mid - 1)
+            node.right = buildTreeUtil(nodes, mid + 1, end)
+            return node
         nodes = []
-        self.storeBSTNodes ( self.root, nodes )
+        storeBSTNodes ( self.root, nodes )
 
         n = len ( nodes )
-        self.root = self.buildTreeUtil ( nodes, 0, n - 1 )
+        self.root = buildTreeUtil ( nodes, 0, n - 1 )
 
 
     def inorder(self) :
@@ -199,48 +200,47 @@ class BSTree :
         return d
 
 
-    def __preOrder(self, node, d) :
-        if not node :
-            return
-        d.append ( node )
-        self._BSTree__preOrder ( node.left, d )
-        self._BSTree__preOrder ( node.right, d )
-
     def preOrder(self) :
+        def __preOrder(node, d):
+            if not node:
+                return
+            d.append(node)
+            __preOrder(node.left, d)
+            __preOrder(node.right, d)
         d = []
-        self._BSTree__preOrder ( self.root, d )
+        __preOrder ( self.root, d )
         return d
 
-    def __search(self, node, key) :
-        if node == None :
-            return False
-
-        elif node.key == key :
-            return node.payload
-        elif node.key < key :
-            return self._BSTree__search ( node.right, key )
-        else :
-            return self._BSTree__search ( node.left, key )
 
     def search(self, key) :
-        return self._BSTree__search ( self.root, key )
+        def __search(node, key):
+            if node == None:
+                return False
 
-    def __findMaxforN(self, node, key) :
+            elif node.key == key:
+                return node.payload
+            elif node.key < key:
+                return __search(node.right, key)
+            else:
+                return __search(node.left, key)
+        return __search ( self.root, key )
 
-        if node == None :
-            return -1
-        if node.key == key :
-            return key
-        elif node.key < key :
-            k = self._BSTree__findMaxforN ( node.right, key )
-            if k == -1 :
-                return node.key
-            else :
-                return k
-        elif node.key > key :
-            return self._BSTree__findMaxforN ( node.left, key )
+
 
     def findmax(self, key) :
-        return self._BSTree__findMaxforN ( self.root, key )
+        def __findMaxforN(node, key):
+            if node == None:
+                return -1
+            if node.key == key:
+                return key
+            elif node.key < key:
+                k = __findMaxforN(node.right, key)
+                if k == -1:
+                    return node.key
+                else:
+                    return k
+            elif node.key > key:
+                return __findMaxforN(node.left, key)
+        return __findMaxforN ( self.root, key )
 
 
