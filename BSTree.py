@@ -23,10 +23,6 @@ class BSTree :
         if _root != None :
             self.root = _root
 
-    # A utility function to insert a
-    # new node with given key in BST
-
-
     def insert(self, key, payload=None) :
         def __insert(node, key, payload=None):
 
