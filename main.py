@@ -41,3 +41,5 @@ bt2.print_tree ()
 bt2.rebalance ()
 bt.print_tree ()
 bt2.print_tree ()
+
+tl.printTimeLine()

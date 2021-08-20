@@ -7,8 +7,12 @@ class Instruction :
         self.key = key
         self.payload = payload
         if payload == None :
-            self.payload = key
+            self.payload = str(key)
         self.bst = None
+
+    def __str__(self):
+        s = self.instructionCode + " " + str(self.payload) + " key: " + str(self.key)
+        return s
 
 
 class TimeSlot_Instructions :
@@ -60,3 +64,11 @@ class TimeLine :
         if keeptree :
             self.bst = bst
         return bst
+
+    def printTimeLine(self):
+        for ts in self.TimeSlots:
+            print("Time: {0}".format(ts.time))
+            for inst in ts.instructions:
+                print("\t" + str(inst) )
+
+
