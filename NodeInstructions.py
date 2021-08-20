@@ -19,6 +19,7 @@ class TimeSlot_Instructions :
     def __init__(self, _time) :
         self.instructions = []
         self.time = _time
+        self.bst = None
 
     def addInstruction(self, instruction) :
         self.instructions.append ( instruction )
