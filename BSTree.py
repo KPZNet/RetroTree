@@ -184,7 +184,7 @@ class BSTree :
                 __inorderLessThanEqual(node.right, d, kValue)
         d = []
         __inorderLessThanEqual ( self.root, d, kValue)
-        return d
+        return [i.payload for i in d]
 
 
 
@@ -197,7 +197,7 @@ class BSTree :
                 __inorderGreaterThan(node.right, d, kValue)
         d = []
         __inorderGreaterThan ( self.root, d, kValue)
-        return d
+        return [i.payload for i in d]
 
 
     def preOrder(self) :

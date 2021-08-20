@@ -53,7 +53,7 @@ class TimeLine :
         tbst = BSTree ()
         time_slots = self.get_time_slots_up_to_time(time)
         for time in time_slots:
-            self.Replay_TimeSlot_Instructions ( tbst, time.payload.instructions )
+            self.Replay_TimeSlot_Instructions ( tbst, time.instructions )
         if balance :
             tbst.rebalance ()
         return tbst
@@ -62,7 +62,7 @@ class TimeLine :
         tbst = BSTree ()
         time_slots = self.BST_TimeSlots.inorderGreaterThan(time)
         for time in time_slots:
-            self.Replay_TimeSlot_Instructions ( tbst, time.payload.instructions )
+            self.Replay_TimeSlot_Instructions ( tbst, time.instructions )
         if balance :
             tbst.rebalance ()
         return tbst
@@ -70,7 +70,7 @@ class TimeLine :
     def build_all_trees_after_time(self, time, balance="True"):
         timeSlots = self.get_time_slots_after_time(time)
         for timeSlot in timeSlots:
-            timeSlot.payload.bst = self.build_tree_up_to_time(timeSlot.payload.time)
+            timeSlot.bst = self.build_tree_up_to_time(timeSlot.time)
 
 
     def Add_TimeSlot(self, timeSlot):
