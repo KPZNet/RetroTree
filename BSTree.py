@@ -45,42 +45,38 @@ class BSTree :
         self.root = __insert ( self.root, key, payload )
         return self.root
 
-    def __minValueNode(self, node) :
+    def get_min_value_node(self, node) :
         current = node
-
         # loop down to find the leftmost leaf
         while (current.left is not None) :
             current = current.left
 
         return current
 
-    def minValueNode(self) :
-        return self._BSTree__minValueNode ( self.root )
-
-    def __deleteNode(self, node, key) :
-        if node is None :
-            return node
-        if key < node.key :
-            node.left = self._BSTree__deleteNode ( node.left, key )
-        elif (key > node.key) :
-            node.right = self._BSTree__deleteNode ( node.right, key )
-        else :
-            if node.left is None :
-                temp = node.right
-                node = None
-                return temp
-            elif node.right is None :
-                temp = node.left
-                node = None
-                return temp
-            temp = self._BSTree__minValueNode ( node.right )
-            node.key = temp.key
-            node.right = self._BSTree__deleteNode ( node.right, temp.key )
-
-        return node
 
     def deleteNode(self, key) :
-        return self._BSTree__deleteNode ( self.root, key )
+        def __deleteNode(node, key):
+            if node is None:
+                return node
+            if key < node.key:
+                node.left = __deleteNode(node.left, key)
+            elif (key > node.key):
+                node.right = __deleteNode(node.right, key)
+            else:
+                if node.left is None:
+                    temp = node.right
+                    node = None
+                    return temp
+                elif node.right is None:
+                    temp = node.left
+                    node = None
+                    return temp
+                temp = self.get_min_value_node(node.right)
+                node.key = temp.key
+                node.right = __deleteNode(node.right, temp.key)
+
+            return node
+        return __deleteNode ( self.root, key )
 
     def __print2DUtil(self, root, space) :
         # Base case
