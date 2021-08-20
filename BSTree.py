@@ -138,10 +138,8 @@ class BSTree :
             return lines, n + m + u, max ( p, q ) + 2, n + u // 2
 
         lines, *_ = display ( self.root, val, left, right )
-        print ( "\n" )
         for line in lines :
             print ( line )
-        print ( "\n" )
 
     def storeBSTNodes(self, root, nodes) :
         if not root :

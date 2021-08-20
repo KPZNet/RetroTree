@@ -40,11 +40,19 @@ class TimeLine :
     def __sf(self, e) :
         return e.time
 
+    def build_tree_for_time_slot(self, inst, balance="False") :
+        inst.bst = BSTree ()
+        self.Replay_TimeSlot_Instructions ( inst.bst, inst )
+        if balance :
+            inst.bst.rebalance ()
+        return inst.bst
+
     def Add_TimeSlot(self, inst) :
+        self.build_tree_for_time_slot(inst, balance=True)
         self.TimeSlots.append ( inst )
         self.TimeSlots.sort ( key=self._TimeLine__sf )
 
-    def buildtree(self, keeptree=False, balance="False") :
+    def build_complete_tree(self, keeptree=False, balance="False") :
         bst = BSTree ()
         for inst in self.TimeSlots :
             self.Replay_TimeSlot_Instructions ( bst, inst )
@@ -71,9 +79,4 @@ class TimeLine :
             for inst in ts.instructions:
                 print("\t" + str(inst) )
 
-    def gettimelinedf(self):
-        df = pd.DataFrame()
-        for ts in self.TimeSlots:
-            df["Time:{0}".format(ts.time)] = ts.instructions
 
-        return df
