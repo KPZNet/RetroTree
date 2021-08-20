@@ -9,7 +9,6 @@ class Instruction :
         self.payload = payload
         if payload == None :
             self.payload = str(key)
-        self.bst = None
 
     def __str__(self):
         s = self.instructionCode + " " + str(self.payload) + " key: " + str(self.key)
@@ -20,7 +19,6 @@ class TimeSlot_Instructions :
     def __init__(self, _time) :
         self.instructions = []
         self.time = _time
-        self.bst = BSTree ()
 
     def addInstruction(self, instruction) :
         self.instructions.append ( instruction )
