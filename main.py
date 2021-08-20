@@ -1,4 +1,4 @@
-
+import pandas as pd
 from NodeInstructions import Instruction
 from NodeInstructions import TimeLine
 from NodeInstructions import TimeSlot_Instructions
@@ -42,4 +42,6 @@ bt2.rebalance ()
 bt.print_tree ()
 bt2.print_tree ()
 
-tl.printTimeLine()
+df = tl.gettimelinedf()
+
+print(df)

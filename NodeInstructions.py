@@ -1,3 +1,4 @@
+import pandas as pd
 from BSTree import BSTree
 
 
@@ -71,4 +72,9 @@ class TimeLine :
             for inst in ts.instructions:
                 print("\t" + str(inst) )
 
+    def gettimelinedf(self):
+        df = pd.DataFrame()
+        for ts in self.TimeSlots:
+            df["Time:{0}".format(ts.time)] = ts.instructions
 
+        return df
