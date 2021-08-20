@@ -45,19 +45,25 @@ class TimeLine :
 
     def build_tree_for_time_slot(self, timeSlot, balance="False") :
         timeSlot.bst = BSTree ()
-        time_slots = self.BST_TimeSlots.inorderUpTo(timeSlot.time)
+        time_slots = self.BST_TimeSlots.inorderLessThanEqual(timeSlot.time)
         for time in time_slots:
             self.Replay_TimeSlot_Instructions ( timeSlot.bst, time.payload )
         if balance :
             timeSlot.bst.rebalance ()
         return timeSlot.bst
 
+    def RetroTimeUpdate(self, timeSlot, balance="True"):
+        timeSlots = self.BST_TimeSlots.inorderGreaterThan(timeSlot.time)
+        for timeSlot in timeSlots:
+            self.build_tree_for_time_slot(timeSlot.payload, balance)
+
 
     def Add_TimeSlot(self, timeSlot):
-        #BST Time
         self.BST_TimeSlots.insert(timeSlot.time, payload=timeSlot)
-        self.build_tree_for_time_slot ( timeSlot, balance=True )
         self.BST_TimeSlots.rebalance()
+        self.build_tree_for_time_slot ( timeSlot, balance=True )
+        self.RetroTimeUpdate(timeSlot)
+
 
 
     def build_complete_tree(self, keeptree=False, balance="False") :

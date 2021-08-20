@@ -166,15 +166,11 @@ class BSTree :
         n = len ( nodes )
         self.root = self.buildTreeUtil ( nodes, 0, n - 1 )
 
-    def __copynode(self, n) :
-        ncopy = copy.deepcopy ( n )
-        ncopy.left = ncopy.right = None
-        return ncopy
 
     def __inorder(self, node, d) :
         if node is not None :
             self._BSTree__inorder ( node.left, d )
-            d.append ( self._BSTree__copynode ( node ) )
+            d.append ( node  )
             self._BSTree__inorder ( node.right, d )
 
     def inorder(self) :
@@ -182,25 +178,37 @@ class BSTree :
         self._BSTree__inorder ( self.root, d )
         return d
 
-    def __inorderUpTo(self, node, d, kValue) :
+    def __inorderLessThanEqual(self, node, d, kValue) :
         if node is not None :
-                self._BSTree__inorderUpTo ( node.left, d, kValue )
+                self._BSTree__inorderLessThanEqual ( node.left, d, kValue )
                 if node.key <= kValue :
-                    d.append ( self._BSTree__copynode ( node ) )
+                    d.append ( node )
                 else:
                     return
-                self._BSTree__inorderUpTo ( node.right, d, kValue )
+                self._BSTree__inorderLessThanEqual ( node.right, d, kValue )
 
-    def inorderUpTo(self, kValue) :
+    def inorderLessThanEqual(self, kValue) :
         d = []
-        self._BSTree__inorderUpTo ( self.root, d, kValue)
+        self._BSTree__inorderLessThanEqual ( self.root, d, kValue)
+        return d
+
+    def __inorderGreaterThan(self, node, d, kValue) :
+        if node is not None :
+                self._BSTree__inorderGreaterThan ( node.left, d, kValue )
+                if node.key > kValue :
+                    d.append ( node )
+                self._BSTree__inorderGreaterThan ( node.right, d, kValue )
+
+    def inorderGreaterThan(self, kValue) :
+        d = []
+        self._BSTree__inorderGreaterThan ( self.root, d, kValue)
         return d
 
 
     def __preOrder(self, node, d) :
         if not node :
             return
-        d.append ( self._BSTree__copynode ( node ) )
+        d.append ( node )
         self._BSTree__preOrder ( node.left, d )
         self._BSTree__preOrder ( node.right, d )
 
@@ -241,9 +249,4 @@ class BSTree :
     def findmax(self, key) :
         return self._BSTree__findMaxforN ( self.root, key )
 
-    def copytree(self) :
-        bst = BSTree ()
-        nodes = self.preOrder ()
-        for n in nodes :
-            bst.insert ( n.key, n.payload )
-        return bst
+
