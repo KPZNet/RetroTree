@@ -81,7 +81,6 @@ class TimeLine :
         self.build_all_trees_after_time(timeSlot.time)
 
 
-
     def build_complete_tree(self, keeptree=False, balance="False") :
         #Inorder BST builder
         bst = BSTree()
