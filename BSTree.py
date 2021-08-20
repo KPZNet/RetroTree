@@ -25,22 +25,24 @@ class BSTree :
 
     # A utility function to insert a
     # new node with given key in BST
-    def __insert(self, node, key, payload=None) :
 
-        if node is None :
-            return BSTNode ( key, payload )
-
-        # Otherwise recur down the tree
-        if key < node.key :
-            node.left = self._BSTree__insert ( node.left, key, payload )
-        else :
-            node.right = self._BSTree__insert ( node.right, key, payload )
-
-        # return the (unchanged) node pointer
-        return node
 
     def insert(self, key, payload=None) :
-        self.root = self._BSTree__insert ( self.root, key, payload )
+        def __insert(node, key, payload=None):
+
+            if node is None:
+                return BSTNode(key, payload)
+
+            # Otherwise recur down the tree
+            if key < node.key:
+                node.left = __insert(node.left, key, payload)
+            else:
+                node.right = __insert(node.right, key, payload)
+
+            # return the (unchanged) node pointer
+            return node
+
+        self.root = __insert ( self.root, key, payload )
         return self.root
 
     def __minValueNode(self, node) :
@@ -167,41 +169,41 @@ class BSTree :
         self.root = self.buildTreeUtil ( nodes, 0, n - 1 )
 
 
-    def __inorder(self, node, d) :
-        if node is not None :
-            self._BSTree__inorder ( node.left, d )
-            d.append ( node  )
-            self._BSTree__inorder ( node.right, d )
-
     def inorder(self) :
+        def __inorder(node, d):
+            if node is not None:
+                __inorder(node.left, d)
+                d.append(node)
+                __inorder(node.right, d)
         d = []
-        self._BSTree__inorder ( self.root, d )
+        __inorder ( self.root, d )
         return d
 
-    def __inorderLessThanEqual(self, node, d, kValue) :
-        if node is not None :
-                self._BSTree__inorderLessThanEqual ( node.left, d, kValue )
-                if node.key <= kValue :
-                    d.append ( node )
-                else:
-                    return
-                self._BSTree__inorderLessThanEqual ( node.right, d, kValue )
 
     def inorderLessThanEqual(self, kValue) :
+        def __inorderLessThanEqual(node, d, kValue):
+            if node is not None:
+                __inorderLessThanEqual(node.left, d, kValue)
+                if node.key <= kValue:
+                    d.append(node)
+                else:
+                    return
+                __inorderLessThanEqual(node.right, d, kValue)
         d = []
-        self._BSTree__inorderLessThanEqual ( self.root, d, kValue)
+        __inorderLessThanEqual ( self.root, d, kValue)
         return d
 
-    def __inorderGreaterThan(self, node, d, kValue) :
-        if node is not None :
-                self._BSTree__inorderGreaterThan ( node.left, d, kValue )
-                if node.key > kValue :
-                    d.append ( node )
-                self._BSTree__inorderGreaterThan ( node.right, d, kValue )
+
 
     def inorderGreaterThan(self, kValue) :
+        def __inorderGreaterThan(node, d, kValue):
+            if node is not None:
+                __inorderGreaterThan(node.left, d, kValue)
+                if node.key > kValue:
+                    d.append(node)
+                __inorderGreaterThan(node.right, d, kValue)
         d = []
-        self._BSTree__inorderGreaterThan ( self.root, d, kValue)
+        __inorderGreaterThan ( self.root, d, kValue)
         return d
 
 

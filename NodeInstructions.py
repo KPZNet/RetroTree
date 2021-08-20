@@ -32,8 +32,8 @@ class TimeLine :
     def gettimeline(self):
         return self.BST_TimeSlots.inorder()
 
-    def Replay_TimeSlot_Instructions(self, bst, time_slot) :
-        for inst in time_slot.instructions :
+    def Replay_TimeSlot_Instructions(self, bst, instructions) :
+        for inst in instructions :
             if inst.instructionCode == "add" :
                 bst.insert ( inst.key, inst.payload )
             if inst.instructionCode == "del" :
@@ -43,26 +43,42 @@ class TimeLine :
     def __sf(self, e) :
         return e.time
 
-    def build_tree_for_time_slot(self, timeSlot, balance="False") :
-        timeSlot.bst = BSTree ()
-        time_slots = self.BST_TimeSlots.inorderLessThanEqual(timeSlot.time)
-        for time in time_slots:
-            self.Replay_TimeSlot_Instructions ( timeSlot.bst, time.payload )
-        if balance :
-            timeSlot.bst.rebalance ()
-        return timeSlot.bst
+    def get_time_slots_up_to_time(self, time):
+        return self.BST_TimeSlots.inorderLessThanEqual(time)
 
-    def RetroTimeUpdate(self, timeSlot, balance="True"):
-        timeSlots = self.BST_TimeSlots.inorderGreaterThan(timeSlot.time)
+    def get_time_slots_after_time(self, time):
+        return self.BST_TimeSlots.inorderGreaterThan(time)
+
+    def build_tree_up_to_time(self, time, balance="True") :
+        tbst = BSTree ()
+        time_slots = self.get_time_slots_up_to_time(time)
+        for time in time_slots:
+            self.Replay_TimeSlot_Instructions ( tbst, time.payload.instructions )
+        if balance :
+            tbst.rebalance ()
+        return tbst
+
+    def build_tree_after_time(self, time, balance="True") :
+        tbst = BSTree ()
+        time_slots = self.BST_TimeSlots.inorderGreaterThan(time)
+        for time in time_slots:
+            self.Replay_TimeSlot_Instructions ( tbst, time.payload.instructions )
+        if balance :
+            tbst.rebalance ()
+        return tbst
+
+    def build_all_trees_after_time(self, time, balance="True"):
+        timeSlots = self.get_time_slots_after_time(time)
         for timeSlot in timeSlots:
-            self.build_tree_for_time_slot(timeSlot.payload, balance)
+            timeSlot.payload.bst = self.build_tree_up_to_time(timeSlot.payload.time)
 
 
     def Add_TimeSlot(self, timeSlot):
         self.BST_TimeSlots.insert(timeSlot.time, payload=timeSlot)
         self.BST_TimeSlots.rebalance()
-        self.build_tree_for_time_slot ( timeSlot, balance=True )
-        self.RetroTimeUpdate(timeSlot)
+
+        timeSlot.bst = self.build_tree_up_to_time (timeSlot.time, balance=True)
+        self.build_all_trees_after_time(timeSlot.time)
 
 
 
@@ -71,16 +87,12 @@ class TimeLine :
         bst = BSTree()
         nds = self.BST_TimeSlots.inorder()
         for inst in nds :
-            self.Replay_TimeSlot_Instructions ( bst, inst.payload )
+            self.Replay_TimeSlot_Instructions ( bst, inst.payload.instructions )
         if balance :
             bst.rebalance ()
         if keeptree :
             self.bst = bst
 
-        return bst
-
-    def buildtree_up_to_time(self, time, keeptree=False, balance="False") :
-        bst = BSTree ()
         return bst
 
 
