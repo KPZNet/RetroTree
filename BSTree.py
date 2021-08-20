@@ -17,7 +17,6 @@ class BSTNode :
 
 class BSTree :
     root = None
-    COUNT = [10]
 
     def __init__(self, _root=None) :
         if _root != None :
@@ -74,6 +73,7 @@ class BSTree :
             return node
         return __deleteNode ( self.root, key )
 
+    COUNT = [10]
     def __print2DUtil(self, root, space) :
         # Base case
         if (root == None) :
