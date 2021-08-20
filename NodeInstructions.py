@@ -27,7 +27,10 @@ class TimeSlot_Instructions :
 
 class TimeLine :
     def __init__(self) :
-        self.TimeSlots = []
+        self.BST_TimeSlots = BSTree()
+
+    def gettimeline(self):
+        return self.BST_TimeSlots.inorder()
 
     def Replay_TimeSlot_Instructions(self, bst, time_slot) :
         for inst in time_slot.instructions :
@@ -40,43 +43,43 @@ class TimeLine :
     def __sf(self, e) :
         return e.time
 
-    def build_tree_for_time_slot(self, inst, balance="False") :
-        inst.bst = BSTree ()
-        self.Replay_TimeSlot_Instructions ( inst.bst, inst )
+    def build_tree_for_time_slot(self, timeSlot, balance="False") :
+        timeSlot.bst = BSTree ()
+        self.Replay_TimeSlot_Instructions ( timeSlot.bst, timeSlot )
         if balance :
-            inst.bst.rebalance ()
-        return inst.bst
+            timeSlot.bst.rebalance ()
+        return timeSlot.bst
 
-    def Add_TimeSlot(self, inst) :
-        self.build_tree_for_time_slot(inst, balance=True)
-        self.TimeSlots.append ( inst )
-        self.TimeSlots.sort ( key=self._TimeLine__sf )
+
+    def Add_TimeSlot(self, inst):
+        #BST Time
+        self.BST_TimeSlots.insert(inst.time, payload=inst)
+        self.build_tree_for_time_slot ( inst, balance=True )
+        self.BST_TimeSlots.rebalance()
+
 
     def build_complete_tree(self, keeptree=False, balance="False") :
-        bst = BSTree ()
-        for inst in self.TimeSlots :
-            self.Replay_TimeSlot_Instructions ( bst, inst )
+        #Inorder BST builder
+        bst = BSTree()
+        nds = self.BST_TimeSlots.inorder()
+        for inst in nds :
+            self.Replay_TimeSlot_Instructions ( bst, inst.payload )
         if balance :
             bst.rebalance ()
         if keeptree :
             self.bst = bst
+
         return bst
 
     def buildtree_up_to_time(self, time, keeptree=False, balance="False") :
         bst = BSTree ()
-        for inst in self.TimeSlots :
-            if inst.time <= time :
-                self.Replay_TimeSlot_Instructions ( bst, inst )
-        if balance :
-            bst.rebalance ()
-        if keeptree :
-            self.bst = bst
+
         return bst
 
-    def printTimeLine(self):
-        for ts in self.TimeSlots:
+
+    def printTimeLin(self):
+        nds = self.bst.inorder ()
+        for ts in nds:
             print("Time: {0}".format(ts.time))
             for inst in ts.instructions:
                 print("\t" + str(inst) )
-
-
