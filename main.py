@@ -38,19 +38,19 @@ tl.Add_TimeSlot ( il )
 
 il = TimeSlot_Instructions ( 15 )
 il.addInstruction ( Instruction ( "add", 9 ) )
-il.addInstruction ( Instruction ( "add", 165 ) )
+il.addInstruction ( Instruction ( "add", 301 ) )
 il.addInstruction ( Instruction ( "add", 287 ) )
 tl.Add_TimeSlot ( il )
 
 il = TimeSlot_Instructions ( 16 )
 il.addInstruction ( Instruction ( "add", 19 ) )
-il.addInstruction ( Instruction ( "add", 10 ) )
+il.addInstruction ( Instruction ( "add", 330 ) )
 il.addInstruction ( Instruction ( "add", 11 ) )
 tl.Add_TimeSlot ( il )
 
 il = TimeSlot_Instructions ( 18 )
 il.addInstruction ( Instruction ( "add", 7 ) )
-il.addInstruction ( Instruction ( "add", 22 ) )
+il.addInstruction ( Instruction ( "add", 299 ) )
 il.addInstruction ( Instruction ( "add", 23 ) )
 tl.Add_TimeSlot ( il )
 

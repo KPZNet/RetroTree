@@ -182,6 +182,21 @@ class BSTree :
         self._BSTree__inorder ( self.root, d )
         return d
 
+    def __inorderUpTo(self, node, d, kValue) :
+        if node is not None :
+                self._BSTree__inorderUpTo ( node.left, d, kValue )
+                if node.key <= kValue :
+                    d.append ( self._BSTree__copynode ( node ) )
+                else:
+                    return
+                self._BSTree__inorderUpTo ( node.right, d, kValue )
+
+    def inorderUpTo(self, kValue) :
+        d = []
+        self._BSTree__inorderUpTo ( self.root, d, kValue)
+        return d
+
+
     def __preOrder(self, node, d) :
         if not node :
             return
