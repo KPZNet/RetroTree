@@ -72,7 +72,12 @@ class TimeLine :
             timeSlot.bst = self.build_tree_up_to_time ( timeSlot.time )
 
     def UpdateTree(self, timeSlot) :
-        self.BST_TimeSlots.insert ( timeSlot.time, payload=timeSlot )
+        nd = self.BST_TimeSlots.search(timeSlot.time)
+        if nd is None:
+            self.BST_TimeSlots.insert ( timeSlot.time, payload=timeSlot )
+        else:
+            nd.instructions = (nd.instructions + timeSlot.instructions)
+
         self.BST_TimeSlots.rebalance ()
 
         timeSlot.bst = self.build_tree_up_to_time ( timeSlot.time, balance=True )

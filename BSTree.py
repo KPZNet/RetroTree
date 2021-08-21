@@ -211,7 +211,7 @@ class BSTree :
     def search(self, key) :
         def __search(node, key) :
             if node == None :
-                return False
+                return None
 
             elif node.key == key :
                 return node.payload
