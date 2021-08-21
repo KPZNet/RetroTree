@@ -97,3 +97,4 @@ class TimeLine :
             print ( "Time: {0}".format ( ts.payload.time ) )
             for inst in ts.payload.instructions :
                 print ( "\t" + str ( inst ) )
+
