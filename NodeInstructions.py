@@ -71,7 +71,7 @@ class TimeLine :
         for timeSlot in timeSlots :
             timeSlot.bst = self.build_tree_up_to_time ( timeSlot.time )
 
-    def Add_TimeSlot(self, timeSlot) :
+    def UpdateTree(self, timeSlot) :
         self.BST_TimeSlots.insert ( timeSlot.time, payload=timeSlot )
         self.BST_TimeSlots.rebalance ()
 
