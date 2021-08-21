@@ -64,6 +64,14 @@ il = TimeSlot_Instructions ( 5 )
 il.addInstruction ( Instruction ( "del", 15 ) )
 tl.UpdateTree ( il )
 
+il = TimeSlot_Instructions ( 10 )
+il.addInstruction ( Instruction ( "add", 15 ) )
+tl.UpdateTree ( il )
+
+il = TimeSlot_Instructions ( 24 )
+il.addInstruction ( Instruction ( "del", 15 ) )
+tl.UpdateTree ( il )
+
 bt = tl.build_complete_tree ( keeptree=False, balance=False )
 bt.rebalance ()
 print ( "\n" )
