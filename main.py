@@ -111,8 +111,8 @@ exit(0)
 
 nds = tl.gettimeline ()
 for time in nds :
-    print ( "Time slot {0}".format ( time.payload.time ) )
-    time.payload.bst.print_tree ()
+    print ( "Time slot {0}".format ( time.time ) )
+    time.bst.print_tree ()
     print ( "\n" )
 
 tl.BST_TimeSlots.print_tree ()

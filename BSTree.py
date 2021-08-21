@@ -168,7 +168,7 @@ class BSTree :
 
         d = []
         __inorder ( self.root, d )
-        return d
+        return [i.payload for i in d]
 
     def inorderLessThanEqual(self, kValue) :
         def __inorderLessThanEqual(node, d, kValue) :

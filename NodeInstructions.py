@@ -73,7 +73,7 @@ class TimeLine :
 
     def Pred(self, x, time):
         key = self.BST_TimeSlots.findMaxforN(time)
-        if key is not -1:
+        if key != -1:
             tr = self.BST_TimeSlots.search(key)
             pl = tr.bst.search(x)
             return pl
@@ -97,7 +97,7 @@ class TimeLine :
         bst = BSTree ()
         nds = self.BST_TimeSlots.inorder ()
         for inst in nds :
-            self.Replay_TimeSlot_Instructions ( bst, inst.payload.instructions )
+            self.Replay_TimeSlot_Instructions ( bst, inst.instructions )
         if balance :
             bst.rebalance ()
         if keeptree :
@@ -108,7 +108,7 @@ class TimeLine :
     def printTimeLine(self) :
         nds = self.gettimeline ()
         for ts in nds :
-            print ( "Time: {0}".format ( ts.payload.time ) )
-            for inst in ts.payload.instructions :
+            print ( "Time: {0}".format ( ts.time ) )
+            for inst in ts.instructions :
                 print ( "\t" + str ( inst ) )
 
