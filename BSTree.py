@@ -128,7 +128,8 @@ class BSTree :
             zipped_lines = zip ( left, right )
             lines = [first_line, second_line] + [a + u * ' ' + b for a, b in zipped_lines]
             return lines, n + m + u, max ( p, q ) + 2, n + u // 2
-
+        if self.root is None:
+            return
         lines, *_ = display ( self.root, val, left, right )
         for line in lines :
             print ( line )

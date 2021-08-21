@@ -1,6 +1,8 @@
 from NodeInstructions import Instruction
 from NodeInstructions import TimeLine
 from NodeInstructions import TimeSlot_Instructions
+from BSTree import BSTree
+
 
 tl = TimeLine ()
 
@@ -10,7 +12,7 @@ il.addInstruction ( Instruction ( "add", 15 ) )
 il.addInstruction ( Instruction ( "add", 16 ) )
 tl.Add_TimeSlot ( il )
 
-il = TimeSlot_Instructions ( 5 )
+il = TimeSlot_Instructions ( 7 )
 il.addInstruction ( Instruction ( "add", 1 ) )
 il.addInstruction ( Instruction ( "add", 17 ) )
 il.addInstruction ( Instruction ( "add", 2 ) )
@@ -31,7 +33,6 @@ tl.Add_TimeSlot ( il )
 il = TimeSlot_Instructions ( 20 )
 il.addInstruction ( Instruction ( "add", 8 ) )
 il.addInstruction ( Instruction ( "add", 14 ) )
-il.addInstruction ( Instruction ( "del", 15 ) )
 il.addInstruction ( Instruction ( "add", 18 ) )
 tl.Add_TimeSlot ( il )
 
@@ -57,6 +58,10 @@ il = TimeSlot_Instructions ( 25 )
 il.addInstruction ( Instruction ( "add", 20, "Viggo" ) )
 il.addInstruction ( Instruction ( "add", 21 ) )
 il.addInstruction ( Instruction ( "add", 332 ) )
+tl.Add_TimeSlot ( il )
+
+il = TimeSlot_Instructions ( 5 )
+il.addInstruction ( Instruction ( "del", 15 ) )
 tl.Add_TimeSlot ( il )
 
 bt = tl.build_complete_tree ( keeptree=False, balance=False )
