@@ -245,3 +245,20 @@ class BSTree :
                 return __findMaxforN ( root.left, N )
         return __findMaxforN(self.root, key)
 
+    def getsmallestkey(self):
+        def get_smallest(root) :
+            if root != None :
+                temp = root
+                while temp.left != None :
+                    temp = temp.left
+                return temp.key
+        return get_smallest(self.root)
+
+    def getlargestkey(self):
+        def get_largest(root) :
+            if root != None :
+                temp = root
+                while temp.right != None :
+                    temp = temp.right
+                return temp.key
+        return get_largest(self.root)

@@ -105,6 +105,9 @@ print ( "\n" )
 bt.print_tree ()
 print ( "\n" )
 
+print( bt.getlargestkey() )
+print( bt.getsmallestkey() )
+
 val = tl.Pred(6, time=33)
 print("Value found at time is {0}".format(val))
 exit(0)
