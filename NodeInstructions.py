@@ -71,6 +71,15 @@ class TimeLine :
         for timeSlot in timeSlots :
             timeSlot.bst = self.build_tree_up_to_time ( timeSlot.time )
 
+    def Pred(self, x, time):
+        key = self.BST_TimeSlots.findMaxforN(time)
+        if key is not -1:
+            tr = self.BST_TimeSlots.search(key)
+            pl = tr.bst.search(x)
+            return pl
+        return None
+
+
     def UpdateTree(self, timeSlot) :
         nd = self.BST_TimeSlots.search(timeSlot.time)
         if nd is None:

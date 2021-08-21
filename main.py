@@ -94,6 +94,7 @@ il.addInstruction ( Instruction ( "del", 14 ) )
 il.addInstruction ( Instruction ( "del", 18 ) )
 il.addInstruction ( Instruction ( "del", 9 ) )
 il.addInstruction ( Instruction ( "add", 271 ) )
+il.addInstruction ( Instruction ( "add", 6 ) )
 il.addInstruction ( Instruction ( "del", 287 ) )
 tl.UpdateTree ( il )
 
@@ -103,6 +104,10 @@ bt.rebalance ()
 print ( "\n" )
 bt.print_tree ()
 print ( "\n" )
+
+val = tl.Pred(6, time=33)
+print("Value found at time is {0}".format(val))
+exit(0)
 
 nds = tl.gettimeline ()
 for time in nds :
