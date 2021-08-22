@@ -35,6 +35,7 @@ time = 12
 key = 158
 val = tl.Pred(158, time=time)
 print("Searching for: {0} at time: {1} FOUND: {2}".format(key, time, val))
+PL()
 
 nds = tl.gettimeline ()
 for time in nds:

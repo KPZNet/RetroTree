@@ -72,13 +72,13 @@ class TimeLine:
             tbst.rebalance ()
         return tbst
 
-    def build_all_trees_after_time(self, time, balance="True"):
+    def build_all_trees_after_time(self, time):
         timeSlots = self.get_time_slots_after_time (time)
         for timeSlot in timeSlots:
             timeSlot.bst = self.build_tree_up_to_time (timeSlot.time)
 
     def Pred(self, x, time):
-        key = self.BST_TimeSlots.findMaxforN(time)
+        key = self.BST_TimeSlots.get_key_for_time(time)
         if key != -1:
             tr = self.BST_TimeSlots.search(key)
             pl = tr.bst.search(x)
@@ -86,7 +86,7 @@ class TimeLine:
         return None
 
     def get_tree_for_time(self, time):
-        key = self.BST_TimeSlots.findMaxforN(time)
+        key = self.BST_TimeSlots.get_key_for_time(time)
         if key != -1:
             tr = self.BST_TimeSlots.search(key)
             pl = tr.bst

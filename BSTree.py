@@ -246,7 +246,7 @@ class BSTree:
 
         return __search (self.root, key)
 
-    def findMaxforN(self, key):
+    def get_key_for_time(self, key):
 
         def __findMaxforN(root, N):
             # Base cases

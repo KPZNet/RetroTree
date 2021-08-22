@@ -367,3 +367,6 @@ env
 venv
 .idea
 *.code-workspace
+.project
+.pydevproject
+
