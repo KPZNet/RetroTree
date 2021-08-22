@@ -1,7 +1,7 @@
 from NodeInstructions import Instruction
 from NodeInstructions import TimeLine
 from NodeInstructions import TimeSlot_Instructions
-from BSTree import BSTree
+
 
 def PL(l = 1):
     for i in range(l):
