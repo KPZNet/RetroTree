@@ -3,8 +3,9 @@ from NodeInstructions import TimeLine
 from NodeInstructions import TimeSlot_Instructions
 from BSTree import BSTree
 
-def PL():
-    print("\n")
+def PL(l = 1):
+    for i in l:
+        print("\n")
 
 
 tl = TimeLine ()
