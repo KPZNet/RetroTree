@@ -53,7 +53,6 @@ class TimeLine:
     def __sf(self, e):
         return e.time
 
-
     def rollback_to_time(self, bst, time):
         #get all time slots greater than time
         tsAfter = self.get_time_slots_after_time(time)
@@ -61,8 +60,6 @@ class TimeLine:
         for tslot in tsAfter:
             bst = self.Unplay_TimeSlot_Instructions(bst, tslot.instructions)
         return bst
-
-
 
     def get_time_slots_up_to_time(self, time):
         return self.BST_TimeSlots.inorderLessThanEqual (time)
@@ -79,19 +76,17 @@ class TimeLine:
         for time in time_slots:
             self.Replay_TimeSlot_Instructions (tbst, time.instructions)
 
-        tbst.rebalance ()
         return tbst
 
-    def build_tree_after_time(self, time, balance="True"):
+    def build_tree_after_time(self, time):
         tbst = BSTree ()
         time_slots = self.BST_TimeSlots.inorderGreaterThan (time)
         for time in time_slots:
             self.Replay_TimeSlot_Instructions (tbst, time.instructions)
-        if balance:
-            tbst.rebalance ()
+
         return tbst
 
-    def build_all_trees_after_time(self, time):
+    def update_all_trees_after_time(self, time):
         timeSlots = self.get_time_slots_after_time (time)
         for timeSlot in timeSlots:
             timeSlot.bst = self.build_tree_up_to_time (timeSlot.time)
@@ -119,10 +114,8 @@ class TimeLine:
         else:
             nd.instructions = (nd.instructions + timeSlot.instructions)
 
-        self.BST_TimeSlots.rebalance ()
-
         timeSlot.bst = self.build_tree_up_to_time (timeSlot.time)
-        self.build_all_trees_after_time (timeSlot.time)
+        self.update_all_trees_after_time (timeSlot.time)
 
     def build_complete_tree(self):
         # Inorder BST builder
@@ -131,8 +124,13 @@ class TimeLine:
         for inst in nds:
             self.Replay_TimeSlot_Instructions (bst, inst.instructions)
 
-        bst.rebalance ()
         return bst
+
+    def getlatesttree(self):
+       b = self.BST_TimeSlots.get_latest_node_payload()
+       if b != None:
+           return b.bst
+       return None
 
     def printTimeLine(self):
         nds = self.gettimeline ()
@@ -141,9 +139,5 @@ class TimeLine:
             for inst in ts.instructions:
                 print ("\t" + str (inst))
 
-    def getlatesttree(self):
-       b = self.BST_TimeSlots.getlargestpayload()
-       if b != None:
-           return b.bst
-       return None
+
 
