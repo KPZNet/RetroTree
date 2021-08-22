@@ -28,19 +28,14 @@ il.addInstruction (Instruction ("add", 67))
 il.addInstruction (Instruction ("add", 34))
 tl.UpdateTree (il)
 
-bt = tl.build_complete_tree ()
-bt.rebalance ()
-print ("\nComplete TREE")
-bt.print_tree ()
-print ("\n")
 
 latestTree = tl.getlatesttree()
 print("Latest TREE")
 latestTree.print_tree()
 PL()
 
-print("Largest Key:{0}".format(bt.getlargestkey()))
-print("Largest Key:{0}".format(bt.getsmallestkey()))
+print("Largest Key:{0}".format(latestTree.getlargestkey()))
+print("Largest Key:{0}".format(latestTree.getsmallestkey()))
 
 time = 12
 key = 158
@@ -55,10 +50,10 @@ for time in nds:
     print ("\n")
 
 tback = 10
-bt_copy = bt.copyme()
+bt_copy = latestTree.copyme()
 bt_copy.print_tree("FULL Copy")
 bRetro = tl.rollback_to_time(bt_copy, tback)
-bRetro.rebalance()
+
 bRetro.print_tree ("\nRetro 10")
 print ("\n")
 

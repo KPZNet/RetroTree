@@ -304,7 +304,7 @@ class BSTree:
 
         return get_largest(self.root)
 
-    def getlargestpayload(self):
+    def get_latest_node_payload(self):
         k = self.getlargestkey()
         if k != None:
             return self.search(k)
