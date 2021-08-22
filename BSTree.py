@@ -23,8 +23,14 @@ class BSTree:
         if _root != None:
             self.root = _root
 
-    def insert(self, key, payload=None):
+    def copyme(self):
+        bst = BSTree()
+        nds = self.preOrder()
+        for n in nds:
+            bst.insert(n.key, n.payload)
+        return bst
 
+    def insert(self, key, payload=None):
         def __insert(node, key, payload=None):
 
             if node is None:
@@ -41,6 +47,7 @@ class BSTree:
 
         self.root = __insert (self.root, key, payload)
         return self.root
+
 
     def get_min_value_node(self, node):
         current = node
@@ -94,7 +101,7 @@ class BSTree:
 
         self._BSTree__print2DUtil (root.left, space)
 
-    def print_tree(self, val="key", left="left", right="right"):
+    def print_tree(self, title="BST", val="key", left="left", right="right"):
 
         def display(root, val=val, left=left, right=right):
             if getattr (root, right) is None and getattr (root, left) is None:
@@ -139,6 +146,7 @@ class BSTree:
         if self.root is None:
             return
         lines, *_ = display (self.root, val, left, right)
+        print(title)
         for line in lines:
             print (line)
 

@@ -4,7 +4,7 @@ from NodeInstructions import TimeSlot_Instructions
 from BSTree import BSTree
 
 def PL(l = 1):
-    for i in l:
+    for i in range(l):
         print("\n")
 
 
@@ -37,6 +37,7 @@ print ("\n")
 latestTree = tl.getlatesttree()
 print("Latest TREE")
 latestTree.print_tree()
+PL()
 
 print("Largest Key:{0}".format(bt.getlargestkey()))
 print("Largest Key:{0}".format(bt.getsmallestkey()))
@@ -52,6 +53,14 @@ for time in nds:
     print ("Time slot {0}".format (time.time))
     time.bst.print_tree ()
     print ("\n")
+
+tback = 10
+bt_copy = bt.copyme()
+bt_copy.print_tree("FULL Copy")
+bRetro = tl.rollback_to_time(bt_copy, tback)
+bRetro.rebalance()
+bRetro.print_tree ("\nRetro 10")
+print ("\n")
 
 
 print("Timeline: \n")

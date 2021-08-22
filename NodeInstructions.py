@@ -42,8 +42,26 @@ class TimeLine:
                 bst.deleteNode (inst.key)
         return bst
 
+    def Unplay_TimeSlot_Instructions(self, bst, instructions):
+        for inst in instructions:
+            if inst.instructionCode == "add":
+                bst.deleteNode (inst.key)
+            if inst.instructionCode == "del":
+                bst.insert (inst.key, inst.payload)
+        return bst
+
     def __sf(self, e):
         return e.time
+
+
+    def rollback_to_time(self, bst, time):
+        #get all time slots greater than time
+        tsAfter = self.get_time_slots_after_time(time)
+        tsAfter.reverse()
+        for tslot in tsAfter:
+            bst = self.Unplay_TimeSlot_Instructions(bst, tslot.instructions)
+        return bst
+
 
 
     def get_time_slots_up_to_time(self, time):
