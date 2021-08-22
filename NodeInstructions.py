@@ -122,3 +122,9 @@ class TimeLine:
             for inst in ts.instructions:
                 print ("\t" + str (inst))
 
+    def getlatesttree(self):
+       b = self.BST_TimeSlots.getlargestpayload()
+       if b != None:
+           return b.bst
+       return None
+

@@ -16,6 +16,9 @@ class BSTNode:
 class BSTree:
     root = None
 
+    def __str__(self):
+        return self.print_tree()
+
     def __init__(self, _root=None):
         if _root != None:
             self.root = _root
@@ -292,3 +295,9 @@ class BSTree:
                 return temp.key
 
         return get_largest(self.root)
+
+    def getlargestpayload(self):
+        k = self.getlargestkey()
+        if k != None:
+            return self.search(k)
+        return None
