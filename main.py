@@ -52,6 +52,6 @@ for time in nds:
     time.bst.print_tree ()
     print ("\n")
 
-tl.BST_TimeSlots.print_tree ()
-print("\n")
+
+print("Timeline: \n")
 tl.printTimeLine ()
