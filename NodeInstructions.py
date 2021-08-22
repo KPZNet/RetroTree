@@ -44,6 +44,7 @@ class TimeLine:
 
     def __sf(self, e):
         return e.time
+        
 
     def get_time_slots_up_to_time(self, time):
         return self.BST_TimeSlots.inorderLessThanEqual (time)
