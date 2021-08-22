@@ -21,7 +21,7 @@ il.addInstruction (Instruction ("add", 158))
 il.addInstruction (Instruction ("add", 168))
 tl.UpdateTree (il)
 
-bt = tl.build_complete_tree (keeptree=False, balance=False)
+bt = tl.build_complete_tree ()
 bt.rebalance ()
 print ("\nCOMPLETE TREE")
 bt.print_tree ()
