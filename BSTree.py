@@ -184,6 +184,18 @@ class BSTree :
         __inorderLessThanEqual ( self.root, d, kValue )
         return [i.payload for i in d]
 
+    def inorderGreaterThanEqual(self, kValue) :
+        def __inorderGreaterThan(node, d, kValue) :
+            if node is not None :
+                __inorderGreaterThan ( node.left, d, kValue )
+                if node.key >= kValue :
+                    d.append ( node )
+                __inorderGreaterThan ( node.right, d, kValue )
+
+        d = []
+        __inorderGreaterThan ( self.root, d, kValue )
+        return [i.payload for i in d]
+
     def inorderGreaterThan(self, kValue) :
         def __inorderGreaterThan(node, d, kValue) :
             if node is not None :

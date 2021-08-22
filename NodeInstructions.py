@@ -45,6 +45,9 @@ class TimeLine :
     def get_time_slots_up_to_time(self, time) :
         return self.BST_TimeSlots.inorderLessThanEqual ( time )
 
+    def get_time_slots_greater_equal_to_time(self, time) :
+        return self.BST_TimeSlots.inorderGreaterThanEqual ( time )
+
     def get_time_slots_after_time(self, time) :
         return self.BST_TimeSlots.inorderGreaterThan ( time )
 
@@ -79,6 +82,13 @@ class TimeLine :
             return pl
         return None
 
+    def get_tree_for_time(self, time):
+        key = self.BST_TimeSlots.findMaxforN(time)
+        if key != -1:
+            tr = self.BST_TimeSlots.search(key)
+            pl = tr.bst
+            return pl
+        return None
 
     def UpdateTree(self, timeSlot) :
         nd = self.BST_TimeSlots.search(timeSlot.time)
