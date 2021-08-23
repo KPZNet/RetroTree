@@ -34,7 +34,7 @@ class TimeLine:
     def gettimeline(self):
         return self.BST_TimeSlots.inorder ()
 
-    def Replay_TimeSlot_Instructions(self, bst, instructions):
+    def play_instructions_on_tree(self, bst, instructions):
         for inst in instructions:
             if inst.instructionCode == "add":
                 bst.insert (inst.key, inst.payload)
@@ -42,7 +42,7 @@ class TimeLine:
                 bst.deleteNode (inst.key)
         return bst
 
-    def Unplay_TimeSlot_Instructions(self, bst, instructions):
+    def unplay_instructions_on_tree(self, bst, instructions):
         for inst in instructions:
             if inst.instructionCode == "add":
                 bst.deleteNode (inst.key)
@@ -53,43 +53,43 @@ class TimeLine:
     def __sf(self, e):
         return e.time
 
-    def rollback_to_time(self, bst, time):
+    def rollback_tree_to_time(self, bst, time):
         #get all time slots greater than time
-        tsAfter = self.get_time_slots_after_time(time)
+        tsAfter = self.get_time_slots_greater_than_time(time)
         tsAfter.reverse()
         for tslot in tsAfter:
-            bst = self.Unplay_TimeSlot_Instructions(bst, tslot.instructions)
+            bst = self.unplay_instructions_on_tree(bst, tslot.instructions)
         return bst
 
-    def get_time_slots_up_to_time(self, time):
+    def get_time_slots_less_than_equal_to_time(self, time):
         return self.BST_TimeSlots.inorderLessThanEqual (time)
 
-    def get_time_slots_greater_equal_to_time(self, time):
+    def get_time_slots_greater_than_equal_to_time(self, time):
         return self.BST_TimeSlots.inorderGreaterThanEqual (time)
 
-    def get_time_slots_after_time(self, time):
+    def get_time_slots_greater_than_time(self, time):
         return self.BST_TimeSlots.inorderGreaterThan (time)
 
-    def build_tree_up_to_time(self, time):
+    def build_tree_less_than_equal_to_time(self, time):
         tbst = BSTree ()
-        time_slots = self.get_time_slots_up_to_time (time)
+        time_slots = self.get_time_slots_less_than_equal_to_time (time)
         for time in time_slots:
-            self.Replay_TimeSlot_Instructions (tbst, time.instructions)
+            self.play_instructions_on_tree (tbst, time.instructions)
 
         return tbst
 
-    def build_tree_after_time(self, time):
+    def build_tree_greater_than_time(self, time):
         tbst = BSTree ()
         time_slots = self.BST_TimeSlots.inorderGreaterThan (time)
         for time in time_slots:
-            self.Replay_TimeSlot_Instructions (tbst, time.instructions)
+            self.play_instructions_on_tree (tbst, time.instructions)
 
         return tbst
 
-    def update_all_trees_after_time(self, time):
-        timeSlots = self.get_time_slots_after_time (time)
+    def update_all_time_slot_tree_greater_than_time(self, time):
+        timeSlots = self.get_time_slots_greater_than_time (time)
         for timeSlot in timeSlots:
-            timeSlot.bst = self.build_tree_up_to_time (timeSlot.time)
+            timeSlot.bst = self.build_tree_less_than_equal_to_time (timeSlot.time)
 
     def Pred(self, x, time):
         key = self.BST_TimeSlots.get_key_for_time(time)
@@ -107,32 +107,32 @@ class TimeLine:
             return pl
         return None
 
-    def UpdateTree(self, timeSlot):
+    def update_tree(self, timeSlot):
         nd = self.BST_TimeSlots.search(timeSlot.time)
         if nd is None:
             self.BST_TimeSlots.insert (timeSlot.time, payload=timeSlot)
         else:
             nd.instructions = (nd.instructions + timeSlot.instructions)
 
-        timeSlot.bst = self.build_tree_up_to_time (timeSlot.time)
-        self.update_all_trees_after_time (timeSlot.time)
+        timeSlot.bst = self.build_tree_less_than_equal_to_time (timeSlot.time)
+        self.update_all_time_slot_tree_greater_than_time (timeSlot.time)
 
-    def build_complete_tree(self):
+    def build_latest_tree(self):
         # Inorder BST builder
         bst = BSTree ()
         nds = self.BST_TimeSlots.inorder ()
         for inst in nds:
-            self.Replay_TimeSlot_Instructions (bst, inst.instructions)
+            self.play_instructions_on_tree (bst, inst.instructions)
 
         return bst
 
-    def getlatesttree(self):
+    def get_latest_time_slot_tree(self):
        b = self.BST_TimeSlots.get_latest_node_payload()
        if b != None:
            return b.bst
        return None
 
-    def printTimeLine(self):
+    def print_complete_time_history(self):
         nds = self.gettimeline ()
         for ts in nds:
             print ("Time: {0}".format (ts.time))
@@ -141,3 +141,10 @@ class TimeLine:
 
 
 
+class PartialRetroTree (TimeLine):
+    def __init__(self):
+        self.BST_TimeSlots = BSTree ()
+
+class FullRetroTree (TimeLine):
+    def __init__(self):
+        self.BST_TimeSlots = BSTree ()
