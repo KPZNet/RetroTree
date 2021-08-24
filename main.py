@@ -3,9 +3,8 @@ from NodeInstructions import TimeLine
 from NodeInstructions import TimeSlot_Instructions
 
 
-def PL(l = 1):
-    for i in range(l):
-        print("\n")
+def PL():
+    print("\n")
 
 
 tl = TimeLine ()
