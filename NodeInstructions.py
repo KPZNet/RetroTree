@@ -118,7 +118,6 @@ class TimeLine:
         self.update_all_time_slot_tree_greater_than_time (timeSlot.time)
 
     def build_latest_tree(self):
-        # Inorder BST builder
         bst = BSTree ()
         nds = self.BST_TimeSlots.inorder ()
         for inst in nds:
@@ -127,10 +126,10 @@ class TimeLine:
         return bst
 
     def get_latest_time_slot_tree(self):
-       b = self.BST_TimeSlots.get_latest_node_payload()
-       if b != None:
-           return b.bst
-       return None
+        b = self.BST_TimeSlots.get_latest_node_payload()
+        if b != None:
+            return b.bst
+        return None
 
     def print_complete_time_history(self):
         nds = self.gettimeline ()
@@ -145,6 +144,6 @@ class PartialRetroTree (TimeLine):
     def __init__(self):
         self.BST_TimeSlots = BSTree ()
 
-class FullRetroTree (TimeLine):
+class FullRetroTree (PartialRetroTree):
     def __init__(self):
         self.BST_TimeSlots = BSTree ()
