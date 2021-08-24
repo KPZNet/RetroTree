@@ -53,6 +53,5 @@ tl.update_tree (il)
 tl.print_current_tree()
 
 
-
 print("Timeline: \n")
 tl.print_complete_time_history ()
