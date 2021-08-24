@@ -48,10 +48,10 @@ tl.print_current_tree()
 
 il = TimeSlot_Instructions (12)
 il.addInstruction (Instruction ("add", 200))
+il.addInstruction (Instruction ("del", 11))
 il.addInstruction (Instruction ("add", 120))
 tl.update_tree (il)
 tl.print_current_tree()
-
 
 print("Timeline: \n")
 tl.print_complete_time_history ()
