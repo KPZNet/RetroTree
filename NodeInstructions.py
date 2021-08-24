@@ -116,7 +116,6 @@ class TimeLine:
             return pl
         return None
 
-
     def get_latest_time_slot_tree(self):
         b = self.BST_TimeSlots.get_latest_node_payload()
         if b != None:
@@ -176,7 +175,11 @@ class FullRetroTree (PartialRetroTree):
     
     def __init__(self):
         super().__init__()
-
+        
+    def print_current_tree(self):
+        t = self.BST_TimeSlots.get_latest_node_payload()()
+        t.bst.print_tree("Latest Tree time:{0}".format(t.time))
+        
     def Pred(self, x, time):
         key = self.BST_TimeSlots.get_key_for_time(time)
         if key != -1:
@@ -185,8 +188,6 @@ class FullRetroTree (PartialRetroTree):
             return pl
         return None
     
-
-        
     def update_tree(self, timeSlot):
         nd = self.BST_TimeSlots.search(timeSlot.time)
         if nd is None:
