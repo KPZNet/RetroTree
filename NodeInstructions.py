@@ -52,7 +52,14 @@ class TimeLine:
 
     def __sf(self, e):
         return e.time
+    
+    def replay_instructions_in_tree_greater_than_equal_to_time(self, tbst, time):
+        time_slots = self.get_time_slots_greater_than_equal_to_time(time)
+        for time in time_slots:
+            self.play_instructions_on_tree (tbst, time.instructions)
 
+        return tbst   
+    
     def rollback_tree_to_time(self, bst, time):
         #get all time slots greater than time
         tsAfter = self.get_time_slots_greater_than_equal_to_time(time)
@@ -120,14 +127,7 @@ class PartialRetroTree (TimeLine):
         t = self.BST_TimeSlots.getlargestkey()
         self.current_tree.print_tree("Latest Tree time:{0}".format(t))      
     
-    def replay_instructions_in_tree_greater_than_equal_to_time(self, tbst, time):
-        time_slots = self.get_time_slots_greater_than_equal_to_time(time)
-        for time in time_slots:
-            self.play_instructions_on_tree (tbst, time.instructions)
-
-        return tbst   
-
-    def update_tree(self, timeSlot):
+    def update_tree_rollback(self, timeSlot):
         rolled_back_tree = self.rollback_tree_to_time(self.current_tree, timeSlot.time)
         rolled_back_tree.print_tree("Rollbacked Tree to time:{0}".format(timeSlot.time))
         
@@ -138,6 +138,16 @@ class PartialRetroTree (TimeLine):
             nd.instructions = (nd.instructions + timeSlot.instructions)
 
         self.current_tree = self.replay_instructions_in_tree_greater_than_equal_to_time(rolled_back_tree, timeSlot.time)
+
+    def update_tree(self, timeSlot):        
+        nd = self.BST_TimeSlots.search(timeSlot.time)
+        if nd is None:
+            self.BST_TimeSlots.insert (timeSlot.time, payload=timeSlot)
+        else:
+            nd.instructions = (nd.instructions + timeSlot.instructions)
+
+        self.current_tree = self.build_latest_tree()
+
         
     def Pred(self, x):
         return self.current_tree.search(x)
@@ -162,10 +172,10 @@ class FullRetroTree (PartialRetroTree):
     def update_all_time_slot_tree_greater_than_time(self, time):
         timeSlots = self.get_time_slots_greater_than_time (time)
         for timeSlot in timeSlots:
-            timeSlot.bst = self.build_tree_less_than_equal_to_time (timeSlot.time)
+            timeSlot.bst = self.build_tree_from_less_than_equal_to_time (timeSlot.time)
 
 
-    def build_tree_less_than_equal_to_time(self, time):
+    def build_tree_from_less_than_equal_to_time(self, time):
         tbst = BSTree ()
         time_slots = self.get_time_slots_less_than_equal_to_time (time)
         for time in time_slots:
@@ -180,5 +190,8 @@ class FullRetroTree (PartialRetroTree):
         else:
             nd.instructions = (nd.instructions + timeSlot.instructions)
     
-        timeSlot.bst = self.build_tree_less_than_equal_to_time (timeSlot.time)
+        timeSlot.bst = self.build_tree_from_less_than_equal_to_time (timeSlot.time)
         self.update_all_time_slot_tree_greater_than_time (timeSlot.time)
+        
+        
+        
