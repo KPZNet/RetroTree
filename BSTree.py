@@ -31,6 +31,7 @@ class BSTree:
         return bst
 
     def insert(self, key, payload=None):
+
         def __insert(node, key, payload=None):
 
             if node is None:
@@ -47,7 +48,6 @@ class BSTree:
 
         self.root = __insert (self.root, key, payload)
         return self.root
-
 
     def get_min_value_node(self, node):
         current = node
@@ -177,6 +177,7 @@ class BSTree:
         self.root = buildTreeUtil (nodes, 0, n - 1)
 
     def inorder(self):
+
         def __inorder(node, d):
             if node is not None:
                 __inorder (node.left, d)
@@ -188,6 +189,7 @@ class BSTree:
         return [i.payload for i in d]
 
     def inorderLessThanEqual(self, kValue):
+
         def __inorderLessThanEqual(node, d, kValue):
             if node is not None:
                 __inorderLessThanEqual (node.left, d, kValue)
@@ -202,6 +204,7 @@ class BSTree:
         return [i.payload for i in d]
 
     def inorderGreaterThanEqual(self, kValue):
+
         def __inorderGreaterThan(node, d, kValue):
             if node is not None:
                 __inorderGreaterThan (node.left, d, kValue)
@@ -214,6 +217,7 @@ class BSTree:
         return [i.payload for i in d]
 
     def inorderGreaterThan(self, kValue):
+
         def __inorderGreaterThan(node, d, kValue):
             if node is not None:
                 __inorderGreaterThan (node.left, d, kValue)
@@ -226,6 +230,7 @@ class BSTree:
         return [i.payload for i in d]
 
     def preOrder(self):
+
         def __preOrder(node, d):
             if not node:
                 return
@@ -238,6 +243,7 @@ class BSTree:
         return d
 
     def search(self, key):
+
         def __search(node, key):
             if node == None:
                 return None
@@ -252,6 +258,7 @@ class BSTree:
         return __search (self.root, key)
 
     def get_key_for_time(self, key):
+
         def __findMaxforN(root, N):
             # Base cases
             if root == None:
@@ -276,6 +283,7 @@ class BSTree:
         return __findMaxforN(self.root, key)
 
     def getsmallestkey(self):
+
         def get_smallest(root):
             if root != None:
                 temp = root
@@ -286,6 +294,7 @@ class BSTree:
         return get_smallest(self.root)
 
     def getlargestkey(self):
+
         def get_largest(root):
             if root != None:
                 temp = root
