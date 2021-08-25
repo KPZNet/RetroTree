@@ -53,5 +53,8 @@ il.addInstruction (Instruction ("add", 120))
 tl.update_tree (il)
 tl.print_current_tree()
 
+latest = tl.get_latest_tree()
+latest.print_tree("FINAL TREE")
+
 print("Timeline: \n")
 tl.print_complete_time_history ()
