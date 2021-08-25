@@ -49,9 +49,6 @@ class TimeLine:
             if inst.instructionCode == "del":
                 bst.insert (inst.key, inst.payload)
         return bst
-
-    def __sf(self, e):
-        return e.time
     
     def replay_instructions_in_tree_greater_than_equal_to_time(self, tbst, time):
         time_slots = self.get_time_slots_greater_than_equal_to_time(time)
@@ -76,7 +73,14 @@ class TimeLine:
 
     def get_time_slots_greater_than_time(self, time):
         return self.BST_TimeSlots.inorderGreaterThan (time)
-    
+
+    def build_tree_from_less_than_equal_to_time(self, time):
+        tbst = BSTree ()
+        time_slots = self.get_time_slots_less_than_equal_to_time (time)
+        for time in time_slots:
+            self.play_instructions_on_tree (tbst, time.instructions)
+
+        return tbst    
     
     def build_tree_greater_than_equal_to_time(self, time):
         tbst = BSTree ()
@@ -174,14 +178,6 @@ class FullRetroTree (PartialRetroTree):
         for timeSlot in timeSlots:
             timeSlot.bst = self.build_tree_from_less_than_equal_to_time (timeSlot.time)
 
-
-    def build_tree_from_less_than_equal_to_time(self, time):
-        tbst = BSTree ()
-        time_slots = self.get_time_slots_less_than_equal_to_time (time)
-        for time in time_slots:
-            self.play_instructions_on_tree (tbst, time.instructions)
-
-        return tbst
         
     def update_tree(self, timeSlot):
         nd = self.BST_TimeSlots.search(timeSlot.time)
