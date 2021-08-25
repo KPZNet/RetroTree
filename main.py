@@ -8,23 +8,38 @@ tl = FullRetroTree ()
 #tl = PartialRetroTree()
 
 il = TimeSlot_Instructions (5)
-il.addInstruction (Instruction ("add", 4))
-il.addInstruction (Instruction ("add", 15))
-il.addInstruction (Instruction ("add", 16))
+il.addInstruction (Instruction ("add", 40))
+il.addInstruction (Instruction ("add", 150))
+il.addInstruction (Instruction ("add", 160))
 tl.update_tree (il)
 tl.print_current_tree()
 
 il = TimeSlot_Instructions (10)
-il.addInstruction (Instruction ("add", 48))
-il.addInstruction (Instruction ("add", 4))
-il.addInstruction (Instruction ("add", 3))
+il.addInstruction (Instruction ("add", 39))
+il.addInstruction (Instruction ("add", 20))
+il.addInstruction (Instruction ("add", 70))
 tl.update_tree (il)
 tl.print_current_tree()
 
+il = TimeSlot_Instructions (20)
+il.addInstruction (Instruction ("add", 67))
+il.addInstruction (Instruction ("add", 26))
+il.addInstruction (Instruction ("add", 33))
+tl.update_tree (il)
+tl.print_current_tree()
+
+il = TimeSlot_Instructions (15)
+il.addInstruction (Instruction ("del", 20))
+tl.update_tree (il)
+tl.print_current_tree()
+
+
+
+
+print("------------FINAL------------\n")
 latest = tl.get_latest_tree()
 latest.print_tree("FINAL TREE")
 
-print("Timeline: \n")
+print("------------TIME LINE--------\n")
 tl.print_complete_time_history ()
 
-tl.print_timeline_trees()

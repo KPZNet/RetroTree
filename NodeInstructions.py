@@ -104,11 +104,13 @@ class TimeLine:
     def print_complete_time_history(self):
         nds = self.gettimeline ()
         for ts in nds:
+            print("-----------------------------")
             print ("Time: {0}".format (ts.time))
             for inst in ts.instructions:
                 print ("\t" + str (inst))
             if ts.bst != None:
                 ts.bst.print_tree ()
+            print ("-----------------------------" )
 
     def print_timeline_trees(self):
         tl = self.BST_TimeSlots.inorder ()
@@ -171,6 +173,7 @@ class FullRetroTree (TimeLine):
     def print_current_tree(self):
         pl = self.BST_TimeSlots.get_latest_node_payload()
         pl.bst.print_tree ("Latest Tree time:{0}".format (pl.time))
+        print ( "-----------------------------" )
 
     def Pred(self, x, time):
         key = self.BST_TimeSlots.get_key_for_time (time)
