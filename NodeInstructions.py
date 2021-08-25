@@ -120,8 +120,14 @@ class TimeLine:
             print ("Time: {0}".format (ts.time))
             for inst in ts.instructions:
                 print ("\t" + str (inst))
+            if ts.bst != None:
+                ts.bst.print_tree()
 
-
+    def print_timeline_trees(self):
+        tl = self.BST_TimeSlots.inorder()
+        for t in tl:
+            if t.bst != None:
+                t.bst.print_tree("Time:" + str(t.time))
 
 class PartialRetroTree (TimeLine):
     
@@ -177,11 +183,6 @@ class FullRetroTree (TimeLine):
     def print_current_tree(self):
         t = self.BST_TimeSlots.get_latest_node_payload()
         t.bst.print_tree("Latest Tree time:{0}".format(t.time))
-
-    def print_timeline_trees(self):
-        tl = self.BST_TimeSlots.inorder()
-        for t in tl:
-            t.bst.print_tree("Time:" + str(t.time))
         
     def Pred(self, x, time):
         key = self.BST_TimeSlots.get_key_for_time(time)

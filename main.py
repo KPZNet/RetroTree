@@ -9,6 +9,7 @@ def PL():
 
 
 tl = FullRetroTree ()
+#tl = PartialRetroTree()
 
 il = TimeSlot_Instructions (5)
 il.addInstruction (Instruction ("add", 4))
@@ -25,7 +26,7 @@ tl.update_tree (il)
 tl.print_current_tree()
 
 il = TimeSlot_Instructions (15)
-il.addInstruction (Instruction ("add", 4))
+il.addInstruction (Instruction ("add", 485))
 il.addInstruction (Instruction ("add", 1))
 il.addInstruction (Instruction ("add", 41))
 tl.update_tree (il)
