@@ -37,6 +37,9 @@ class BSTree:
             if node is None:
                 return BSTNode (key, payload)
 
+            if key == node.key:
+                return node
+
             # Otherwise recur down the tree
             if key < node.key:
                 node.left = __insert (node.left, key, payload)
