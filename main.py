@@ -34,12 +34,9 @@ tl.update_tree (il)
 tl.print_current_tree("Update Time 15: ")
 
 
-
+print("------------TIME LINE--------\n")
+tl.print_complete_time_history ()
 
 print("------------FINAL------------\n")
 latest = tl.get_latest_tree()
 latest.print_tree("FINAL TREE")
-
-print("------------TIME LINE--------\n")
-tl.print_complete_time_history ()
-
