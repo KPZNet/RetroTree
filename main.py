@@ -5,7 +5,7 @@ from NodeInstructions import TimeSlot_Instructions
 
 
 tl = FullRetroTree ()
-# tl = PartialRetroTree()
+#tl = PartialRetroTree()
 
 il = TimeSlot_Instructions (5)
 il.addInstruction (Instruction ("add", 4))
@@ -27,6 +27,7 @@ il.addInstruction (Instruction ("add", 1))
 il.addInstruction (Instruction ("add", 41))
 tl.update_tree (il)
 tl.print_current_tree()
+
 
 il = TimeSlot_Instructions (20)
 il.addInstruction (Instruction ("add", 11))
