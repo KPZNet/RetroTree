@@ -54,15 +54,7 @@ class TimeLine:
         time_slots = self.get_time_slots_greater_than_equal_to_time(time)
         for time in time_slots:
             self.play_instructions_on_tree (tbst, time.instructions)
-
-        return tbst   
-    
-    def rollup_trees_from_time(self, tbst, time):
-        time_slots = self.get_time_slots_greater_than_time(time)
-        for time in time_slots:
-            bcopy = tbst.copyme()
-            self.play_instructions_on_tree (bcopy, time.instructions)
-            time.bst = bcopy
+        return tbst
     
     def rollback_tree_to_time(self, bst, time):
         #get all time slots greater than time
@@ -86,7 +78,6 @@ class TimeLine:
         time_slots = self.get_time_slots_less_than_equal_to_time (time)
         for time in time_slots:
             self.play_instructions_on_tree (tbst, time.instructions)
-
         return tbst    
     
     def build_tree_greater_than_equal_to_time(self, time):
@@ -94,7 +85,6 @@ class TimeLine:
         time_slots = self.get_time_slots_greater_than_equal_to_time(time)
         for time in time_slots:
             self.play_instructions_on_tree (tbst, time.instructions)
-
         return tbst    
 
     def build_latest_tree(self):
@@ -102,7 +92,6 @@ class TimeLine:
         nds = self.BST_TimeSlots.inorder ()
         for inst in nds:
             self.play_instructions_on_tree (bst, inst.instructions)
-
         return bst
 
     def get_tree_for_time(self, time):
@@ -199,8 +188,6 @@ class FullRetroTree (TimeLine):
 
         
     def update_tree(self, timeSlot):
-        return self.update_tree_rollback(timeSlot)
-    
         nd = self.BST_TimeSlots.search(timeSlot.time)
         if nd is None:
             self.BST_TimeSlots.insert (timeSlot.time, payload=timeSlot)
@@ -209,20 +196,5 @@ class FullRetroTree (TimeLine):
     
         timeSlot.bst = self.build_tree_from_less_than_equal_to_time (timeSlot.time)
         self.update_all_time_slot_tree_greater_than_time (timeSlot.time)
-        
-    def update_tree_rollback(self, timeSlot):
-        latest_tree = self.get_latest_tree()
-        rolled_back_tree = self.rollback_tree_to_time(latest_tree, timeSlot.time)
-        rolled_back_tree.print_tree("Rollbacked Tree to time:{0}".format(timeSlot.time))
 
-        insts = timeSlot.instructions
-        nd = self.BST_TimeSlots.search(timeSlot.time)
-        if nd is None:
-            self.BST_TimeSlots.insert (timeSlot.time, payload=timeSlot)
-        else:
-            nd.instructions = (nd.instructions + timeSlot.instructions)
-            insts = nd.instructions
-
-        timeSlot.bst = self.play_instructions_on_tree(rolled_back_tree, insts)
-        self.rollup_trees_from_time(timeSlot.bst, timeSlot.time)        
         
