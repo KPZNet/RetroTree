@@ -8,7 +8,7 @@ def PL():
     print("\n")
 
 
-tl = PartialRetroTree ()
+tl = FullRetroTree ()
 
 il = TimeSlot_Instructions (5)
 il.addInstruction (Instruction ("add", 4))
@@ -58,3 +58,5 @@ latest.print_tree("FINAL TREE")
 
 print("Timeline: \n")
 tl.print_complete_time_history ()
+
+tl.print_timeline_trees()

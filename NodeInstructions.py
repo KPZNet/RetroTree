@@ -60,8 +60,9 @@ class TimeLine:
     def rollup_trees_from_time(self, tbst, time):
         time_slots = self.get_time_slots_greater_than_time(time)
         for time in time_slots:
-            self.play_instructions_on_tree (tbst, time.instructions)
-            time.bst = tbst  
+            bcopy = tbst.copyme()
+            self.play_instructions_on_tree (bcopy, time.instructions)
+            time.bst = bcopy
     
     def rollback_tree_to_time(self, bst, time):
         #get all time slots greater than time
@@ -176,6 +177,11 @@ class FullRetroTree (TimeLine):
     def print_current_tree(self):
         t = self.BST_TimeSlots.get_latest_node_payload()
         t.bst.print_tree("Latest Tree time:{0}".format(t.time))
+
+    def print_timeline_trees(self):
+        tl = self.BST_TimeSlots.inorder()
+        for t in tl:
+            t.bst.print_tree("Time:" + str(t.time))
         
     def Pred(self, x, time):
         key = self.BST_TimeSlots.get_key_for_time(time)
@@ -216,7 +222,6 @@ class FullRetroTree (TimeLine):
             nd.instructions = (nd.instructions + timeSlot.instructions)
             insts = nd.instructions
 
-    
         timeSlot.bst = self.play_instructions_on_tree(rolled_back_tree, insts)
         self.rollup_trees_from_time(timeSlot.bst, timeSlot.time)        
         
