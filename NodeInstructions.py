@@ -57,7 +57,6 @@ class TimeLine:
         return tbst
 
     def rollback_tree_to_time(self, bst, time):
-        # get all time slots greater than time
         tsAfter = self.get_time_slots_greater_than_equal_to_time (time)
         tsAfter.reverse ()
         for tslot in tsAfter:
@@ -170,8 +169,8 @@ class FullRetroTree (TimeLine):
         return BSTree ()
 
     def print_current_tree(self):
-        t = self.BST_TimeSlots.get_latest_node_payload ()
-        t.bst.print_tree ("Latest Tree time:{0}".format (t.time))
+        pl = self.BST_TimeSlots.get_latest_node_payload()
+        pl.bst.print_tree ("Latest Tree time:{0}".format (pl.time))
 
     def Pred(self, x, time):
         key = self.BST_TimeSlots.get_key_for_time (time)
