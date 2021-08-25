@@ -1,11 +1,7 @@
-from NodeInstructions import Instruction
-from NodeInstructions import TimeSlot_Instructions
 from NodeInstructions import FullRetroTree
+from NodeInstructions import Instruction
 from NodeInstructions import PartialRetroTree
-
-
-def PL():
-    print("\n")
+from NodeInstructions import TimeSlot_Instructions
 
 
 tl = FullRetroTree ()
