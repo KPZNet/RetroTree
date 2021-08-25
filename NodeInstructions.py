@@ -151,10 +151,8 @@ class PartialRetroTree (TimeLine):
             self.BST_TimeSlots.insert (timeSlot.time, payload=timeSlot)
         else:
             nd.instructions = (nd.instructions + timeSlot.instructions)
-
         self.current_tree = self.build_latest_tree()
 
-        
     def Pred(self, x):
         return self.current_tree.search(x)
 
@@ -186,14 +184,12 @@ class FullRetroTree (TimeLine):
         for timeSlot in timeSlots:
             timeSlot.bst = self.build_tree_from_less_than_equal_to_time (timeSlot.time)
 
-        
     def update_tree(self, timeSlot):
         nd = self.BST_TimeSlots.search(timeSlot.time)
         if nd is None:
             self.BST_TimeSlots.insert (timeSlot.time, payload=timeSlot)
         else:
             nd.instructions = (nd.instructions + timeSlot.instructions)
-    
         timeSlot.bst = self.build_tree_from_less_than_equal_to_time (timeSlot.time)
         self.update_all_time_slot_tree_greater_than_time (timeSlot.time)
 
