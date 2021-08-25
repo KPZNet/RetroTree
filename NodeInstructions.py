@@ -181,8 +181,8 @@ class FullRetroTree (TimeLine):
             return pl
         return None
 
-    def update_all_time_slot_tree_greater_than_time(self, time):
-        timeSlots = self.get_time_slots_greater_than_time (time)
+    def update_all_time_slot_tree_greater_than_equal_to_time(self, time):
+        timeSlots = self.get_time_slots_greater_than_equal_to_time(time)
         for timeSlot in timeSlots:
             timeSlot.bst = self.build_tree_from_less_than_equal_to_time (timeSlot.time)
 
@@ -192,5 +192,4 @@ class FullRetroTree (TimeLine):
             self.BST_TimeSlots.insert (timeSlot.time, payload=timeSlot)
         else:
             nd.instructions = (nd.instructions + timeSlot.instructions)
-        timeSlot.bst = self.build_tree_from_less_than_equal_to_time (timeSlot.time)
-        self.update_all_time_slot_tree_greater_than_time (timeSlot.time)
+        self.update_all_time_slot_tree_greater_than_equal_to_time (timeSlot.time)
