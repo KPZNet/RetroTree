@@ -170,9 +170,9 @@ class FullRetroTree (TimeLine):
             return b.bst
         return BSTree ()
 
-    def print_current_tree(self):
+    def print_current_tree(self, str = ""):
         pl = self.BST_TimeSlots.get_latest_node_payload()
-        pl.bst.print_tree ("Latest Tree time:{0}".format (pl.time))
+        pl.bst.print_tree (str + "Latest Tree time:{0}".format (pl.time))
         print ( "-----------------------------" )
 
     def Pred(self, x, time):

@@ -12,26 +12,26 @@ il.addInstruction (Instruction ("add", 40))
 il.addInstruction (Instruction ("add", 150))
 il.addInstruction (Instruction ("add", 160))
 tl.update_tree (il)
-tl.print_current_tree()
+tl.print_current_tree("Update at 5: ")
 
 il = TimeSlot_Instructions (10)
 il.addInstruction (Instruction ("add", 39))
 il.addInstruction (Instruction ("add", 20))
 il.addInstruction (Instruction ("add", 70))
 tl.update_tree (il)
-tl.print_current_tree()
+tl.print_current_tree("Update Time 10: ")
 
 il = TimeSlot_Instructions (20)
 il.addInstruction (Instruction ("add", 67))
 il.addInstruction (Instruction ("add", 26))
 il.addInstruction (Instruction ("add", 33))
 tl.update_tree (il)
-tl.print_current_tree()
+tl.print_current_tree("Update Time 20: ")
 
 il = TimeSlot_Instructions (15)
 il.addInstruction (Instruction ("del", 20))
 tl.update_tree (il)
-tl.print_current_tree()
+tl.print_current_tree("Update Time 15: ")
 
 
 
