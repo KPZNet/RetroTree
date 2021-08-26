@@ -135,18 +135,15 @@ class PartialRetroTree (TimeLine):
 
     def update_tree_rollback(self, timeSlot):
         rolled_back_tree = self.rollback_tree_to_time (self.current_tree, timeSlot.time)
-        #rolled_back_tree.print_tree ("Rollbacked Tree to time:{0}".format (timeSlot.time))
-
         nd = self.BST_TimeSlots.search (timeSlot.time)
         if nd is None:
             self.BST_TimeSlots.insert (timeSlot.time, payload=timeSlot)
         else:
             nd.instructions = (nd.instructions + timeSlot.instructions)
-        self.current_tree = self.replay_instructions_in_tree_greater_than_equal_to_time (rolled_back_tree,                                                                              timeSlot.time)
+        self.current_tree = self.replay_instructions_in_tree_greater_than_equal_to_time (rolled_back_tree,timeSlot.time)
         self.current_tree.rebalance ()
 
     def update_tree(self, timeSlot):
-
         nd = self.BST_TimeSlots.search (timeSlot.time)
         if nd is None:
             self.BST_TimeSlots.insert (timeSlot.time, payload=timeSlot)
