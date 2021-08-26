@@ -1,6 +1,8 @@
 from NodeInstructions import Instruction
 from NodeInstructions import TimeSlot_Instructions
+import time
 
+NANO_TO_MS = 1000000
 
 class TreeRunner:
     def __init__(self):
@@ -10,16 +12,31 @@ class TreeRunner:
         self.rull_tree_time2 = 0
 
     def base_run1(self, tl):
-        il = TimeSlot_Instructions ( 5 )
+        lng = 128
+        for run in list( range ( 0, 10 ) ):
+            il = TimeSlot_Instructions ( run )
+            start = 0 + (lng*run)
+            end = 128 + (lng*run)
+            datList = list( range ( start, end ) )
+            for n in datList:
+                il.addInstruction ( Instruction ( "add", n ) )
+            tl.update_tree(il)
+        
+        start_time = time.perf_counter_ns ()
+        
+        lng = 128
+        for run in list( range ( 0, 10 ) ):
+            il = TimeSlot_Instructions ( run )
+            start = 0 + (lng*run)
+            end = 128 + (lng*run)
+            datList = list( range ( start, end ) )
+            for n in datList:
+                il.addInstruction ( Instruction ( "del", n ) )
+            tl.update_tree(il)
 
-        datList = list( range ( 1, 128 ) )
-        for n in datList:
-            il.addInstruction ( Instruction ( "add", n ) )
-        tl.update_tree(il)
-
-        print ( "------------TIME LINE--------\n" )
-        tl.print_complete_time_history ()
-
-        print ( "------------FINAL------------\n" )
-        latest = tl.get_latest_tree ()
-        latest.print_tree ( "FINAL TREE" )
+        l = tl.current_tree.inorder()
+        ll = len(l)        
+        
+        stop_time = time.perf_counter_ns ()
+        ls_timing = (stop_time - start_time) / NANO_TO_MS
+    
