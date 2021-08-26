@@ -128,9 +128,10 @@ class PartialRetroTree (TimeLine):
     def get_latest_tree(self):
         return self.current_tree
 
-    def print_current_tree(self):
+    def print_current_tree(self, str=""):
         t = self.BST_TimeSlots.getlargestkey ()
-        self.current_tree.print_tree ("Latest Tree time:{0}".format (t))
+        self.current_tree.print_tree (str + "Latest Tree time:{0}".format (t))
+        print ( "-----------------------------" )
 
     def update_tree_rollback(self, timeSlot):
         rolled_back_tree = self.rollback_tree_to_time (self.current_tree, timeSlot.time)
@@ -146,7 +147,6 @@ class PartialRetroTree (TimeLine):
                                                                                           timeSlot.time)
 
     def update_tree(self, timeSlot):
-        return self.update_tree_rollback (timeSlot)
 
         nd = self.BST_TimeSlots.search (timeSlot.time)
         if nd is None:
