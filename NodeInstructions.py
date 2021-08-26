@@ -142,9 +142,8 @@ class PartialRetroTree (TimeLine):
             self.BST_TimeSlots.insert (timeSlot.time, payload=timeSlot)
         else:
             nd.instructions = (nd.instructions + timeSlot.instructions)
-
-        self.current_tree = self.replay_instructions_in_tree_greater_than_equal_to_time (rolled_back_tree,
-                                                                                          timeSlot.time)
+        self.current_tree = self.replay_instructions_in_tree_greater_than_equal_to_time (rolled_back_tree,                                                                              timeSlot.time)
+        self.current_tree.rebalance ()
 
     def update_tree(self, timeSlot):
 
@@ -154,10 +153,17 @@ class PartialRetroTree (TimeLine):
         else:
             nd.instructions = (nd.instructions + timeSlot.instructions)
         self.current_tree = self.build_latest_tree ()
+        self.current_tree.rebalance()
 
     def Pred(self, x):
         return self.current_tree.search (x)
 
+class PartialRetroTreeRollback(PartialRetroTree):
+    def __init__(self):
+        super ().__init__ ()
+
+    def update_tree(self, timeSlot):
+        self.update_tree_rollback(timeSlot)
 
 class FullRetroTree (TimeLine):
 
@@ -187,6 +193,7 @@ class FullRetroTree (TimeLine):
         timeSlots = self.get_time_slots_greater_than_equal_to_time(time)
         for timeSlot in timeSlots:
             timeSlot.bst = self.build_tree_from_less_than_equal_to_time (timeSlot.time)
+            timeSlot.bst.rebalance()
 
     def update_tree(self, timeSlot):
         nd = self.BST_TimeSlots.search (timeSlot.time)
