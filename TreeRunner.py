@@ -11,12 +11,12 @@ class TreeRunner:
         self.full_tree_time1 = 0
         self.rull_tree_time2 = 0
 
-    def base_run1(self, tl):
-        lng = 128
-        for run in list( range ( 0, 10 ) ):
+    def base_run1(self, tl, updates_per_time, runs):
+        
+        for run in list( range ( 0, runs ) ):
             il = TimeSlot_Instructions ( run )
-            start = 0 + (lng*run)
-            end = 128 + (lng*run)
+            start = 0 + (updates_per_time*run)
+            end = updates_per_time + (updates_per_time*run)
             datList = list( range ( start, end ) )
             for n in datList:
                 il.addInstruction ( Instruction ( "add", n ) )
@@ -24,11 +24,10 @@ class TreeRunner:
         
         start_time = time.perf_counter_ns ()
         
-        lng = 128
-        for run in list( range ( 0, 10 ) ):
+        for run in list( range ( int(runs/2), runs ) ):
             il = TimeSlot_Instructions ( run )
-            start = 0 + (lng*run)
-            end = 128 + (lng*run)
+            start = 0 + (updates_per_time*run)
+            end = updates_per_time + (updates_per_time*run)
             datList = list( range ( start, end ) )
             for n in datList:
                 il.addInstruction ( Instruction ( "del", n ) )
@@ -39,4 +38,5 @@ class TreeRunner:
         
         stop_time = time.perf_counter_ns ()
         ls_timing = (stop_time - start_time) / NANO_TO_MS
+        return ls_timing
     

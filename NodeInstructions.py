@@ -135,7 +135,7 @@ class PartialRetroTree (TimeLine):
 
     def update_tree_rollback(self, timeSlot):
         rolled_back_tree = self.rollback_tree_to_time (self.current_tree, timeSlot.time)
-        rolled_back_tree.print_tree ("Rollbacked Tree to time:{0}".format (timeSlot.time))
+        #rolled_back_tree.print_tree ("Rollbacked Tree to time:{0}".format (timeSlot.time))
 
         nd = self.BST_TimeSlots.search (timeSlot.time)
         if nd is None:

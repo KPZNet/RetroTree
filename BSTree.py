@@ -37,8 +37,8 @@ class BSTree:
             if node is None:
                 return BSTNode (key, payload)
 
-            if key == node.key:
-                return node
+            #if key == node.key:
+            #    return node
 
             # Otherwise recur down the tree
             if key < node.key:
@@ -83,8 +83,8 @@ class BSTree:
                 node.right = __deleteNode (node.right, temp.key)
 
             return node
-
-        return __deleteNode (self.root, key)
+        self.root = __deleteNode (self.root, key)
+        return self.root
 
     COUNT = [10]
 
