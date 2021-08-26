@@ -2,10 +2,35 @@ from NodeInstructions import FullRetroTree
 from NodeInstructions import Instruction
 from NodeInstructions import PartialRetroTree
 from NodeInstructions import TimeSlot_Instructions
+import random
 
 
 tl = FullRetroTree ()
 #tl = PartialRetroTree()
+
+TreeSize = 10000
+keyRange = 1000000
+il = TimeSlot_Instructions (10)
+for i in range(TreeSize):
+    rando = random.randint(1, keyRange)
+    il.addInstruction(Instruction("add", rando))
+tl.update_tree (il)
+
+il = TimeSlot_Instructions (20)
+for i in range(TreeSize):
+    rando = random.randint(keyRange, keyRange*2)
+    il.addInstruction(Instruction("add", rando))
+tl.update_tree (il)
+
+il = TimeSlot_Instructions (30)
+for i in range(TreeSize):
+    rando = random.randint(keyRange*3, keyRange*4)
+    il.addInstruction(Instruction("add", rando))
+tl.update_tree (il)
+
+tl.BST_TimeSlots.rebalance()
+exit(0)
+
 
 il = TimeSlot_Instructions (5)
 il.addInstruction (Instruction ("add", 40))
