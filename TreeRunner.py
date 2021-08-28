@@ -10,6 +10,8 @@ from NodeInstructions import TimeSlot_Instructions
 import time
 import random
 
+import config
+
 NANO_TO_MS = 1000000
 
 class TreeRunner:
@@ -67,9 +69,9 @@ class TreeRunner:
             for n in datList:
                 il.addInstruction ( Instruction ( "add", n ) )
             tl.update_tree(il)
-        
-        start_time = time.perf_counter_ns ()
-        
+
+        tl.current_tree.print_tree()
+        config.timer_A = 0.0
         for run in list( range ( retro_start, retro_end ) ):
             il = TimeSlot_Instructions ( run )
             start = 0 + (updates_per_time*run)
@@ -77,9 +79,10 @@ class TreeRunner:
             datList = list( range ( start, end ) )
             for n in datList:
                 il.addInstruction ( Instruction ( "del", n ) )
+            start_time = time.perf_counter_ns ()
             tl.update_tree(il)
-            
-        stop_time = time.perf_counter_ns ()
-        ls_timing = (stop_time - start_time) / NANO_TO_MS
-        return ls_timing
+            stop_time = time.perf_counter_ns ()
+            config.timer_A += ((stop_time - start_time) / NANO_TO_MS)
+        tl.current_tree.print_tree ()
+        return config.timer_A
     
