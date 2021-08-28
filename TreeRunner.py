@@ -6,6 +6,7 @@ from NodeInstructions import Instruction
 from NodeInstructions import PartialRetroTree
 from NodeInstructions import PartialRetroTreeRollback
 from NodeInstructions import TimeSlot_Instructions
+from datetime import datetime
 
 import time
 import random
@@ -16,11 +17,7 @@ NANO_TO_MS = 1000000
 
 class TreeRunner:
     def __init__(self):
-        self.retro_tree_time1 = 0
-        self.retro_tree_time2 = 0
-        self.full_tree_time1 = 0
-        self.rull_tree_time2 = 0
-
+        random.seed(datetime.now())
 
     def test_tree(self):
         tl = PartialRetroTree()
@@ -58,31 +55,35 @@ class TreeRunner:
         latest = tl.get_latest_tree ()
         latest.print_tree ( "FINAL TREE" )
 
+    def build_test_times(self, start_time, end_time, update_size, random_start, random_end):
+        timeslistAdd = []
+        timeslistDel = []
+        random_set = set()
+        for n in list(range(start_time, end_time)):
+            rlist = random.sample(range(random_start, random_end), update_size)
+            rlist = list(set(rlist))
+            already_used_set = set(random_set).intersection(rlist)
+            randomlist = list(set(rlist).symmetric_difference(already_used_set))
+            random_set = random_set.union(randomlist)
+            il = TimeSlot_Instructions ( n )
+            ilDel = TimeSlot_Instructions ( n )
+            for r in randomlist:
+                il.addInstruction ( Instruction ( "add", r ) )
+                ilDel.addInstruction ( Instruction ( "del", r ) )
+            timeslistAdd.append(il)
+            timeslistDel.append(ilDel)
+        return timeslistAdd, timeslistDel
 
-    def base_run1(self, tl, runs, updates_per_time, retro_start, retro_end):
-        
-        for run in list( range ( 0, runs ) ):
-            il = TimeSlot_Instructions ( run )
-            start = 0 + (updates_per_time*run)
-            end = updates_per_time + (updates_per_time*run)
-            datList = list( range ( start, end ) )
-            for n in datList:
-                il.addInstruction ( Instruction ( "add", n ) )
-            tl.update_tree(il)
+    def base_run1(self, tl, times1, times2):
 
-        tl.current_tree.print_tree()
+        for run in times1:
+            tl.update_tree(run)
+
         config.timer_A = 0.0
-        for run in list( range ( retro_start, retro_end ) ):
-            il = TimeSlot_Instructions ( run )
-            start = 0 + (updates_per_time*run)
-            end = updates_per_time + (updates_per_time*run)
-            datList = list( range ( start, end ) )
-            for n in datList:
-                il.addInstruction ( Instruction ( "del", n ) )
+        for run in times2:
             start_time = time.perf_counter_ns ()
-            tl.update_tree(il)
+            tl.update_tree ( run )
             stop_time = time.perf_counter_ns ()
             config.timer_A += ((stop_time - start_time) / NANO_TO_MS)
-        tl.current_tree.print_tree ()
         return config.timer_A
     
