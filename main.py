@@ -9,7 +9,7 @@ import sys
 
 print("Default Recursion Limit:")
 print(sys.getrecursionlimit())
-sys.setrecursionlimit(10000)
+sys.setrecursionlimit(1000000)
 print("New Recursion Limit:")
 print(sys.getrecursionlimit())
 

@@ -149,7 +149,12 @@ class PartialRetroTree (TimeLine):
             self.BST_TimeSlots.insert (timeSlot.time, payload=timeSlot)
         else:
             nd.instructions = (nd.instructions + timeSlot.instructions)
-        self.current_tree = self.build_latest_tree ()
+
+        latest = self.BST_TimeSlots.getlargestkey()
+        if latest!=None and timeSlot.time >= latest:
+            self.current_tree = self.play_instructions_on_tree (self.current_tree,timeSlot.instructions)
+        else:
+            self.current_tree = self.build_latest_tree ()
         self.current_tree.rebalance()
 
     def Pred(self, x):

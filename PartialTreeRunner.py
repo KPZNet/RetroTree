@@ -10,11 +10,12 @@ class PartialTreeRunner(TreeRunner):
     def __init__(self) :
         super ().__init__ ()
 
+
     def Run1(self):
         time_slots = 100
         updates_per_time = 3
-        retro_start = 1
-        retro_end = 2
+        retro_start = 97
+        retro_end = 98
         averages = 20
 
         tm = 0.0
