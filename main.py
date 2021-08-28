@@ -1,6 +1,7 @@
 from NodeInstructions import FullRetroTree
 from NodeInstructions import Instruction
 from NodeInstructions import PartialRetroTree
+from NodeInstructions import PartialRetroTreeRollback
 from NodeInstructions import TimeSlot_Instructions
 import random
 from TreeRunner import TreeRunner
@@ -55,19 +56,34 @@ def tree_run_1(tl):
     il.addInstruction(Instruction("del", 112))
     il.addInstruction(Instruction("del", 443))
 
+    il = TimeSlot_Instructions(40)
+    il.addInstruction(Instruction("add", 555))
+
+    il = TimeSlot_Instructions(43)
+    il.addInstruction(Instruction("del", 555))
+    il.addInstruction(Instruction("add", 396))
+
+    il.addInstruction(Instruction("del", 112))
+
+
     tl.update_tree(il)
 
     print("------------FINAL------------\n")
     latest = tl.get_latest_tree()
     latest.print_tree("FINAL TREE")
 
+prunner = PartialTreeRunner()
+prunner.Run1()
 
+
+exit(0)
 
 tlf = FullRetroTree ()
 tlp = PartialRetroTree()
+tprr = PartialRetroTreeRollback()
 
 tree_run_1(tlf)
 tree_run_1(tlp)
-
+tree_run_1(tprr)
 
 

@@ -12,24 +12,31 @@ class PartialTreeRunner(TreeRunner):
 
 
     def Run1(self):
-        time_slots = 100
+        time_slots = 200
         updates_per_time = 3
-        retro_start = 97
-        retro_end = 98
+        retro_start = 1
+        retro_end = 2
         averages = 20
 
-        tm = 0.0
-        for i in list( range(averages)):
-            tl = PartialRetroTree()
-            tm += self.base_run1(tl, time_slots, updates_per_time, retro_start, retro_end)
-        tm = tm/averages
-        print("Total Time Standard: {0}".format(tm))
+        self.rollback_method ( averages, retro_end, retro_start, time_slots, updates_per_time )
 
+        self.standard_method ( averages, retro_end, retro_start, time_slots, updates_per_time )
+
+    def standard_method(self, averages, retro_end, retro_start, time_slots, updates_per_time) :
         tm = 0.0
-        for i in list( range(averages)):
-            tl = PartialRetroTreeRollback()
-            tm += self.base_run1(tl, time_slots, updates_per_time, retro_start, retro_end)
-        tm = tm/averages
-        print("Total Time Rollback: {0}".format(tm))
+        for i in list ( range ( averages ) ) :
+            tl = PartialRetroTree ()
+            tm += self.base_run1 ( tl, time_slots, updates_per_time, retro_start, retro_end )
+        tm = tm / averages
+        print ( "Total Time Standard: {0}".format ( tm ) )
+
+    def rollback_method(self, averages, retro_end, retro_start, time_slots, updates_per_time) :
+        tm = 0.0
+        for i in list ( range ( averages ) ) :
+            tl = PartialRetroTreeRollback ()
+            tm += self.base_run1 ( tl, time_slots, updates_per_time, retro_start, retro_end )
+        tm = tm / averages
+        print ( "Total Time Rollback: {0}".format ( tm ) )
+
 
 
