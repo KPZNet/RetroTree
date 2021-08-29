@@ -1,8 +1,8 @@
 from BSTree import BSTree
 
-
+#Intructions class holds a single action for a node
+#such as "add" and "del"
 class Instruction :
-
     def __init__(self, inst, key, payload=None) :
         self.instructionCode = inst
         self.key = key
@@ -10,28 +10,32 @@ class Instruction :
         if payload == None :
             self.payload = str ( key )
 
+    #String print override
     def __str__(self) :
         s = self.instructionCode + " " + str ( self.payload ) + " key: " + str ( self.key )
         return s
 
-
+#Class - List of instructions for a given time slot
 class TimeSlot_Instructions :
-
     def __init__(self, _time) :
         self.instructions = []
         self.time = _time
         self.bst = None
-
+    #Add additional instructions to timeslot
     def addInstruction(self, instruction) :
         self.instructions.append ( instruction )
 
-
+#Class: Timeline
+#Stores a full timeline of instructions that encapsulates
+#a single BST.
+#The Timeline class manages the life of a BST and provides all
+#retroactive, current and future actions for a BST
 class TimeLine :
 
     def __init__(self) :
         self.BST_TimeSlots = BSTree ()
 
-    def gettimeline(self) :
+    def get_timeline(self) :
         return self.BST_TimeSlots.inorder ()
 
     def play_instructions_on_tree(self, bst, instructions) :
@@ -102,7 +106,7 @@ class TimeLine :
         return None
 
     def print_complete_time_history(self) :
-        nds = self.gettimeline ()
+        nds = self.get_timeline ()
         for ts in nds :
             print ( "-----------------------------" )
             print ( "Time: {0}".format ( ts.time ) )
@@ -118,7 +122,9 @@ class TimeLine :
             if t.bst != None :
                 t.bst.print_tree ( "Time:" + str ( t.time ) )
 
-
+#Represents a Partial Retroactive BST
+#Partial tree allows retroactive adds/deletes
+#Searches on current time only
 class PartialRetroTree ( TimeLine ) :
 
     def __init__(self) :
@@ -162,7 +168,8 @@ class PartialRetroTree ( TimeLine ) :
     def Pred(self, x) :
         return self.current_tree.search ( x )
 
-
+#Partial Retroactive tree, that uses "rollback" design for
+#past updates.
 class PartialRetroTreeRollback ( PartialRetroTree ) :
     def __init__(self) :
         super ().__init__ ()
@@ -170,7 +177,8 @@ class PartialRetroTreeRollback ( PartialRetroTree ) :
     def update_tree(self, timeSlot) :
         self.update_tree_rollback ( timeSlot )
 
-
+#Fully Retroactive BST
+#Full retroactive supports adds/deletes and searches for any time
 class FullRetroTree ( TimeLine ) :
 
     def __init__(self) :
