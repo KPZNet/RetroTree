@@ -8,6 +8,7 @@ import random
 import config
 import pandas as pd
 import copy
+import gc
 
 class PartialTreeRunner(TreeRunner):
     def __init__(self) :
@@ -15,7 +16,7 @@ class PartialTreeRunner(TreeRunner):
 
 
     def Run1(self):
-        time_slots = 30
+        time_slots = 100
         update_size = 5
         averages = 5
 
@@ -26,7 +27,7 @@ class PartialTreeRunner(TreeRunner):
         rollback_times = []
         standard_times = []
         for s in list(range(0,time_slots-1)):
-
+            gc.collect ()
             timesback = times2[s:s+1]
             trollback = self.rollback_method ( averages, times1, timesback )
             tstandard = self.standard_method ( averages, times1, timesback )

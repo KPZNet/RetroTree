@@ -11,7 +11,7 @@ import matplotlib.pyplot as plt
 
 print("Default Recursion Limit:")
 print(sys.getrecursionlimit())
-sys.setrecursionlimit(100000)
+sys.setrecursionlimit(1000000)
 print("New Recursion Limit:")
 print(sys.getrecursionlimit())
 
@@ -79,7 +79,10 @@ print(rts["Times"])
 
 plt.plot(rts["Times"], rts["Rollback"], label = "Rollback")
 plt.plot(rts["Times"], rts["Standard"], label = "Standard")
-
+plt.title("Run times for Retro-BST")
+plt.xlabel("Retro Update Times")
+plt.ylabel("milliseconds")
+plt.legend()
 plt.show()
 
 exit(0)
