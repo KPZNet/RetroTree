@@ -1,6 +1,7 @@
 import copy
 import gc
 import pandas as pd
+import matplotlib.pyplot as plt
 from NodeInstructions import PartialRetroTree
 from NodeInstructions import PartialRetroTreeRollback
 from TreeRunner import TreeRunner
@@ -9,6 +10,17 @@ from TreeRunner import TreeRunner
 class PartialTreeRunner ( TreeRunner ) :
     def __init__(self) :
         super ().__init__ ()
+
+    def Comparison_rollback_runs(self):
+        prunner = PartialTreeRunner()
+        rts = prunner.Run1()
+        plt.plot(rts["Times"], rts["Rollback"], label="Rollback")
+        plt.plot(rts["Times"], rts["Standard"], label="Standard")
+        plt.title("Run times for Retro-BST")
+        plt.xlabel("Retro Update Times")
+        plt.ylabel("milliseconds")
+        plt.legend()
+        plt.show()
 
     def Run1(self) :
         time_slots = 100

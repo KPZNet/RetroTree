@@ -72,22 +72,11 @@ class TreeRunner :
     def base_run1(self, tl, times1, times2) :
 
         for timeslot in times1 :
-            #tl.update_tree ( timeslot )
-            for instruction in timeslot.instructions:
-                if instruction.instructionCode == "add":
-                    tl.Insert(instruction.key, timeslot.time, instruction.payload)
-                if instruction.instructionCode == "del" :
-                    tl.Delete ( instruction.key, timeslot.time, instruction.payload )
-
+            tl.update_tree ( timeslot )
 
         config.timer_A = 0.0
         for timeslot in times2 :
             start_time = time.perf_counter_ns ()
-            #tl.update_tree ( timeslot )
-            for instruction in timeslot.instructions:
-                if instruction.instructionCode == "add":
-                    tl.Insert(instruction.key, timeslot.time, instruction.payload)
-                if instruction.instructionCode == "del" :
-                    tl.Delete ( instruction.key, timeslot.time, instruction.payload )
+            tl.update_tree ( timeslot )
             config.timer_A += ((time.perf_counter_ns () - start_time) / NANO_TO_MS)
         return config.timer_A
