@@ -131,6 +131,16 @@ class PartialRetroTree ( TimeLine ) :
         self.current_tree = BSTree ()
         super ().__init__ ()
 
+    def Insert(self, x, time, payload=None):
+        timeSlot = TimeSlot_Instructions ( time )
+        timeSlot.addInstruction ( Instruction ( "add", x, payload ) )
+        self.update_tree ( timeSlot )
+
+    def Delete(self, x, time, payload=None):
+        timeSlot = TimeSlot_Instructions ( time )
+        timeSlot.addInstruction ( Instruction ( "del", x, payload ) )
+        self.update_tree ( timeSlot )
+
     def get_latest_tree(self) :
         return self.current_tree
 
@@ -183,6 +193,17 @@ class FullRetroTree ( TimeLine ) :
 
     def __init__(self) :
         super ().__init__ ()
+
+    def Insert(self, x, time, payload=None):
+        timeSlot = TimeSlot_Instructions ( time )
+        timeSlot.addInstruction ( Instruction ( "add", x, payload ) )
+        self.update_tree ( timeSlot )
+
+    def Delete(self, x, time, payload=None):
+        timeSlot = TimeSlot_Instructions ( time )
+        timeSlot.addInstruction ( Instruction ( "del", x, payload ) )
+        self.update_tree ( timeSlot )
+
 
     def get_latest_tree(self) :
         b = self.BST_TimeSlots.get_latest_node_payload ()
