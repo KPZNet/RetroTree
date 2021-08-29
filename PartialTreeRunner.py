@@ -11,8 +11,8 @@ class PartialTreeRunner ( TreeRunner ) :
         super ().__init__ ()
 
     def Run1(self) :
-        time_slots = 100
-        update_size = 5
+        time_slots = 30
+        update_size = 2
         averages = 3
 
         tester = TreeRunner ()

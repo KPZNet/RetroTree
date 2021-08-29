@@ -43,13 +43,13 @@ class TimeLine :
             if inst.instructionCode == "add" :
                 bst.insert ( inst.key, inst.payload )
             if inst.instructionCode == "del" :
-                bst.deleteNode ( inst.key )
+                bst.delete ( inst.key )
         return bst
 
     def unplay_instructions_on_tree(self, bst, instructions) :
         for inst in instructions :
             if inst.instructionCode == "add" :
-                bst.deleteNode ( inst.key )
+                bst.delete ( inst.key )
             if inst.instructionCode == "del" :
                 bst.insert ( inst.key, inst.payload )
         return bst

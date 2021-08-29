@@ -60,7 +60,7 @@ class BSTree:
 
         return current
 
-    def deleteNode(self, key):
+    def delete(self, key):
 
         def __deleteNode(node, key):
             if node is None:
