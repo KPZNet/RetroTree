@@ -7,10 +7,11 @@ import random
 from TreeRunner import TreeRunner
 from PartialTreeRunner import PartialTreeRunner
 import sys
+import matplotlib.pyplot as plt
 
 print("Default Recursion Limit:")
 print(sys.getrecursionlimit())
-sys.setrecursionlimit(1000000)
+sys.setrecursionlimit(100000)
 print("New Recursion Limit:")
 print(sys.getrecursionlimit())
 
@@ -73,8 +74,13 @@ def tree_run_1(tl):
     latest.print_tree("FINAL TREE")
 
 prunner = PartialTreeRunner()
-prunner.Run1()
+rts = prunner.Run1()
+print(rts["Times"])
 
+plt.plot(rts["Times"], rts["Rollback"], label = "Rollback")
+plt.plot(rts["Times"], rts["Standard"], label = "Standard")
+
+plt.show()
 
 exit(0)
 

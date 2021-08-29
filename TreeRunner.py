@@ -76,14 +76,13 @@ class TreeRunner:
 
     def base_run1(self, tl, times1, times2):
 
-        for run in times1:
-            tl.update_tree(run)
+        for timeslot in times1:
+            tl.update_tree(timeslot)
 
         config.timer_A = 0.0
-        for run in times2:
+        for timeslot in times2:
             start_time = time.perf_counter_ns ()
-            tl.update_tree ( run )
-            stop_time = time.perf_counter_ns ()
-            config.timer_A += ((stop_time - start_time) / NANO_TO_MS)
+            tl.update_tree ( timeslot )
+            config.timer_A += ((time.perf_counter_ns () - start_time) / NANO_TO_MS)
         return config.timer_A
     
