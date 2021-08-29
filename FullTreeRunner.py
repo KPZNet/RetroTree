@@ -1,8 +1,8 @@
 from TreeRunner import TreeRunner
-from NodeInstructions import FullRetroTree
-from NodeInstructions import Instruction
-from NodeInstructions import PartialRetroTree
-from NodeInstructions import TimeSlot_Instructions
+from RetroTrees import FullRetroTree
+from RetroTrees import Instruction
+from RetroTrees import PartialRetroTree
+from RetroTrees import TimeSlot_Instructions
 import random
 
 class FullTreeRunner(TreeRunner):
