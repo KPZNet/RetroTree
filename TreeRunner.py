@@ -3,9 +3,9 @@ import time
 from datetime import datetime
 
 import config
-from RetroTrees import Instruction
-from RetroTrees import PartialRetroTree
-from RetroTrees import TimeSlot_Instructions
+from RetroBSTrees import Instruction
+from RetroBSTrees import PartialRetroTree
+from RetroBSTrees import TimeSlot_Instructions
 
 NANO_TO_MS = 1000000
 

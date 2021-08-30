@@ -2,8 +2,8 @@ import copy
 import gc
 import pandas as pd
 import matplotlib.pyplot as plt
-from RetroTrees import PartialRetroTree
-from RetroTrees import PartialRetroTreeRollback
+from RetroBSTrees import PartialRetroTree
+from RetroBSTrees import PartialRetroTreeRollback
 from TreeRunner import TreeRunner
 
 
