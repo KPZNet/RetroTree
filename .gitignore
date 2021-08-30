@@ -369,4 +369,7 @@ venv
 *.code-workspace
 .project
 .pydevproject
+*.pyproj
+*.sln
+*.pyperf
 

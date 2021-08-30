@@ -1,10 +1,10 @@
 import sys
 import matplotlib.pyplot as plt
-from RetroBSTrees import FullRetroTree
-from PartialTreeRunner import PartialTreeRunner
+from RetroTrees import FullRetroTree
+from PartialTreeRunner import PartialRetroTree_TestRunner
 
 sys.setrecursionlimit(100000)
 
-pt_runner = PartialTreeRunner()
+pt_runner = PartialRetroTree_TestRunner()
 pt_runner.Comparison_rollback_runs()
 
