@@ -7,14 +7,11 @@ from RetroTrees import PartialRetroTreeRollback
 from TreeRunner import TreeRunner
 
 
-class PartialTreeRunner ( TreeRunner ) :
+class PartialRetroTree_TestRunner ( TreeRunner ) :
     def __init__(self) :
         super ().__init__ ()
 
-    def Comparison_rollback_runs(self):
-        prunner = PartialTreeRunner()
-        rts = prunner.Run1()
-
+    def plot_comparison_runs(self, rts):
         plt.plot(rts["Times"], rts["Rollback"], label="Rollback")
         plt.plot(rts["Times"], rts["Standard"], label="Standard")
         plt.title("Run times for Retro-BST")
@@ -22,6 +19,12 @@ class PartialTreeRunner ( TreeRunner ) :
         plt.ylabel("milliseconds")
         plt.legend()
         plt.show()
+
+    def Comparison_rollback_runs(self):
+        prunner = PartialRetroTree_TestRunner()
+        rts = prunner.Run1()
+
+        #self.plot_comparison_runs(rts)
 
     def Run1(self) :
         time_slots = 30
