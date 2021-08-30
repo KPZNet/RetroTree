@@ -24,7 +24,7 @@ class PartialRetroTree_TestRunner ( TreeRunner ) :
         prunner = PartialRetroTree_TestRunner()
         rts = prunner.Run1()
 
-        #self.plot_comparison_runs(rts)
+        self.plot_comparison_runs(rts)
 
     def Run1(self) :
         time_slots = 30
@@ -38,7 +38,7 @@ class PartialRetroTree_TestRunner ( TreeRunner ) :
         rollback_times = []
         standard_times = []
         for s in list ( range ( 0, time_slots - 1 ) ) :
-            gc.collect ()
+            #gc.collect ()
             timesback = times2[s :s + 1]
             trollback = self.rollback_method ( averages, times1, timesback )
             tstandard = self.standard_method ( averages, times1, timesback )

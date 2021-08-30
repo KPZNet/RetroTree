@@ -149,18 +149,6 @@ class PartialRetroTree ( TimeLine ) :
         self.current_tree.print_tree ( str + "Latest Tree time:{0}".format ( t ) )
         print ( "-----------------------------" )
 
-    def update_tree_rollback(self, timeSlot) :
-        rolled_back_tree = self.rollback_tree_to_time ( self.current_tree, timeSlot.time )
-        nd = self.BST_TimeSlots.search ( timeSlot.time )
-        if nd is None :
-            self.BST_TimeSlots.insert ( timeSlot.time, payload=timeSlot )
-        else :
-            nd.instructions = (nd.instructions + timeSlot.instructions)
-
-        self.current_tree = self.replay_instructions_in_tree_greater_than_equal_to_time ( rolled_back_tree,
-                                                                                          timeSlot.time )
-        self.current_tree.rebalance ()
-
     def update_tree(self, timeSlot) :
         nd = self.BST_TimeSlots.search ( timeSlot.time )
         if nd is None :
@@ -185,7 +173,16 @@ class PartialRetroTreeRollback ( PartialRetroTree ) :
         super ().__init__ ()
 
     def update_tree(self, timeSlot) :
-        self.update_tree_rollback ( timeSlot )
+        rolled_back_tree = self.rollback_tree_to_time ( self.current_tree, timeSlot.time )
+        nd = self.BST_TimeSlots.search ( timeSlot.time )
+        if nd is None :
+            self.BST_TimeSlots.insert ( timeSlot.time, payload=timeSlot )
+        else :
+            nd.instructions = (nd.instructions + timeSlot.instructions)
+
+        self.current_tree = self.replay_instructions_in_tree_greater_than_equal_to_time ( rolled_back_tree,
+                                                                                          timeSlot.time )
+        self.current_tree.rebalance ()
 
 #Fully Retroactive BST
 #Full retroactive supports adds/deletes and searches for any time
