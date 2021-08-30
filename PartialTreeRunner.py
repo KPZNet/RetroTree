@@ -14,6 +14,7 @@ class PartialTreeRunner ( TreeRunner ) :
     def Comparison_rollback_runs(self):
         prunner = PartialTreeRunner()
         rts = prunner.Run1()
+
         plt.plot(rts["Times"], rts["Rollback"], label="Rollback")
         plt.plot(rts["Times"], rts["Standard"], label="Standard")
         plt.title("Run times for Retro-BST")
