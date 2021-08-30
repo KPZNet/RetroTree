@@ -23,9 +23,9 @@ class PartialTreeRunner ( TreeRunner ) :
         plt.show()
 
     def Run1(self) :
-        time_slots = 100
-        update_size = 10
-        averages = 10
+        time_slots = 30
+        update_size = 3
+        averages = 5
 
         tester = TreeRunner ()
         times1, times2 = tester.build_test_times ( 0, time_slots, update_size, 1, 5000 )
