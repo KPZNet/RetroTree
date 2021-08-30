@@ -6,7 +6,7 @@ from RetroBSTrees import PartialRetroTree
 from RetroBSTrees import PartialRetroTreeRollback
 from TreeRunner import TreeRunner
 
-
+#Partial
 class PartialRetroTree_TestRunner ( TreeRunner ) :
     def __init__(self) :
         super ().__init__ ()

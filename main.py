@@ -1,6 +1,4 @@
 import sys
-import matplotlib.pyplot as plt
-from RetroTrees import FullRetroTree
 from PartialTreeRunner import PartialRetroTree_TestRunner
 
 sys.setrecursionlimit(100000)
