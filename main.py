@@ -1,4 +1,5 @@
 import sys
+from RetroBSTrees import *
 from PartialTreeRunner import PartialRetroTree_TestRunner
 
 sys.setrecursionlimit(100000)

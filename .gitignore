@@ -372,4 +372,5 @@ venv
 *.pyproj
 *.sln
 *.pyperf
+settings.json
 
