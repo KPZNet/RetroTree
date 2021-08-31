@@ -201,7 +201,6 @@ class FullRetroTree ( TimeLine ) :
         timeSlot.addInstruction ( Instruction ( "del", x, payload ) )
         self.update_tree ( timeSlot )
 
-
     def get_latest_tree(self) :
         b = self.BST_TimeSlots.get_latest_node_payload ()
         if b != None :
