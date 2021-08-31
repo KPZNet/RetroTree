@@ -3,7 +3,7 @@ import time
 from datetime import datetime
 
 import config
-from RetroBSTrees import Instruction
+from RetroBSTrees import Instruction, PartialRetroTreeRollback
 from RetroBSTrees import PartialRetroTree
 from RetroBSTrees import TimeSlot_Instructions
 
@@ -15,33 +15,32 @@ class TreeRunner :
         random.seed ( datetime.now () )
 
     def test_tree(self) :
-        tl = PartialRetroTree ()
+        tl = PartialRetroTreeRollback ()
 
         il = TimeSlot_Instructions ( 5 )
-        il.addInstruction ( Instruction ( "add", 40 ) )
-        il.addInstruction ( Instruction ( "add", 150 ) )
-        il.addInstruction ( Instruction ( "add", 160 ) )
+        il.addInstruction ( Instruction ( "add", 1 ) )
+        il.addInstruction ( Instruction ( "add", 2 ) )
+        il.addInstruction ( Instruction ( "add", 5 ) )
         tl.update_tree ( il )
         tl.print_current_tree ( "Update at 5: " )
 
         il = TimeSlot_Instructions ( 10 )
-        il.addInstruction ( Instruction ( "add", 39 ) )
-        il.addInstruction ( Instruction ( "add", 20 ) )
-        il.addInstruction ( Instruction ( "add", 70 ) )
+        il.addInstruction ( Instruction ( "add", 7 ) )
+        il.addInstruction ( Instruction ( "add", 9 ) )
+        il.addInstruction ( Instruction ( "add", 10 ) )
         tl.update_tree ( il )
         tl.print_current_tree ( "Update Time 10: " )
 
         il = TimeSlot_Instructions ( 20 )
-        il.addInstruction ( Instruction ( "add", 67 ) )
-        il.addInstruction ( Instruction ( "add", 26 ) )
-        il.addInstruction ( Instruction ( "add", 33 ) )
+        il.addInstruction ( Instruction ( "add", 16 ) )
+        il.addInstruction ( Instruction ( "add", 17 ) )
+        il.addInstruction ( Instruction ( "add", 20 ) )
         tl.update_tree ( il )
         tl.print_current_tree ( "Update Time 20: " )
 
-        il = TimeSlot_Instructions ( 15 )
-        il.addInstruction ( Instruction ( "del", 20 ) )
-        tl.update_tree ( il )
-        tl.print_current_tree ( "Update Time 15: " )
+        b = tl.get_rollbacked_tree_current_to_time(10)
+        b.print_tree()
+
 
         print ( "------------TIME LINE--------\n" )
         tl.print_complete_time_history ()

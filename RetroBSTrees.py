@@ -1,7 +1,7 @@
 from BSTree import BSTree
 
 
-# Intructions class holds a single action for a node
+# Instructions class holds a single action for a node
 # such as "add" and "del"
 class Instruction :
     def __init__(self, inst, key, payload=None) :
@@ -63,6 +63,12 @@ class TimeLine :
         for time in time_slots :
             self.play_instructions_on_tree ( tbst, time.instructions )
         return tbst
+    
+    def get_rollbacked_tree_current_to_time(self, time):
+        bst = self.get_latest_tree().copyme()
+        bst = self.rollback_tree_to_time_inclusive(bst, time)
+        bst.rebalance()
+        return bst
 
     def rollback_tree_to_time(self, bst, time) :
         tsAfter = self.get_time_slots_greater_than_equal_to_time ( time )
@@ -70,6 +76,13 @@ class TimeLine :
         for tslot in tsAfter :
             bst = self.unplay_instructions_on_tree ( bst, tslot.instructions )
         return bst
+    
+    def rollback_tree_to_time_inclusive(self, bst, time) :
+        tsAfter = self.get_time_slots_greater_than_time ( time )
+        tsAfter.reverse ()
+        for tslot in tsAfter :
+            bst = self.unplay_instructions_on_tree ( bst, tslot.instructions )
+        return bst    
 
     def get_time_slots_less_than_equal_to_time(self, time) :
         return self.BST_TimeSlots.inorderLessThanEqual ( time )
