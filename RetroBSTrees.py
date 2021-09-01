@@ -64,7 +64,7 @@ class TimeLine :
             self.play_instructions_on_tree ( tbst, time.instructions )
         return tbst
     
-    def get_rollbacked_tree_current_to_time(self, time):
+    def get_rollbacked_tree_current_to_time_inclusive(self, time):
         bst = self.get_latest_tree().copyme()
         bst = self.rollback_tree_to_time_inclusive(bst, time)
         bst.rebalance()

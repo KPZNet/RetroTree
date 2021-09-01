@@ -43,7 +43,7 @@ class TreeRunner :
         tl.update_tree ( il )
         tl.print_current_tree ( "Update Time 20: " )
 
-        b = tl.get_rollbacked_tree_current_to_time ( 10 )
+        b = tl.get_rollbacked_tree_current_to_time_inclusive ( 10 )
         b.print_tree ()
 
         print ( "------------TIME LINE--------\n" )
