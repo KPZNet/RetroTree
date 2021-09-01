@@ -256,19 +256,26 @@ class FullRetroTree ( TimeLine ) :
 
 class FullRetroTreeRollback(FullRetroTree):
 
-    def rollback_and_replay_through_time(self, time):
+    def replay_through_time(self, time):
+        timeSlots = self.get_time_slots_greater_than_equal_to_time ( time )
+        for t in timeSlots:
+            self.play_instructions_on_tree (t.bst, time.instructions )
+            t.bst.rebalance ()
+
+    def rollback_to_time(self, time):
         timeSlots = self.get_time_slots_greater_than_equal_to_time ( time )
         for t in timeSlots:
             rolled_back_tree = self.rollback_tree_to_time ( t.bst, t.time )
-            self.play_instructions_on_tree ( rolled_back_tree, time.instructions )
-            rolled_back_tree.rebalance ()
-            t.bst = rolled_back_tree
 
     def update_tree(self, timeSlot) :
-        nd = self.BST_TimeSlots.search ( timeSlot.time )
-        if nd is None :
-            self.BST_TimeSlots.insert ( timeSlot.time, payload=timeSlot )
-        else :
-            nd.instructions = (nd.instructions + timeSlot.instructions)
-
-        self.rollback_and_replay_through_time(timeSlot.time)
+        latest = self.BST_TimeSlots.getlargestkey()
+        if latest != None and timeSlot.time <= latest:
+            self.rollback_to_time(timeSlot.time)
+            nd = self.BST_TimeSlots.search ( timeSlot.time )
+            if nd is None :
+                self.BST_TimeSlots.insert ( timeSlot.time, payload=timeSlot )
+            else :
+                nd.instructions = (nd.instructions + timeSlot.instructions)
+            self.replay_through_time(timeSlot.time)
+        else:
+            self.update_all_time_slot_tree_greater_than_equal_to_time(timeSlot.time)
