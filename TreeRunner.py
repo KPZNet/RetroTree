@@ -1,15 +1,16 @@
-import gc
 import copy
+import gc
 import random
 import time
 from datetime import datetime
+
+import matplotlib.pyplot as plt
+import pandas as pd
 
 import config
 from RetroBSTrees import Instruction, PartialRetroTreeRollback
 from RetroBSTrees import PartialRetroTree
 from RetroBSTrees import TimeSlot_Instructions
-import pandas as pd
-import matplotlib.pyplot as plt
 
 NANO_TO_MS = 1000000
 
@@ -42,9 +43,8 @@ class TreeRunner :
         tl.update_tree ( il )
         tl.print_current_tree ( "Update Time 20: " )
 
-        b = tl.get_rollbacked_tree_current_to_time(10)
-        b.print_tree()
-
+        b = tl.get_rollbacked_tree_current_to_time ( 10 )
+        b.print_tree ()
 
         print ( "------------TIME LINE--------\n" )
         tl.print_complete_time_history ()
@@ -84,19 +84,18 @@ class TreeRunner :
             config.timer_A += ((time.perf_counter_ns () - start_time) / NANO_TO_MS)
         return config.timer_A
 
+    def plot_comparison_runs(self, rts) :
+        plt.plot ( rts["Times"], rts["Rollback"], label="Rollback" )
+        plt.plot ( rts["Times"], rts["Standard"], label="Standard" )
+        plt.title ( "Run times for Retro-BST" )
+        plt.xlabel ( "Retro Update Times" )
+        plt.ylabel ( "milliseconds" )
+        plt.legend ()
+        plt.show ()
 
-    def plot_comparison_runs(self, rts):
-        plt.plot(rts["Times"], rts["Rollback"], label="Rollback")
-        plt.plot(rts["Times"], rts["Standard"], label="Standard")
-        plt.title("Run times for Retro-BST")
-        plt.xlabel("Retro Update Times")
-        plt.ylabel("milliseconds")
-        plt.legend()
-        plt.show()
-
-    def Comparison_rollback_runs(self):
-        rts = self.RunUp_Back_A()
-        self.plot_comparison_runs(rts)
+    def Comparison_rollback_runs(self) :
+        rts = self.RunUp_Back_A ()
+        self.plot_comparison_runs ( rts )
 
     def RunUp_Back_A(self) :
         time_slots = 30
@@ -139,4 +138,3 @@ class TreeRunner :
             tl = PartialRetroTree ()
             tm += self.base_run1 ( tl, copy.deepcopy ( times1 ), copy.deepcopy ( times2 ) )
         return tm / averages
-
