@@ -255,14 +255,20 @@ class FullRetroTree ( TimeLine ) :
         self.update_all_time_slot_tree_greater_than_equal_to_time ( timeSlot.time )
 
 class FullRetroTreeRollback(FullRetroTree):
+
+    def rollback_and_replay_through_time(self, time):
+        timeSlots = self.get_time_slots_greater_than_equal_to_time ( time )
+        for t in timeSlots:
+            rolled_back_tree = self.rollback_tree_to_time ( t.bst, t.time )
+            self.play_instructions_on_tree ( rolled_back_tree, time.instructions )
+            rolled_back_tree.rebalance ()
+            t.bst = rolled_back_tree
+
     def update_tree(self, timeSlot) :
-        rolled_back_tree = self.rollback_tree_to_time ( self.get_latest_tree(), timeSlot.time )
         nd = self.BST_TimeSlots.search ( timeSlot.time )
         if nd is None :
             self.BST_TimeSlots.insert ( timeSlot.time, payload=timeSlot )
         else :
             nd.instructions = (nd.instructions + timeSlot.instructions)
 
-        self.current_tree = self.replay_instructions_in_tree_greater_than_equal_to_time ( rolled_back_tree,
-                                                                                          timeSlot.time )
-        self.current_tree.rebalance ()
+        self.rollback_and_replay_through_time(timeSlot.time)

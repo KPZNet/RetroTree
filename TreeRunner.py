@@ -43,6 +43,7 @@ class TreeRunner :
 
         config.timer_A = 0.0
         for timeslot in times2 :
+            gc.collect()
             start_time = time.perf_counter_ns ()
             tl.update_tree ( timeslot )
             config.timer_A += ((time.perf_counter_ns () - start_time) / NANO_TO_MS)
@@ -64,9 +65,9 @@ class TreeRunner :
         self.plot_comparison_runs ( rts )
 
     def Partial_RunUp_Back_A(self) :
-        time_slots = 30
-        update_size = 3
-        averages = 2
+        time_slots = 50
+        update_size = 5
+        averages = 5
 
         times1, times2 = build_test_times ( 0, time_slots, update_size, 1, 5000 )
 
@@ -81,8 +82,8 @@ class TreeRunner :
             #partial_trollback = self.partial_rollback_method (averages, times1, timesback)
             #partial_tstandard = self.partial_standard_method (averages, times1, timesback)
 
-            full_trollback = self.partial_rollback_method (averages, times1, timesback)
-            full_tstandard = self.partial_standard_method (averages, times1, timesback)
+            full_trollback = self.full_rollback_method (averages, times1, timesback)
+            full_tstandard = self.full_standard_method (averages, times1, timesback)
 
             #partial_rollback_times.append ( partial_trollback )
             #partial_standard_times.append ( partial_tstandard )
