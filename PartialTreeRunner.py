@@ -22,11 +22,11 @@ class PartialRetroTree_TestRunner ( TreeRunner ) :
 
     def Comparison_rollback_runs(self):
         prunner = PartialRetroTree_TestRunner()
-        rts = prunner.Run1()
+        rts = prunner.RunUp_Back_A()
 
         self.plot_comparison_runs(rts)
 
-    def Run1(self) :
+    def RunUp_Back_A(self) :
         time_slots = 30
         update_size = 3
         averages = 5
