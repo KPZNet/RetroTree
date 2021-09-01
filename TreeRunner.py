@@ -8,69 +8,33 @@ import matplotlib.pyplot as plt
 import pandas as pd
 
 import config
-from RetroBSTrees import Instruction, PartialRetroTreeRollback
-from RetroBSTrees import PartialRetroTree
-from RetroBSTrees import TimeSlot_Instructions
+from RetroBSTrees import *
 
 NANO_TO_MS = 1000000
 
 
+def build_test_times(start_time, end_time, update_size, random_start, random_end):
+    timeslistAdd = []
+    timeslistDel = []
+    random_set = set()
+    for n in list(range(start_time, end_time)):
+        rlist = random.sample(range(random_start, random_end), update_size)
+        rlist = list(set(rlist))
+        already_used_set = set(random_set).intersection(rlist)
+        randomlist = list(set(rlist).symmetric_difference(already_used_set))
+        random_set = random_set.union(randomlist)
+        il = TimeSlot_Instructions(n)
+        ilDel = TimeSlot_Instructions(n)
+        for r in randomlist:
+            il.addInstruction(Instruction("add", r))
+            ilDel.addInstruction(Instruction("del", r))
+        timeslistAdd.append(il)
+        timeslistDel.append(ilDel)
+    return timeslistAdd, timeslistDel
+
 class TreeRunner :
     def __init__(self) :
         random.seed ( datetime.now () )
-
-    def test_tree(self) :
-        tl = PartialRetroTreeRollback ()
-
-        il = TimeSlot_Instructions ( 5 )
-        il.addInstruction ( Instruction ( "add", 1 ) )
-        il.addInstruction ( Instruction ( "add", 2 ) )
-        il.addInstruction ( Instruction ( "add", 5 ) )
-        tl.update_tree ( il )
-        tl.print_current_tree ( "Update at 5: " )
-
-        il = TimeSlot_Instructions ( 10 )
-        il.addInstruction ( Instruction ( "add", 7 ) )
-        il.addInstruction ( Instruction ( "add", 9 ) )
-        il.addInstruction ( Instruction ( "add", 10 ) )
-        tl.update_tree ( il )
-        tl.print_current_tree ( "Update Time 10: " )
-
-        il = TimeSlot_Instructions ( 20 )
-        il.addInstruction ( Instruction ( "add", 16 ) )
-        il.addInstruction ( Instruction ( "add", 17 ) )
-        il.addInstruction ( Instruction ( "add", 20 ) )
-        tl.update_tree ( il )
-        tl.print_current_tree ( "Update Time 20: " )
-
-        b = tl.get_rollbacked_tree_current_to_time_label (10)
-        b.print_tree ()
-
-        print ( "------------TIME LINE--------\n" )
-        tl.print_complete_time_history ()
-
-        print ( "------------FINAL------------\n" )
-        latest = tl.get_latest_tree ()
-        latest.print_tree ( "FINAL TREE" )
-
-    def build_test_times(self, start_time, end_time, update_size, random_start, random_end) :
-        timeslistAdd = []
-        timeslistDel = []
-        random_set = set ()
-        for n in list ( range ( start_time, end_time ) ) :
-            rlist = random.sample ( range ( random_start, random_end ), update_size )
-            rlist = list ( set ( rlist ) )
-            already_used_set = set ( random_set ).intersection ( rlist )
-            randomlist = list ( set ( rlist ).symmetric_difference ( already_used_set ) )
-            random_set = random_set.union ( randomlist )
-            il = TimeSlot_Instructions ( n )
-            ilDel = TimeSlot_Instructions ( n )
-            for r in randomlist :
-                il.addInstruction ( Instruction ( "add", r ) )
-                ilDel.addInstruction ( Instruction ( "del", r ) )
-            timeslistAdd.append ( il )
-            timeslistDel.append ( ilDel )
-        return timeslistAdd, timeslistDel
 
     def base_run1(self, tl, times1, times2) :
 
@@ -85,56 +49,85 @@ class TreeRunner :
         return config.timer_A
 
     def plot_comparison_runs(self, rts) :
-        plt.plot ( rts["Times"], rts["Rollback"], label="Rollback" )
-        plt.plot ( rts["Times"], rts["Standard"], label="Standard" )
+        #plt.plot ( rts["Times"], rts["PartialRollback"], label="Partial Rollback" )
+        #plt.plot ( rts["Times"], rts["PartialStandard"], label="Partial Standard" )
+        plt.plot ( rts["Times"], rts["FullRollback"], label="Full Rollback" )
+        plt.plot ( rts["Times"], rts["FullStandard"], label="Full Standard" )
         plt.title ( "Run times for Retro-BST" )
         plt.xlabel ( "Retro Update Times" )
         plt.ylabel ( "milliseconds" )
         plt.legend ()
         plt.show ()
 
-    def Comparison_rollback_runs(self) :
-        rts = self.RunUp_Back_A ()
+    def Partial_Comparison_rollback_runs(self) :
+        rts = self.Partial_RunUp_Back_A ()
         self.plot_comparison_runs ( rts )
 
-    def RunUp_Back_A(self) :
+    def Partial_RunUp_Back_A(self) :
         time_slots = 30
         update_size = 3
-        averages = 5
+        averages = 2
 
-        times1, times2 = self.build_test_times ( 0, time_slots, update_size, 1, 5000 )
+        times1, times2 = build_test_times ( 0, time_slots, update_size, 1, 5000 )
 
         run_times = pd.DataFrame ()
-        rollback_times = []
-        standard_times = []
+        partial_rollback_times = []
+        partial_standard_times = []
+        full_rollback_times = []
+        full_standard_times = []
         for s in list ( range ( 0, time_slots - 1 ) ) :
-            gc.collect ()
+
             timesback = times2[s :s + 1]
-            trollback = self.rollback_method ( averages, times1, timesback )
-            tstandard = self.standard_method ( averages, times1, timesback )
-            rollback_times.append ( trollback )
-            standard_times.append ( tstandard )
+            #partial_trollback = self.partial_rollback_method (averages, times1, timesback)
+            #partial_tstandard = self.partial_standard_method (averages, times1, timesback)
+
+            full_trollback = self.partial_rollback_method (averages, times1, timesback)
+            full_tstandard = self.partial_standard_method (averages, times1, timesback)
+
+            #partial_rollback_times.append ( partial_trollback )
+            #partial_standard_times.append ( partial_tstandard )
+
+            full_rollback_times.append ( full_trollback )
+            full_standard_times.append ( full_tstandard )
 
             print ( "Time:{0}, Slice:{1}:{2}".format ( s, s, s + 1 ) )
-            print ( "Rollback: {0}".format ( trollback ) )
-            print ( "Standard: {0}".format ( tstandard ) )
+            #print ( "PARTIAL Rollback: {0}".format ( partial_trollback ) )
+            #print ( "PARTIAL Standard: {0}".format ( partial_tstandard ) )
+            print ( "FULL Rollback: {0}".format ( full_trollback ) )
+            print ( "FULL Standard: {0}".format ( full_tstandard ) )
 
         run_times["Times"] = list ( range ( 0, time_slots - 1 ) )
-        run_times["Rollback"] = rollback_times
-        run_times["Standard"] = standard_times
+        #run_times["PartialRollback"] = partial_rollback_times
+        #run_times["PartialStandard"] = partial_standard_times
+        run_times["FullRollback"] = full_rollback_times
+        run_times["FullStandard"] = full_standard_times
 
         return run_times
 
-    def rollback_method(self, averages, times1, times2) :
+    def partial_rollback_method(self, averages, times1, times2) :
         tm = 0.0
         for i in list ( range ( averages ) ) :
             tl = PartialRetroTreeRollback ()
             tm += self.base_run1 ( tl, copy.deepcopy ( times1 ), copy.deepcopy ( times2 ) )
         return tm / averages
 
-    def standard_method(self, averages, times1, times2) :
+    def partial_standard_method(self, averages, times1, times2) :
         tm = 0.0
         for i in list ( range ( averages ) ) :
             tl = PartialRetroTree ()
+            tm += self.base_run1 ( tl, copy.deepcopy ( times1 ), copy.deepcopy ( times2 ) )
+        return tm / averages
+
+    def full_rollback_method(self, averages, times1, times2) :
+        tm = 0.0
+        for i in list ( range ( averages ) ) :
+            tl = FullRetroTreeRollback ()
+            tm += self.base_run1 ( tl, copy.deepcopy ( times1 ), copy.deepcopy ( times2 ) )
+        return tm / averages
+
+    def full_standard_method(self, averages, times1, times2) :
+        tm = 0.0
+        for i in list ( range ( averages ) ) :
+            tl = FullRetroTree ()
             tm += self.base_run1 ( tl, copy.deepcopy ( times1 ), copy.deepcopy ( times2 ) )
         return tm / averages
