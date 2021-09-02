@@ -41,3 +41,32 @@ class TestFullRetroTree ( TestCase ) :
 
     def test_update_tree(self) :
         self.fail ()
+
+    def test_full_to_rollback(self):
+        frt = FullRetroTree()
+        frt.Insert ( 1, 1 )
+        frt.Insert ( 2, 1 )
+        frt.Insert ( 50, 100 )
+        frt.Insert ( 60, 100 )
+        frt.Insert ( 20, 200 )
+        frt.Insert ( 30, 200 )
+
+        frt.Delete ( 50, 150 )
+        frt.Delete ( 30, 150 )
+        frt.Delete ( 1, 1 )
+        inorder_full = set( frt.get_latest_tree().inorder() )
+
+        frt = FullRetroTreeRollback ()
+        frt.Insert ( 1, 1 )
+        frt.Insert ( 2, 1 )
+        frt.Insert ( 50, 100 )
+        frt.Insert ( 60, 100 )
+        frt.Insert ( 20, 200 )
+        frt.Insert ( 30, 200 )
+
+        frt.Delete ( 50, 150 )
+        frt.Delete ( 30, 150 )
+        frt.Delete ( 1, 1 )
+        inorder_rollback = set ( frt.get_latest_tree ().inorder () )
+
+        assert inorder_full == inorder_rollback
