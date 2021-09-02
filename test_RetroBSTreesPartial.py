@@ -1,21 +1,12 @@
 from unittest import TestCase
+from RetroBSTrees import *
 
 
 class TestPartialRetroTree ( TestCase ) :
     def test_insert(self) :
-        self.fail ()
+        frt = PartialRetroTree()
+        frt.Insert(1,1)
+        frt.Insert(2,1)
+        inorder = frt.get_latest_tree().inorder()
+        assert( inorder[0] == '1' and inorder[1] == '2' )
 
-    def test_delete(self) :
-        self.fail ()
-
-    def test_get_latest_tree(self) :
-        self.fail ()
-
-    def test_print_current_tree(self) :
-        self.fail ()
-
-    def test_update_tree(self) :
-        self.fail ()
-
-    def test_pred(self) :
-        self.fail ()
