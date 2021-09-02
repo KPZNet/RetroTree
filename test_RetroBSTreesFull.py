@@ -27,20 +27,29 @@ class TestFullRetroTree ( TestCase ) :
         inorder = frt.get_latest_tree().inorder()
         assert( inorder[0] == '1' )
 
-    def test_get_latest_tree(self) :
-        self.fail ()
-
-    def test_print_current_tree(self) :
-        self.fail ()
-
     def test_pred(self) :
-        self.fail ()
+        frt = FullRetroTree()
+        frt.Insert ( 1, 1 )
+        frt.Insert ( 2, 1 )
+        frt.Insert ( 50, 100 )
+        frt.Insert ( 60, 100 )
+        frt.Insert ( 20, 200 )
+        frt.Insert ( 30, 200 )
 
-    def test_update_all_time_slot_tree_greater_than_equal_to_time(self) :
-        self.fail ()
+        n = frt.Pred(50, 110)
+        assert( n == "50")
 
-    def test_update_tree(self) :
-        self.fail ()
+    def test_pred_not_found(self) :
+        frt = FullRetroTree()
+        frt.Insert ( 1, 1 )
+        frt.Insert ( 2, 1 )
+        frt.Insert ( 50, 100 )
+        frt.Insert ( 60, 100 )
+        frt.Insert ( 20, 200 )
+        frt.Insert ( 30, 200 )
+
+        n = frt.Pred(50, 99)
+        assert( n == None)
 
     def test_full_to_rollback(self):
         frt = FullRetroTree()
