@@ -63,6 +63,7 @@ class TestFullRetroTree ( TestCase ) :
         frt.Delete ( 50, 150 )
         frt.Delete ( 30, 150 )
         frt.Delete ( 1, 1 )
+        frt.print_current_tree()
         inorder_full = set( frt.get_latest_tree().inorder() )
 
         frt = FullRetroTreeRollback ()
@@ -76,6 +77,7 @@ class TestFullRetroTree ( TestCase ) :
         frt.Delete ( 50, 150 )
         frt.Delete ( 30, 150 )
         frt.Delete ( 1, 1 )
+        frt.print_current_tree ()
         inorder_rollback = set ( frt.get_latest_tree ().inorder () )
 
         assert inorder_full == inorder_rollback

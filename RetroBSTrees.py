@@ -90,6 +90,9 @@ class TimeLine :
     def get_time_slots_greater_than_equal_to_time(self, time) :
         return self.BST_TimeSlots.inorderGreaterThanEqual ( time )
 
+    def get_time_slots_between(self, time, end_time) :
+        return self.BST_TimeSlots.inorder_between ( time, end_time )        
+
     def get_time_slots_greater_than_time(self, time) :
         return self.BST_TimeSlots.inorderGreaterThan ( time )
 
@@ -267,15 +270,30 @@ class FullRetroTreeRollback(FullRetroTree):
         for t in timeSlots:
             rolled_back_tree = self.rollback_tree_to_time ( t.bst, t.time )
 
+
+    def build_tree_from_time_to_time(self, tbst, start_time, to_time) :
+
+        time_slots = self.get_time_slots_between ( start_time, to_time )
+        for time in time_slots :
+            self.play_instructions_on_tree ( tbst, time.instructions )
+        return tbst
+
+    def update_time_slots_from_time(self, start_time) :
+        timeSlots = self.get_time_slots_greater_than_equal_to_time ( start_time )
+        for timeSlot in timeSlots :
+            timeSlot.bst = self.build_tree_from_time_to_time ( timeSlot.bst, start_time, timeSlot.time )
+            timeSlot.bst.rebalance ()
+
     def update_tree(self, timeSlot) :
         self.rollback_to_time(timeSlot.time)
 
         nd = self.BST_TimeSlots.search ( timeSlot.time )
         if nd is None :
+            timeSlot.bst= BSTree()
             self.BST_TimeSlots.insert ( timeSlot.time, payload=timeSlot )
         else :
             nd.instructions = (nd.instructions + timeSlot.instructions)
 
-        self.update_all_time_slot_tree_greater_than_equal_to_time ( timeSlot.time )
+        self.update_time_slots_from_time ( timeSlot.time )
 
 

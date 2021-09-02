@@ -232,6 +232,20 @@ class BSTree:
         __inorderGreaterThan (self.root, d, kValue)
         return [i.payload for i in d]
 
+    def inorder_between(self, kValue, end_value):
+
+        def __inorderGreaterThan(node, d, kValue):
+            if node is not None:
+                __inorderGreaterThan (node.left, d, kValue)
+                if node.key >= kValue and node.key <= end_value:
+                    d.append (node)
+                __inorderGreaterThan (node.right, d, kValue)
+
+        d = []
+        __inorderGreaterThan (self.root, d, kValue)
+        return [i.payload for i in d]
+
+
     def preOrder(self):
 
         def __preOrder(node, d):
