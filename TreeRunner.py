@@ -50,11 +50,17 @@ class TreeRunner :
         return config.timer_A
 
     def plot_comparison_runs(self, rts) :
-        #plt.plot ( rts["Times"], rts["PartialRollback"], label="Partial Rollback" )
-        #plt.plot ( rts["Times"], rts["PartialStandard"], label="Partial Standard" )
+        plt.plot ( rts["Times"], rts["PartialRollback"], label="Partial Rollback" )
+        plt.plot ( rts["Times"], rts["PartialStandard"], label="Partial Standard" )
+        plt.title ( "Run times for PARTIAL Retro-BST" )
+        plt.xlabel ( "Retro Update Times" )
+        plt.ylabel ( "milliseconds" )
+        plt.legend ()
+        plt.show ()
+
         plt.plot ( rts["Times"], rts["FullRollback"], label="Full Rollback" )
         plt.plot ( rts["Times"], rts["FullStandard"], label="Full Standard" )
-        plt.title ( "Run times for Retro-BST" )
+        plt.title ( "Run times for FULL Retro-BST" )
         plt.xlabel ( "Retro Update Times" )
         plt.ylabel ( "milliseconds" )
         plt.legend ()
@@ -79,27 +85,27 @@ class TreeRunner :
         for s in list ( range ( 0, time_slots - 1 ) ) :
 
             timesback = times2[s :s + 1]
-            #partial_trollback = self.partial_rollback_method (averages, times1, timesback)
-            #partial_tstandard = self.partial_standard_method (averages, times1, timesback)
+            partial_trollback = self.partial_rollback_method (averages, times1, timesback)
+            partial_tstandard = self.partial_standard_method (averages, times1, timesback)
 
             full_trollback = self.full_rollback_method (averages, times1, timesback)
             full_tstandard = self.full_standard_method (averages, times1, timesback)
 
-            #partial_rollback_times.append ( partial_trollback )
-            #partial_standard_times.append ( partial_tstandard )
+            partial_rollback_times.append ( partial_trollback )
+            partial_standard_times.append ( partial_tstandard )
 
             full_rollback_times.append ( full_trollback )
             full_standard_times.append ( full_tstandard )
 
             print ( "Time:{0}, Slice:{1}:{2}".format ( s, s, s + 1 ) )
-            #print ( "PARTIAL Rollback: {0}".format ( partial_trollback ) )
-            #print ( "PARTIAL Standard: {0}".format ( partial_tstandard ) )
+            print ( "PARTIAL Rollback: {0}".format ( partial_trollback ) )
+            print ( "PARTIAL Standard: {0}".format ( partial_tstandard ) )
             print ( "FULL Rollback: {0}".format ( full_trollback ) )
             print ( "FULL Standard: {0}".format ( full_tstandard ) )
 
         run_times["Times"] = list ( range ( 0, time_slots - 1 ) )
-        #run_times["PartialRollback"] = partial_rollback_times
-        #run_times["PartialStandard"] = partial_standard_times
+        run_times["PartialRollback"] = partial_rollback_times
+        run_times["PartialStandard"] = partial_standard_times
         run_times["FullRollback"] = full_rollback_times
         run_times["FullStandard"] = full_standard_times
 
