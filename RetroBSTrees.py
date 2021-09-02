@@ -268,14 +268,14 @@ class FullRetroTreeRollback(FullRetroTree):
             rolled_back_tree = self.rollback_tree_to_time ( t.bst, t.time )
 
     def update_tree(self, timeSlot) :
-        latest = self.BST_TimeSlots.getlargestkey()
-        if latest != None and timeSlot.time <= latest:
-            self.rollback_to_time(timeSlot.time)
-            nd = self.BST_TimeSlots.search ( timeSlot.time )
-            if nd is None :
-                self.BST_TimeSlots.insert ( timeSlot.time, payload=timeSlot )
-            else :
-                nd.instructions = (nd.instructions + timeSlot.instructions)
-            self.replay_through_time(timeSlot.time)
-        else:
-            self.update_all_time_slot_tree_greater_than_equal_to_time(timeSlot.time)
+        self.rollback_to_time(timeSlot.time)
+
+        nd = self.BST_TimeSlots.search ( timeSlot.time )
+        if nd is None :
+            self.BST_TimeSlots.insert ( timeSlot.time, payload=timeSlot )
+        else :
+            nd.instructions = (nd.instructions + timeSlot.instructions)
+
+        self.update_all_time_slot_tree_greater_than_equal_to_time ( timeSlot.time )
+
+
