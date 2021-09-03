@@ -14,6 +14,10 @@ class TestFullRetroTree ( TestCase ) :
         frt.Insert(1, 100)
         frt.Insert(2, 200)
         frt.Insert ( 3, 300 )
+        frt.Insert ( 4, 400 )
+        frt.Insert ( 5, 500 )
+        frt.Insert ( 6, 600 )
+        frt.print_current_tree()
         inorder = frt.get_latest_tree().inorder()
         assert( inorder[0] == '1' and inorder[1] == '2' and inorder[2] == '3')
 
