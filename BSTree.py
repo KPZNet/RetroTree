@@ -80,6 +80,7 @@ class BSTree:
                     return temp
                 temp = self.get_min_value_node (node.right)
                 node.key = temp.key
+                node.payload = temp.payload
                 node.right = __deleteNode (node.right, temp.key)
 
             return node

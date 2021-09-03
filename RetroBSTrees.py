@@ -275,7 +275,7 @@ class FullRetroTreeRollback(FullRetroTree):
     def rollback_and_update_from_time(self, start_time):
         timeSlots = self.get_time_slots_greater_than_time ( start_time )
         for timeSlot in timeSlots:
-            self.rollback_tree_to_time ( timeSlot.bst, timeSlot.time )
+            self.rollback_tree_to_time ( timeSlot.bst, start_time )
             timeSlot.bst = self.update_tree_from_time_to_time ( timeSlot.bst, start_time, timeSlot.time )
             timeSlot.bst.rebalance()
 
