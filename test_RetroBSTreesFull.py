@@ -19,7 +19,7 @@ class TestFullRetroTree ( TestCase ) :
         frt.Insert ( 6, 600 )
         frt.print_current_tree()
         inorder = frt.get_latest_tree().inorder()
-        assert( inorder[0] == '1' and inorder[1] == '2' and inorder[2] == '3')
+        assert( inorder[0] == '1' and inorder[ len(inorder)- 1 ])
 
     def test_delete(self) :
         frt = FullRetroTree()
@@ -67,21 +67,30 @@ class TestFullRetroTree ( TestCase ) :
         frt.Delete ( 50, 150 )
         frt.Delete ( 30, 150 )
         frt.Delete ( 1, 1 )
-        frt.print_current_tree()
-        inorder_full = set( frt.get_latest_tree().inorder() )
 
-        frt = FullRetroTreeRollback ()
-        frt.Insert ( 1, 1 )
-        frt.Insert ( 2, 1 )
-        frt.Insert ( 50, 100 )
-        frt.Insert ( 60, 100 )
-        frt.Insert ( 20, 200 )
-        frt.Insert ( 30, 200 )
+        frtrb = FullRetroTreeRollback ()
+        frtrb.Insert ( 1, 1 )
+        frtrb.Insert ( 2, 1 )
+        frtrb.Insert ( 50, 100 )
+        frtrb.Insert ( 60, 100 )
+        frtrb.Insert ( 20, 200 )
+        frtrb.Insert ( 30, 200 )
 
-        frt.Delete ( 50, 150 )
-        frt.Delete ( 30, 150 )
-        frt.Delete ( 1, 1 )
-        frt.print_current_tree ()
-        inorder_rollback = set ( frt.get_latest_tree ().inorder () )
+        frtrb.Delete ( 50, 150 )
+        frtrb.Delete ( 30, 150 )
+        frtrb.Delete ( 1, 1 )
 
-        assert inorder_full == inorder_rollback
+        print("")
+        frt_tree = frt.get_latest_tree()
+        frt_inorder = frt_tree.inorder()
+
+        frtrb_tree = frtrb.get_latest_tree()
+        frtrb_inorder = frtrb_tree.inorder()
+
+        frt_inorder_set = set(frt_inorder)
+        frtrb_inorder_set = set(frtrb_inorder)
+
+        frt_tree.print_tree("FULL Tree")
+        frtrb_tree.print_tree("ROLLBACK Tree")
+
+        assert frt_inorder_set == frtrb_inorder_set
