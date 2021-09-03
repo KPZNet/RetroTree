@@ -67,11 +67,11 @@ class TreeRunner :
         plt.legend ()
         plt.show ()
 
-    def Partial_Comparison_rollback_runs(self) :
-        rts = self.Partial_RunUp_Back_A ()
+    def RunUp_Update_SlideOverTime(self) :
+        rts = self.UpdateSlideOverTime ()
         self.plot_comparison_runs ( rts )
 
-    def Partial_RunUp_Back_A(self) :
+    def UpdateSlideOverTime(self) :
         time_slots = 50
         update_size = 5
         averages = 5
