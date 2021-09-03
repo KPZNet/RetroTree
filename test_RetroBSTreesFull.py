@@ -88,9 +88,10 @@ class TestFullRetroTree ( TestCase ) :
         #frt.Delete ( 1, 1 )
         return frt
 
+
     def test_full_to_rollback(self):
-        frt = self.BuildTreeTest_B(FullRetroTree())
-        frtrb = self.BuildTreeTest_B(FullRetroTreeRollback ())
+        frt = self.BuildTreeTest_A(FullRetroTree())
+        frtrb = self.BuildTreeTest_A(FullRetroTreeRollback ())
 
         print("")
         frt_tree = frt.get_latest_tree()
