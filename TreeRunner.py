@@ -36,6 +36,7 @@ class TreeRunner :
     def __init__(self) :
         random.seed ( datetime.now () )
 
+
     def base_run1(self, tl, times1, times2) :
 
         for timeslot in times1 :
