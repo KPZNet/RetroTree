@@ -30,7 +30,7 @@ class TestFullRetroTree ( TestCase ) :
 
     def test_random_trees(self):
         time_slots = 10
-        update_size = 5
+        update_size = 250
 
         times1, times2 = self.build_test_slots ( 0, time_slots, update_size, 1, 5000 )
 
@@ -40,15 +40,11 @@ class TestFullRetroTree ( TestCase ) :
         for delTime in times2[1:8] :
             frt.update_tree ( copy.deepcopy(delTime) )
 
-        frt.print_current_tree()
-
         frtrb = FullRetroTreeRollback()
         for tSlot in times1:
             frtrb.update_tree(copy.deepcopy(tSlot))
         for delTime in times2[1:8] :
             frtrb.update_tree ( copy.deepcopy(delTime) )
-
-        frtrb.print_current_tree()
 
         assert( set( frt.get_latest_tree().inorder() ) == set( frtrb.get_latest_tree().inorder() ) )
 
@@ -145,7 +141,6 @@ class TestFullRetroTree ( TestCase ) :
         frt = self.BuildTreeTest_A(FullRetroTree())
         frtrb = self.BuildTreeTest_A(FullRetroTreeRollback ())
 
-        print("")
         frt_tree = frt.get_latest_tree()
         frt_inorder = frt_tree.inorder()
 
@@ -154,11 +149,6 @@ class TestFullRetroTree ( TestCase ) :
 
         frt_inorder_set = set(frt_inorder)
         frtrb_inorder_set = set(frtrb_inorder)
-
-        print(frt_inorder)
-        print(frtrb_inorder)
-        frt_tree.print_tree("FULL Tree")
-        frtrb_tree.print_tree("ROLLBACK Tree")
 
         assert frt_inorder_set == frtrb_inorder_set
 
