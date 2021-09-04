@@ -13,29 +13,30 @@ from RetroBSTrees import *
 NANO_TO_MS = 1000000
 
 
-def build_test_times2(start_time, end_time, update_size, random_start, random_end):
-    timeslistAdd = []
-    timeslistDel = []
-    random_set = set()
-    for n in list(range(start_time, end_time)):
-        rlist = random.sample(range(random_start, random_end), update_size)
-        rlist = list(set(rlist))
-        already_used_set = set(random_set).intersection(rlist)
-        randomlist = list(set(rlist).symmetric_difference(already_used_set))
-        random_set = random_set.union(randomlist)
-        il = TimeSlot_Instructions(100)
-        ilDel = TimeSlot_Instructions(100)
-        for r in randomlist:
-            il.addInstruction(Instruction("add", r))
-            ilDel.addInstruction(Instruction("del", r))
-        timeslistAdd.append(il)
-        timeslistDel.append(ilDel)
-    return timeslistAdd, timeslistDel
+
 
 class TreeRunner2 :
     def __init__(self) :
         random.seed ( datetime.now () )
 
+    def build_test_times2(self, start_time, end_time, update_size, random_start, random_end) :
+        timeslistAdd = []
+        timeslistDel = []
+        random_set = set ()
+        for n in list ( range ( start_time, end_time ) ) :
+            rlist = random.sample ( range ( random_start, random_end ), update_size )
+            rlist = list ( set ( rlist ) )
+            already_used_set = set ( random_set ).intersection ( rlist )
+            randomlist = list ( set ( rlist ).symmetric_difference ( already_used_set ) )
+            random_set = random_set.union ( randomlist )
+            il = TimeSlot_Instructions ( n )
+            ilDel = TimeSlot_Instructions ( n )
+            for r in randomlist :
+                il.addInstruction ( Instruction ( "add", r ) )
+                ilDel.addInstruction ( Instruction ( "del", r ) )
+            timeslistAdd.append ( il )
+            timeslistDel.append ( ilDel )
+        return timeslistAdd, timeslistDel
 
     def base_run1(self, tl, times1, times2) :
         gc.collect()
@@ -69,11 +70,11 @@ class TreeRunner2 :
         self.plot_comparison_runs ( rts )
 
     def UpdateSlideOverTime(self) :
-        time_slots = 100
+        time_slots = 50
         update_size = 1
         averages = 10
 
-        times1, times2 = build_test_times2 ( 0, time_slots, update_size, 1, 5000 )
+        times1, times2 = self.build_test_times2 ( 0, time_slots, update_size, 1, 9000000 )
 
         run_times = pd.DataFrame ()
         partial_rollback_times = []
