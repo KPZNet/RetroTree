@@ -37,10 +37,9 @@ class TreeRunner2 :
     def base_run1(self, tl, times1) :
         #gc.collect()
         config.timer_A = 0.0
-        for timeslot in times1 :
-            start_time = time.perf_counter_ns ()
-            tl.update_tree ( timeslot )
-            config.timer_A += ((time.perf_counter_ns () - start_time) / NANO_TO_MS)
+        start_time = time.perf_counter_ns ()
+        tl.update_tree ( times1 )
+        config.timer_A += ((time.perf_counter_ns () - start_time) / NANO_TO_MS)
         return config.timer_A
 
     def plot_comparison_runs(self, rts) :
@@ -65,8 +64,8 @@ class TreeRunner2 :
         self.plot_comparison_runs ( rts )
 
     def UpdateSlideOverTime(self) :
-        time_slots = 50
-        averages = 10
+        time_slots = 100
+        averages = 20
 
         times1 = self.build_test_times2 ( 0, time_slots, 1, 1000000 )
 
@@ -75,13 +74,13 @@ class TreeRunner2 :
         partial_standard_times = []
         full_rollback_times = []
         full_standard_times = []
-        for s in list ( range ( 0, time_slots - 1 ) ) :
+        for s in times1:
 
-            partial_trollback = self.partial_rollback_method (averages, times1)
-            partial_tstandard = self.partial_standard_method (averages, times1)
+            partial_trollback = self.partial_rollback_method (averages, s)
+            partial_tstandard = self.partial_standard_method (averages, s)
 
-            full_trollback = self.full_rollback_method (averages, times1)
-            full_tstandard = self.full_standard_method (averages, times1)
+            full_trollback = self.full_rollback_method (averages, s)
+            full_tstandard = self.full_standard_method (averages, s)
 
             partial_rollback_times.append ( partial_trollback )
             partial_standard_times.append ( partial_tstandard )
@@ -89,13 +88,13 @@ class TreeRunner2 :
             full_rollback_times.append ( full_trollback )
             full_standard_times.append ( full_tstandard )
 
-            print ( "Time:{0}, Slice:{1}:{2}".format ( s, s, s + 1 ) )
+            print ( "Time:{0}".format(len(s.instructions)) )
             print ( "PARTIAL update: {0}".format ( partial_trollback ) )
             print ( "PARTIAL update: {0}".format ( partial_tstandard ) )
             print ( "FULL update: {0}".format ( full_trollback ) )
             print ( "FULL update: {0}".format ( full_tstandard ) )
 
-        run_times["Times"] = list ( range ( 0, time_slots - 1 ) )
+        run_times["Times"] = list ( range ( 0, len(times1) ) )
         run_times["PartialRollback"] = partial_rollback_times
         run_times["PartialStandard"] = partial_standard_times
         run_times["FullRollback"] = full_rollback_times

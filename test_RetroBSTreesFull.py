@@ -1,7 +1,59 @@
+import copy
+import gc
+import random
+import time
+from datetime import datetime
 from unittest import TestCase
 from RetroBSTrees import *
 
+
 class TestFullRetroTree ( TestCase ) :
+
+    def build_test_slots(self, start_time, end_time, update_size, random_start, random_end) :
+        timeslistAdd = []
+        timeslistDel = []
+        random_set = set ()
+        for n in list ( range ( start_time, end_time ) ) :
+            rlist = random.sample ( range ( random_start, random_end ), update_size )
+            rlist = list ( set ( rlist ) )
+            already_used_set = set ( random_set ).intersection ( rlist )
+            randomlist = list ( set ( rlist ).symmetric_difference ( already_used_set ) )
+            random_set = random_set.union ( randomlist )
+            il = TimeSlot_Instructions ( n )
+            ilDel = TimeSlot_Instructions ( n )
+            for r in randomlist :
+                il.addInstruction ( Instruction ( "add", r ) )
+                ilDel.addInstruction ( Instruction ( "del", r ) )
+            timeslistAdd.append ( il )
+            timeslistDel.append ( ilDel )
+        return timeslistAdd, timeslistDel
+
+    def test_random_trees(self):
+        time_slots = 10
+        update_size = 5
+
+        times1, times2 = self.build_test_slots ( 0, time_slots, update_size, 1, 5000 )
+
+        frt = FullRetroTree()
+        for tSlot in times1:
+            frt.update_tree( copy.deepcopy(tSlot) )
+        for delTime in times2[1:8] :
+            frt.update_tree ( copy.deepcopy(delTime) )
+
+        frt.print_current_tree()
+
+        frtrb = FullRetroTreeRollback()
+        for tSlot in times1:
+            frtrb.update_tree(copy.deepcopy(tSlot))
+        for delTime in times2[1:8] :
+            frtrb.update_tree ( copy.deepcopy(delTime) )
+
+        frtrb.print_current_tree()
+
+        assert( set( frt.get_latest_tree().inorder() ) == set( frtrb.get_latest_tree().inorder() ) )
+
+
+
     def test_insert(self) :
         frt = FullRetroTree()
         frt.Insert(1,1)
