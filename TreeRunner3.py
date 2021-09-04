@@ -27,8 +27,8 @@ class TreeRunner3 :
             already_used_set = set ( random_set ).intersection ( rlist )
             randomlist = list ( set ( rlist ).symmetric_difference ( already_used_set ) )
             random_set = random_set.union ( randomlist )
-            il = TimeSlot_Instructions ( 100 )
-            ilDel = TimeSlot_Instructions ( 100 )
+            il = TimeSlot_Instructions ( n )
+            ilDel = TimeSlot_Instructions ( n )
             for r in randomlist :
                 il.addInstruction ( Instruction ( "add", r ) )
                 ilDel.addInstruction ( Instruction ( "del", r ) )
