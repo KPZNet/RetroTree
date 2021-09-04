@@ -23,8 +23,8 @@ def build_test_times2(start_time, end_time, update_size, random_start, random_en
         already_used_set = set(random_set).intersection(rlist)
         randomlist = list(set(rlist).symmetric_difference(already_used_set))
         random_set = random_set.union(randomlist)
-        il = TimeSlot_Instructions(n)
-        ilDel = TimeSlot_Instructions(n)
+        il = TimeSlot_Instructions(100)
+        ilDel = TimeSlot_Instructions(100)
         for r in randomlist:
             il.addInstruction(Instruction("add", r))
             ilDel.addInstruction(Instruction("del", r))
@@ -38,10 +38,10 @@ class TreeRunner2 :
 
 
     def base_run1(self, tl, times1, times2) :
-
+        gc.collect()
         config.timer_A = 0.0
         for timeslot in times1 :
-            #gc.collect()
+
             start_time = time.perf_counter_ns ()
             tl.update_tree ( timeslot )
             config.timer_A += ((time.perf_counter_ns () - start_time) / NANO_TO_MS)
@@ -69,9 +69,9 @@ class TreeRunner2 :
         self.plot_comparison_runs ( rts )
 
     def UpdateSlideOverTime(self) :
-        time_slots = 50
-        update_size = 5
-        averages = 5
+        time_slots = 100
+        update_size = 1
+        averages = 10
 
         times1, times2 = build_test_times2 ( 0, time_slots, update_size, 1, 5000 )
 
