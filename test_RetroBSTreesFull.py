@@ -78,22 +78,46 @@ class TestFullRetroTree ( TestCase ) :
         inorder = frt.get_latest_tree().inorder()
         assert( inorder[0] == '1' )
 
+    def test_found_big_tree(self) :
+        time_slots = 50
+        update_size = 10
+
+        times1, times2 = self.build_test_slots ( 5, time_slots, update_size, 100, 1000000 )
+
+        frt = FullRetroTree()
+        frt.Insert ( 33, 3 )
+
+        for tSlot in times1:
+            frt.update_tree( copy.deepcopy(tSlot) )
+        for delTime in times2[0:50] :
+            frt.update_tree ( copy.deepcopy(delTime) )
+
+        for tSlot in times1:
+            frt.update_tree( copy.deepcopy(tSlot) )
+        for delTime in times2[1:50] :
+            frt.update_tree ( copy.deepcopy(delTime) )
+
+        nFound = frt.Pred(33, 100)
+        nNotFound = frt.Pred(33, 1)
+
+        assert(nFound == '33' and nNotFound == None)
+
     def test_pred(self) :
         frt = FullRetroTree()
-        frt.Insert ( 1, 1 )
-        frt.Insert ( 2, 1 )
+        frt.Insert ( 10, 1 )
+        frt.Insert ( 20, 1 )
         frt.Insert ( 50, 100 )
         frt.Insert ( 60, 100 )
         frt.Insert ( 20, 200 )
         frt.Insert ( 30, 200 )
 
-        n = frt.Pred(50, 110)
+        n = frt.Pred(50, 100)
         assert( n == "50")
 
     def test_pred_not_found(self) :
         frt = FullRetroTree()
-        frt.Insert ( 1, 1 )
-        frt.Insert ( 2, 1 )
+        frt.Insert ( 10, 1 )
+        frt.Insert ( 20, 1 )
         frt.Insert ( 50, 100 )
         frt.Insert ( 60, 100 )
         frt.Insert ( 20, 200 )
