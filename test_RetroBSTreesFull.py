@@ -49,7 +49,6 @@ class TestFullRetroTree ( TestCase ) :
         assert( set( frt.get_latest_tree().inorder() ) == set( frtrb.get_latest_tree().inorder() ) )
 
 
-
     def test_insert(self) :
         frt = FullRetroTree()
         frt.Insert(1,1)
