@@ -1,5 +1,4 @@
 import copy
-import gc
 import random
 import time
 from datetime import datetime
