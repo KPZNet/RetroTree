@@ -66,7 +66,7 @@ class TreeRunner :
         plt.legend ()
         plt.show ()
 
-    def RunUp_Update_SlideOverTime(self) :
+    def Run(self) :
         rts = self.UpdateSlideOverTime ()
         self.plot_comparison_runs ( rts )
 

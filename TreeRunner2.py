@@ -4,6 +4,7 @@ import random
 import time
 from datetime import datetime
 
+
 import matplotlib.pyplot as plt
 import pandas as pd
 
@@ -59,7 +60,7 @@ class TreeRunner2 :
         plt.legend ()
         plt.show ()
 
-    def RunUp_Update_SlideOverTime(self) :
+    def Run(self) :
         rts = self.UpdateSlideOverTime ()
         self.plot_comparison_runs ( rts )
 
