@@ -43,7 +43,7 @@ class TreeRunner3 :
 
         config.timer_A = 0.0
         for timeslot in times2 :
-            gc.collect()
+            #gc.collect()
             start_time = time.perf_counter_ns ()
             tl.update_tree ( timeslot )
             config.timer_A += ((time.perf_counter_ns () - start_time) / NANO_TO_MS)
